@@ -1,8 +1,7 @@
 <template>
   <main>
     <h1>login page</h1>
-    <h2>Jater push test... </h2>
-    <h3>Jater test other branch...</h3>
+    <h2>test in new branch...</h2>
   </main>
 </template>
 
