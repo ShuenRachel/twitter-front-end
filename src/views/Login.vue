@@ -1,6 +1,6 @@
 <template>
   <main>
-    <h1>login page</h1>
+    <h1>Hello login page</h1>
   </main>
 </template>
 
