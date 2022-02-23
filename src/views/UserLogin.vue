@@ -1,13 +1,16 @@
 <template>
-  <main>
-    <h1>Hello User login page</h1>
-  </main>
+  <div>
+    <LoginForm />
+  </div>
 </template>
 
 <script>
-export default {};
-</script>
+import LoginForm from "@/components/LoginForm.vue";
 
-<style lang="scss" scoped>
-@import "../assets/scss/main.scss";
-</style>
+export default {
+  name: "UserLogin",
+  components: {
+    LoginForm,
+  },
+};
+</script>
