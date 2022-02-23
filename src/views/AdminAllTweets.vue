@@ -16,8 +16,4 @@ export default {
 
 <style lang="scss" scoped>
   @import "../assets/scss/main.scss";
-  div.fake-nav {
-    min-width: 378px;
-    border-right: 1px solid $border;
-  }
 </style>
