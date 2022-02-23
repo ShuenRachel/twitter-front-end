@@ -102,7 +102,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   store.commit("updatePath", to.path);
-  // console.log(to.path)
+  console.log('to:', to.path)
   // console.log(from);
   next();
 });

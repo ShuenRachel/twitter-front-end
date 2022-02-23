@@ -29,6 +29,14 @@
     <button class="btn btn-orange" @click.stop.prevent="handleSubmit">
       登入
     </button>
+    <div v-if="currentPath === '/admin/login'" class="link-group">
+      <router-link to="/user/login">前台登入</router-link>
+    </div>
+    <div v-else-if="currentPath === '/user/login'" class="link-group">
+      <router-link to="/user/regist">註冊 Alphitter</router-link>
+      <span>・</span>
+      <router-link to="/admin/login">後台登入</router-link>
+    </div>
   </div>
 </template>
 
