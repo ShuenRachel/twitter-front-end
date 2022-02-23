@@ -8,7 +8,9 @@
         <div class="info">
           <span class="name">Apple</span>
           <span class="account">apple・3 小時</span>
-          <div class="content">Lorem ipsum dolor sit amet, consectetur adipiscing ...</div>
+          <div class="content">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing ...</p>
+          </div>
         </div>
         <div class="delete">
           <span class="delete"></span>
