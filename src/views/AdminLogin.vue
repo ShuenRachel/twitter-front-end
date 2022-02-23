@@ -1,6 +1,8 @@
 <template>
   <div>
-    <LoginForm />
+    <LoginForm
+      @after-form-submit="afterFormSubmit"
+    />
   </div>
 </template>
 
@@ -12,5 +14,11 @@ export default {
   components: {
     LoginForm,
   },
+  methods: {
+    afterFormSubmit(data) {
+      // TODO: admin API
+      console.log(data)
+    }
+  }
 };
 </script>

@@ -2,23 +2,33 @@
   <div class="card">
     <div class="form-title">
       <div class="form-title-icon"></div>
-      <div v-if="currentPath === '/admin/login'" class="form-title-text">後台登入</div>
-      <!-- TODO -->
-      <div v-else-if="currentPath === '/user/login'" class="form-title-text">登入 Alphitter</div>
+      <div v-if="currentPath === '/admin/login'" class="form-title-text">
+        後台登入
+      </div>
+      <div v-else-if="currentPath === '/user/login'" class="form-title-text">
+        登入 Alphitter
+      </div>
     </div>
-    <form class="form-wrapper">
+    <div class="form-wrapper">
       <div class="input-gp">
         <label class="input-label">帳號</label>
-        <input type="text" class="input-field" />
+        <input v-model="account" type="text" class="input-field" required />
         <div class="input-line"></div>
       </div>
       <div class="input-gp">
         <label class="input-label">密碼</label>
-        <input type="password" class="input-field" />
+        <input
+          v-model="password"
+          type="password"
+          class="input-field"
+          required
+        />
         <div class="input-line"></div>
       </div>
-    </form>
-    <button class="btn btn-orange">登入</button>
+    </div>
+    <button class="btn btn-orange" @click.stop.prevent="handleSubmit">
+      登入
+    </button>
   </div>
 </template>
 
@@ -26,13 +36,24 @@
 import { mapState } from "vuex";
 
 export default {
+  data() {
+    return {
+      account: "",
+      password: "",
+    };
+  },
   computed: {
     ...mapState(["currentPath"]),
   },
-  // beforeRouteUpdate(to, from, next) {
-  //   console.log(to)
-  //   next();
-  // },
+  methods: {
+    handleSubmit() {
+      const data = {
+        account: this.account,
+        password: this.password,
+      };
+      this.$emit("after-form-submit", data);
+    },
+  },
 };
 </script>
 
