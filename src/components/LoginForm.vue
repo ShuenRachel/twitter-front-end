@@ -2,9 +2,9 @@
   <div class="card">
     <div class="form-title">
       <div class="form-title-icon"></div>
-      <div class="form-title-text">後台登入</div>
+      <div v-if="currentPath === '/admin/login'" class="form-title-text">後台登入</div>
       <!-- TODO -->
-      <!-- <div class="form-title-text">登入 Alphitter</div> -->
+      <div v-else-if="currentPath === '/user/login'" class="form-title-text">登入 Alphitter</div>
     </div>
     <form class="form-wrapper">
       <div class="input-gp">
@@ -23,9 +23,17 @@
 </template>
 
 <script>
-// import { defineComponent } from '@vue/composition-api'
+import { mapState } from "vuex";
 
-export default {};
+export default {
+  computed: {
+    ...mapState(["currentPath"]),
+  },
+  // beforeRouteUpdate(to, from, next) {
+  //   console.log(to)
+  //   next();
+  // },
+};
 </script>
 
 <style lang="scss" scoped>

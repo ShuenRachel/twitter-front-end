@@ -5,8 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    currentPath: "/"
   },
   mutations: {
+    updatePath(state, newPath) {
+      state.currentPath = newPath
+    }
   },
   actions: {
   },
