@@ -88,6 +88,14 @@ $bg-white: #fff;
   background-color: $bg-white;
 }
 
+.link {
+  font-weight: 700;
+  font-size: 18px;
+  color: $link-blue;
+  padding-bottom: 1px;
+  border-bottom: 1px solid $link-blue;
+}
+
 .input {
   &-gp {
     position: relative;
