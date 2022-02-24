@@ -6,7 +6,7 @@
 
 <script>
 import LoginForm from "@/components/LoginForm.vue";
-import authorizationAPI from "./../apis/authorization"
+import authorizationAPI from "./../apis/authorization";
 
 export default {
   name: "UserLogin",
@@ -16,11 +16,22 @@ export default {
   methods: {
     async afterFormSubmit(account, password) {
       try {
-        // console.log(data)
-        const response = await authorizationAPI.signIn({account, password})
-        console.log(response)
+
+        const response = await authorizationAPI.signIn({ account, password });
+        const { data } = response;
+
+        if (data.status !== "success") {
+          throw new Error(data.message);
+        }
+
+        localStorage.setItem("token", data.data.token);
+console.log('1', data.user)
+        this.$store.commit("setCurrentUser", data.data.user);
+
+        this.$router.push("/user/home");
+        console.log(response);
       } catch (error) {
-        console.log(error)
+        console.log('user login error', error);
       }
     },
   },

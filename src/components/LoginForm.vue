@@ -57,15 +57,11 @@ export default {
   },
   methods: {
     handleSubmit() {
-      // TODO: 檢查空值
-      // const data = {
-      //   account: this.account,
-      //   password: this.password,
-      // };
-      // const data = {
-      //   account: "user1",
-      //   password: "12345678",
-      // };
+      if (!this.account || !this.password) {
+        // TODO: show warning in page
+        console.log("all field are required");
+        return;
+      }
       this.$emit("after-form-submit", this.account, this.password);
     },
   },
