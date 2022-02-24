@@ -64,6 +64,7 @@ input:invalid {
 // color
 $brand-orange: #000;
 $card-fill: #f5f8fa; // input 欄位、top users 背景
+$card-bg-color: #f6f7f8; // admin/使用者列表 user-card的背景色
 $text-main: #1c1c1c; // 主文
 $text-sub: #657786; // 次級文字
 $border: #e6ecf0;
@@ -140,6 +141,6 @@ $bg-white: #fff;
 span.account {
   color: $text-sub;
   &::before {
-    content: "@";
+    content: "@"; // account前的 @
   }
 }
