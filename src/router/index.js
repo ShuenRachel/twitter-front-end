@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 import UserLogin from "../views/UserLogin.vue";
 import NotFound from "../views/NotFound.vue";
 import BaseLayout from "@/layouts/BaseLayout.vue";
+import store from "./../store";
+
 
 Vue.use(VueRouter);
 
@@ -106,4 +108,15 @@ const router = new VueRouter({
   routes,
 });
 
+<<<<<<< HEAD
 export default router;
+=======
+router.beforeEach((to, from, next) => {
+  store.commit("updatePath", to.path);
+  console.log('to:', to.path)
+  // console.log(from);
+  next();
+});
+
+export default router
+>>>>>>> main
