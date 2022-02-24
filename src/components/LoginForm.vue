@@ -58,11 +58,15 @@ export default {
   methods: {
     handleSubmit() {
       // TODO: 檢查空值
-      const data = {
-        account: this.account,
-        password: this.password,
-      };
-      this.$emit("after-form-submit", data);
+      // const data = {
+      //   account: this.account,
+      //   password: this.password,
+      // };
+      // const data = {
+      //   account: "user1",
+      //   password: "12345678",
+      // };
+      this.$emit("after-form-submit", this.account, this.password);
     },
   },
 };

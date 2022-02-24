@@ -14,9 +14,10 @@ export default {
     LoginForm,
   },
   methods: {
-    async afterFormSubmit(data) {
+    async afterFormSubmit(account, password) {
       try {
-        const response = await authorizationAPI.signIn(data)
+        // console.log(data)
+        const response = await authorizationAPI.signIn({account, password})
         console.log(response)
       } catch (error) {
         console.log(error)
