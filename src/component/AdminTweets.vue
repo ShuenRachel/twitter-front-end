@@ -55,12 +55,6 @@
       margin-right: 5px;
       font-weight: 700;
     }
-    span.account {
-      color: $text-sub;
-      &::before {
-        content: "@";
-      }
-    }
     div.info-container {
       padding-left: 15px;
       div.delete {
