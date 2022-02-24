@@ -17,7 +17,7 @@ export default {
     async afterFormSubmit(account, password) {
       try {
 
-        const response = await authorizationAPI.signIn({ account, password });
+        const response = await authorizationAPI.userLogin({ account, password });
         const { data } = response;
 
         if (data.status !== "success") {

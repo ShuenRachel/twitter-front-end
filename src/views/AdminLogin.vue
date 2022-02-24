@@ -8,7 +8,7 @@
 
 <script>
 import LoginForm from "@/components/LoginForm.vue";
-import adminAPI from "./../apis/authorization"
+import authorizationAPI from "./../apis/authorization";
 
 export default {
   name: "AdminLogin",
@@ -16,9 +16,9 @@ export default {
     LoginForm,
   },
   methods: {
-    async afterFormSubmit(data) {
+    async afterFormSubmit(account, password)  {
       try {
-        const response = await adminAPI.signIn(data)
+        const response = await authorizationAPI.adminLogin({ account, password })
         console.log(response)
       } catch (error) {
         console.log(error)
