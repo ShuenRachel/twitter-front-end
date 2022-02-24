@@ -1,344 +1,14 @@
 <template>
   <div class="user-container">
-    <div class="user-card">
-      <div class="user-card__background" style="background-image: url('https://via.placeholder.com/245x140/DFDFDF?text=No+Image');"></div>
-      <div class="user-card__avatar" style="background-image: url('https://via.placeholder.com/100x100/DFDFDF?text=No+Image');" ></div>
+    <div v-for="user in users" :key="user.id" class="user-card">
+      <div class="user-card__background" :style="{ backgroundImage: 'url(' + user.cover + ')' }"></div>
+      <div class="user-card__avatar" :style="{ backgroundImage: 'url(' + user.avatar + ')' }" ></div>
       <div class="user-card__info">
         <div class="user-card__info__name">
-          <span class="name">John Doe</span>
+          <span class="name">{{ user.name }}</span>
         </div>
         <div class="user-card__info__account">
-          <span class="account">heyjohn</span>
-        </div>
-        <div class="user-card__info__actives">
-          <div class="user-card__info__actives__tweets">
-            <img class="actives-icon" src="../../public/image/icon/message.svg" alt="">
-            <span class="user-card__info__actives__count">15</span>
-          </div>
-          <div class="user-card__info__actives__like">
-            <img class="actives-icon" src="../../public/image/icon/like.svg" alt="">
-            <span class="user-card__info__actives__count">20</span>
-          </div>
-        </div>
-        <div class="user-card__info__follow">
-          <span>
-            <span class="user-card__info__follow__count">34 個</span>跟隨中
-          </span>
-          <span>
-            <span class="user-card__info__follow__count">59 位</span>跟隨者
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="user-card">
-      <div class="user-card__background" style="background-image: url('https://via.placeholder.com/245x140/DFDFDF?text=No+Image');"></div>
-      <div class="user-card__avatar" style="background-image: url('https://via.placeholder.com/100x100/DFDFDF?text=No+Image');" ></div>
-      <div class="user-card__info">
-        <div class="user-card__info__name">
-          <span class="name">John Doe</span>
-        </div>
-        <div class="user-card__info__account">
-          <span class="account">heyjohn</span>
-        </div>
-        <div class="user-card__info__actives">
-          <div class="user-card__info__actives__tweets">
-            <img class="actives-icon" src="../../public/image/icon/message.svg" alt="">
-            <span class="user-card__info__actives__count">15</span>
-          </div>
-          <div class="user-card__info__actives__like">
-            <img class="actives-icon" src="../../public/image/icon/like.svg" alt="">
-            <span class="user-card__info__actives__count">20</span>
-          </div>
-        </div>
-        <div class="user-card__info__follow">
-          <span>
-            <span class="user-card__info__follow__count">34 個</span>跟隨中
-          </span>
-          <span>
-            <span class="user-card__info__follow__count">59 位</span>跟隨者
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="user-card">
-      <div class="user-card__background" style="background-image: url('https://via.placeholder.com/245x140/DFDFDF?text=No+Image');"></div>
-      <div class="user-card__avatar" style="background-image: url('https://via.placeholder.com/100x100/DFDFDF?text=No+Image');" ></div>
-      <div class="user-card__info">
-        <div class="user-card__info__name">
-          <span class="name">John Doe</span>
-        </div>
-        <div class="user-card__info__account">
-          <span class="account">heyjohn</span>
-        </div>
-        <div class="user-card__info__actives">
-          <div class="user-card__info__actives__tweets">
-            <img class="actives-icon" src="../../public/image/icon/message.svg" alt="">
-            <span class="user-card__info__actives__count">15</span>
-          </div>
-          <div class="user-card__info__actives__like">
-            <img class="actives-icon" src="../../public/image/icon/like.svg" alt="">
-            <span class="user-card__info__actives__count">20</span>
-          </div>
-        </div>
-        <div class="user-card__info__follow">
-          <span>
-            <span class="user-card__info__follow__count">34 個</span>跟隨中
-          </span>
-          <span>
-            <span class="user-card__info__follow__count">59 位</span>跟隨者
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="user-card">
-      <div class="user-card__background" style="background-image: url('https://via.placeholder.com/245x140/DFDFDF?text=No+Image');"></div>
-      <div class="user-card__avatar" style="background-image: url('https://via.placeholder.com/100x100/DFDFDF?text=No+Image');" ></div>
-      <div class="user-card__info">
-        <div class="user-card__info__name">
-          <span class="name">John Doe</span>
-        </div>
-        <div class="user-card__info__account">
-          <span class="account">heyjohn</span>
-        </div>
-        <div class="user-card__info__actives">
-          <div class="user-card__info__actives__tweets">
-            <img class="actives-icon" src="../../public/image/icon/message.svg" alt="">
-            <span class="user-card__info__actives__count">15</span>
-          </div>
-          <div class="user-card__info__actives__like">
-            <img class="actives-icon" src="../../public/image/icon/like.svg" alt="">
-            <span class="user-card__info__actives__count">20</span>
-          </div>
-        </div>
-        <div class="user-card__info__follow">
-          <span>
-            <span class="user-card__info__follow__count">34 個</span>跟隨中
-          </span>
-          <span>
-            <span class="user-card__info__follow__count">59 位</span>跟隨者
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="user-card">
-      <div class="user-card__background" style="background-image: url('https://via.placeholder.com/245x140/DFDFDF?text=No+Image');"></div>
-      <div class="user-card__avatar" style="background-image: url('https://via.placeholder.com/100x100/DFDFDF?text=No+Image');" ></div>
-      <div class="user-card__info">
-        <div class="user-card__info__name">
-          <span class="name">John Doe</span>
-        </div>
-        <div class="user-card__info__account">
-          <span class="account">heyjohn</span>
-        </div>
-        <div class="user-card__info__actives">
-          <div class="user-card__info__actives__tweets">
-            <img class="actives-icon" src="../../public/image/icon/message.svg" alt="">
-            <span class="user-card__info__actives__count">15</span>
-          </div>
-          <div class="user-card__info__actives__like">
-            <img class="actives-icon" src="../../public/image/icon/like.svg" alt="">
-            <span class="user-card__info__actives__count">20</span>
-          </div>
-        </div>
-        <div class="user-card__info__follow">
-          <span>
-            <span class="user-card__info__follow__count">34 個</span>跟隨中
-          </span>
-          <span>
-            <span class="user-card__info__follow__count">59 位</span>跟隨者
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="user-card">
-      <div class="user-card__background" style="background-image: url('https://via.placeholder.com/245x140/DFDFDF?text=No+Image');"></div>
-      <div class="user-card__avatar" style="background-image: url('https://via.placeholder.com/100x100/DFDFDF?text=No+Image');" ></div>
-      <div class="user-card__info">
-        <div class="user-card__info__name">
-          <span class="name">John Doe</span>
-        </div>
-        <div class="user-card__info__account">
-          <span class="account">heyjohn</span>
-        </div>
-        <div class="user-card__info__actives">
-          <div class="user-card__info__actives__tweets">
-            <img class="actives-icon" src="../../public/image/icon/message.svg" alt="">
-            <span class="user-card__info__actives__count">15</span>
-          </div>
-          <div class="user-card__info__actives__like">
-            <img class="actives-icon" src="../../public/image/icon/like.svg" alt="">
-            <span class="user-card__info__actives__count">20</span>
-          </div>
-        </div>
-        <div class="user-card__info__follow">
-          <span>
-            <span class="user-card__info__follow__count">34 個</span>跟隨中
-          </span>
-          <span>
-            <span class="user-card__info__follow__count">59 位</span>跟隨者
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="user-card">
-      <div class="user-card__background" style="background-image: url('https://via.placeholder.com/245x140/DFDFDF?text=No+Image');"></div>
-      <div class="user-card__avatar" style="background-image: url('https://via.placeholder.com/100x100/DFDFDF?text=No+Image');" ></div>
-      <div class="user-card__info">
-        <div class="user-card__info__name">
-          <span class="name">John Doe</span>
-        </div>
-        <div class="user-card__info__account">
-          <span class="account">heyjohn</span>
-        </div>
-        <div class="user-card__info__actives">
-          <div class="user-card__info__actives__tweets">
-            <img class="actives-icon" src="../../public/image/icon/message.svg" alt="">
-            <span class="user-card__info__actives__count">15</span>
-          </div>
-          <div class="user-card__info__actives__like">
-            <img class="actives-icon" src="../../public/image/icon/like.svg" alt="">
-            <span class="user-card__info__actives__count">20</span>
-          </div>
-        </div>
-        <div class="user-card__info__follow">
-          <span>
-            <span class="user-card__info__follow__count">34 個</span>跟隨中
-          </span>
-          <span>
-            <span class="user-card__info__follow__count">59 位</span>跟隨者
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="user-card">
-      <div class="user-card__background" style="background-image: url('https://via.placeholder.com/245x140/DFDFDF?text=No+Image');"></div>
-      <div class="user-card__avatar" style="background-image: url('https://via.placeholder.com/100x100/DFDFDF?text=No+Image');" ></div>
-      <div class="user-card__info">
-        <div class="user-card__info__name">
-          <span class="name">John Doe</span>
-        </div>
-        <div class="user-card__info__account">
-          <span class="account">heyjohn</span>
-        </div>
-        <div class="user-card__info__actives">
-          <div class="user-card__info__actives__tweets">
-            <img class="actives-icon" src="../../public/image/icon/message.svg" alt="">
-            <span class="user-card__info__actives__count">15</span>
-          </div>
-          <div class="user-card__info__actives__like">
-            <img class="actives-icon" src="../../public/image/icon/like.svg" alt="">
-            <span class="user-card__info__actives__count">20</span>
-          </div>
-        </div>
-        <div class="user-card__info__follow">
-          <span>
-            <span class="user-card__info__follow__count">34 個</span>跟隨中
-          </span>
-          <span>
-            <span class="user-card__info__follow__count">59 位</span>跟隨者
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="user-card">
-      <div class="user-card__background" style="background-image: url('https://via.placeholder.com/245x140/DFDFDF?text=No+Image');"></div>
-      <div class="user-card__avatar" style="background-image: url('https://via.placeholder.com/100x100/DFDFDF?text=No+Image');" ></div>
-      <div class="user-card__info">
-        <div class="user-card__info__name">
-          <span class="name">John Doe</span>
-        </div>
-        <div class="user-card__info__account">
-          <span class="account">heyjohn</span>
-        </div>
-        <div class="user-card__info__actives">
-          <div class="user-card__info__actives__tweets">
-            <img class="actives-icon" src="../../public/image/icon/message.svg" alt="">
-            <span class="user-card__info__actives__count">15</span>
-          </div>
-          <div class="user-card__info__actives__like">
-            <img class="actives-icon" src="../../public/image/icon/like.svg" alt="">
-            <span class="user-card__info__actives__count">20</span>
-          </div>
-        </div>
-        <div class="user-card__info__follow">
-          <span>
-            <span class="user-card__info__follow__count">34 個</span>跟隨中
-          </span>
-          <span>
-            <span class="user-card__info__follow__count">59 位</span>跟隨者
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="user-card">
-      <div class="user-card__background" style="background-image: url('https://via.placeholder.com/245x140/DFDFDF?text=No+Image');"></div>
-      <div class="user-card__avatar" style="background-image: url('https://via.placeholder.com/100x100/DFDFDF?text=No+Image');" ></div>
-      <div class="user-card__info">
-        <div class="user-card__info__name">
-          <span class="name">John Doe</span>
-        </div>
-        <div class="user-card__info__account">
-          <span class="account">heyjohn</span>
-        </div>
-        <div class="user-card__info__actives">
-          <div class="user-card__info__actives__tweets">
-            <img class="actives-icon" src="../../public/image/icon/message.svg" alt="">
-            <span class="user-card__info__actives__count">15</span>
-          </div>
-          <div class="user-card__info__actives__like">
-            <img class="actives-icon" src="../../public/image/icon/like.svg" alt="">
-            <span class="user-card__info__actives__count">20</span>
-          </div>
-        </div>
-        <div class="user-card__info__follow">
-          <span>
-            <span class="user-card__info__follow__count">34 個</span>跟隨中
-          </span>
-          <span>
-            <span class="user-card__info__follow__count">59 位</span>跟隨者
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="user-card">
-      <div class="user-card__background" style="background-image: url('https://via.placeholder.com/245x140/DFDFDF?text=No+Image');"></div>
-      <div class="user-card__avatar" style="background-image: url('https://via.placeholder.com/100x100/DFDFDF?text=No+Image');" ></div>
-      <div class="user-card__info">
-        <div class="user-card__info__name">
-          <span class="name">John Doe</span>
-        </div>
-        <div class="user-card__info__account">
-          <span class="account">heyjohn</span>
-        </div>
-        <div class="user-card__info__actives">
-          <div class="user-card__info__actives__tweets">
-            <img class="actives-icon" src="../../public/image/icon/message.svg" alt="">
-            <span class="user-card__info__actives__count">15</span>
-          </div>
-          <div class="user-card__info__actives__like">
-            <img class="actives-icon" src="../../public/image/icon/like.svg" alt="">
-            <span class="user-card__info__actives__count">20</span>
-          </div>
-        </div>
-        <div class="user-card__info__follow">
-          <span>
-            <span class="user-card__info__follow__count">34 個</span>跟隨中
-          </span>
-          <span>
-            <span class="user-card__info__follow__count">59 位</span>跟隨者
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="user-card">
-      <div class="user-card__background" style="background-image: url('https://via.placeholder.com/245x140/DFDFDF?text=No+Image');"></div>
-      <div class="user-card__avatar" style="background-image: url('https://via.placeholder.com/100x100/DFDFDF?text=No+Image');" ></div>
-      <div class="user-card__info">
-        <div class="user-card__info__name">
-          <span class="name">John Doe</span>
-        </div>
-        <div class="user-card__info__account">
-          <span class="account">heyjohn</span>
+          <span class="account">{{ user.account }}</span>
         </div>
         <div class="user-card__info__actives">
           <div class="user-card__info__actives__tweets">
@@ -362,6 +32,23 @@
     </div>
   </div>
 </template>
+
+<script>
+
+export default {
+  props: {
+    initialUsers: {
+      type: Array,
+      required: true
+    }
+  },
+  data() {
+    return {
+      users: this.initialUsers
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
   @import "../assets/scss/main.scss";
@@ -438,6 +125,4 @@
       }
     }
   }
- 
-
 </style>
