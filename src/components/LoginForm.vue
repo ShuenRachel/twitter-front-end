@@ -57,6 +57,7 @@ export default {
   },
   methods: {
     handleSubmit() {
+      // TODO: 檢查空值
       const data = {
         account: this.account,
         password: this.password,
@@ -85,6 +86,11 @@ export default {
   &-icon {
     width: 50px;
     height: 50px;
+  }
+  &-text {
+    margin-top: 20px;
+    font-size: 23px;
+    font-weight: 700;
   }
 }
 
