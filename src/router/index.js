@@ -108,9 +108,6 @@ const router = new VueRouter({
   routes,
 });
 
-<<<<<<< HEAD
-export default router;
-=======
 router.beforeEach((to, from, next) => {
   store.commit("updatePath", to.path);
   console.log('to:', to.path)
@@ -119,4 +116,3 @@ router.beforeEach((to, from, next) => {
 });
 
 export default router
->>>>>>> main
