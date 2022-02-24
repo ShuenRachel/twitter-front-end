@@ -1,7 +1,7 @@
 <template>
   <div class="admin">
     <section class="users-card">
-      <AdminUsers :initial-users="users" />
+      <AdminUsers :users="users" />
     </section>
   </div>
 </template>

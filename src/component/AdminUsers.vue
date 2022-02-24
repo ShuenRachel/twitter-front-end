@@ -37,16 +37,11 @@
 
 export default {
   props: {
-    initialUsers: {
+    users: {
       type: Array,
       required: true
     }
   },
-  data() {
-    return {
-      users: this.initialUsers
-    }
-  }
 }
 </script>
 
