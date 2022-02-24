@@ -9,5 +9,6 @@
 .header-panel {
   background: yellow;
   margin-bottom: 1px solid $card-fill;
+  height: 55px;
 }
 </style>

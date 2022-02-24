@@ -1,9 +1,8 @@
 <template>
-  <div>
-    <Navbar />
-    <Header />
-    <PopularUsers />
-    <router-view />Î
+  <div class="page-container">
+    <Navbar class="container-left" />
+    <div class="container-middle"><Header /><router-view /></div>
+    <PopularUsers class="container-right" />
   </div>
 </template>
 
@@ -16,7 +15,31 @@ export default {
   components: {
     Navbar,
     Header,
-    PopularUsers
+    PopularUsers,
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import "../assets/scss/main.scss";
+
+.page-container {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  justify-content: space-between;
+  .container {
+    &-left {
+      flex-basis: 379px;
+      height: 100vh;
+    }
+    &-middle {
+      flex-grow: 1;
+    }
+    &-right {
+      flex-basis: 463px;
+      height: 100vh;
+    }
+  }
+}
+</style>

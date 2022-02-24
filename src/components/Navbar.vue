@@ -9,5 +9,7 @@
 .navbar-panel {
   border-right: 1px solid $card-fill;
   background: red;
+  // width: 379px;
+  // height: 100vh;
 }
 </style>
