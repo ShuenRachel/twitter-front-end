@@ -1,7 +1,9 @@
 <template>
   <div class="card">
     <div class="form-title">
-      <div class="form-title-icon"></div>
+      <div class="form-title-icon">
+        <img src="/image/logo.svg" alt="" srcset="" />
+      </div>
       <div v-if="currentPath === '/admin/login'" class="form-title-text">
         後台登入
       </div>
@@ -68,13 +70,22 @@ export default {
 <style lang="scss" scoped>
 @import "../assets/scss/main.scss";
 .card {
-  width: 80%;
+  max-width: 540px;
   border: 0;
+  margin: auto;
+  margin-top: 65px;
 }
 
 .form-title {
   align-self: center;
   margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &-icon {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 .link-group {
