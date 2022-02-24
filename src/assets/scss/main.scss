@@ -136,3 +136,10 @@ $bg-white: #fff;
     line-height: 15px;
   }
 }
+
+span.account {
+  color: $text-sub;
+  &::before {
+    content: "@";
+  }
+}
