@@ -1,6 +1,7 @@
 <template>
   <div>
     <LoginForm
+      :init-is-processing="isProcessing"
       @after-form-submit="afterFormSubmit"
     />
   </div>
@@ -15,15 +16,36 @@ export default {
   components: {
     LoginForm,
   },
+  data() {
+    return {
+      isProcessing: false,
+    };
+  },
   methods: {
-    async afterFormSubmit(account, password)  {
+    async afterFormSubmit(account, password) {
       try {
-        const response = await authorizationAPI.adminLogin({ account, password })
-        console.log(response)
+        this.isProcessing = true;
+
+        const response = await authorizationAPI.adminLogin({
+          account,
+          password,
+        });
+        const { data } = response;
+
+        if (data.status !== "success") {
+          throw new Error(data.message);
+        }
+
+        localStorage.setItem("token", data.data.token);
+
+        this.$store.commit("setCurrentUser", data.data.user);
+
+        this.$router.push("/admin/tweets");
       } catch (error) {
-        console.log(error)
+        this.isProcessing = false
+        console.log('admin login error:' , error);
       }
     },
-  }
+  },
 };
 </script>

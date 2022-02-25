@@ -6,6 +6,6 @@ export default {
     return apiHelper.post("/users/signin", loginData);
   },
   adminLogin(loginData) {
-    return apiHelper.post("/admin/signin", loginData);
+    return apiHelper.post("/admin/login", loginData);
   },
 };

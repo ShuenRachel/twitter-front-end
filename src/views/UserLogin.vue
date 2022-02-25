@@ -31,7 +31,7 @@ export default {
         }
 
         localStorage.setItem("token", data.data.token);
-console.log('1', data.user)
+
         this.$store.commit("setCurrentUser", data.data.user);
 
         this.$router.push("/user/home");
