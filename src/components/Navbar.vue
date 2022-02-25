@@ -4,15 +4,15 @@
       <div class="nav-icon"><img src="/image/logo.svg" alt="" srcset="" /></div>
       <div class="nav-content" v-if="isAdmin">
         <div class="link-wrapper">
-          <router-link class="link" to="/admin/tweets">推文清單</router-link>
-          <router-link class="link" to="/admin/tweets">使用者列表</router-link>
+          <router-link class="route-link" to="/admin/tweets">推文清單</router-link>
+          <router-link class="route-link" to="/admin/tweets">使用者列表</router-link>
         </div>
       </div>
       <div class="nav-content" v-else>
         <div class="link-wrapper">
-          <router-link class="link" to="/user/home">首頁</router-link>
-          <router-link class="link" to="/user/home">個人資料</router-link>
-          <router-link class="link" to="/user/setting">設定</router-link>
+          <router-link class="route-link" to="/user/home">首頁</router-link>
+          <router-link class="route-link" to="/user/home">個人資料</router-link>
+          <router-link class="route-link" to="/user/setting">設定</router-link>
           <button class="btn btn-orange">推文</button>
         </div>
       </div>
@@ -61,7 +61,7 @@ export default {
     .link-wrapper {
       display: flex;
       flex-flow: column nowrap;
-      .link {
+      .route-link {
         font-weight: 700;
         font-size: 18px;
         color: $text-main;

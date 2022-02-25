@@ -5,7 +5,6 @@ import NotFound from "../views/NotFound.vue";
 import BaseLayout from "@/layouts/BaseLayout.vue";
 import store from "./../store";
 
-
 Vue.use(VueRouter);
 
 const routes = [
