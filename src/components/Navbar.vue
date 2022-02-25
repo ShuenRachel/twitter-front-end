@@ -1,7 +1,7 @@
 <template>
   <div class="navbar-panel">
     <div class="nav-wrapper">
-      <div class="nav-icon"><img src="/image/logo.svg" alt="" srcset="" /></div>
+      <div class="nav-icon"><img src="/image/logo.svg" alt="" srcset="" @click="$router.push('/user/home')" /></div>
       <div class="nav-content" v-if="isAdmin">
         <div class="link-wrapper">
           <router-link class="route-link" to="/admin/tweets"
@@ -142,6 +142,7 @@ export default {
     height: 30px;
     margin-top: 14px;
     margin-bottom: 45px;
+    cursor: pointer;
   }
   &-content {
     display: flex;
