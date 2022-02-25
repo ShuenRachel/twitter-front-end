@@ -3,7 +3,7 @@
     <div class="header-btn"></div>
     <div class="header-title">
       <div class="header-title-page">{{ title }}</div>
-      <div class="header-title-tweet"></div>
+      <div class="header-title-tweet" v-show="isUser">推文</div>
     </div>
   </div>
 </template>
@@ -14,13 +14,17 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      account: "",
-      password: "",
+      isUser: false,
     };
   },
   computed: {
     ...mapState(["currentPathName"]),
     title() {
+      return this.handlePathName()
+    },
+  },
+  methods: {
+    handlePathName() {
       switch (this.currentPathName) {
         case "admin-tweets":
           return "推文清單";
@@ -38,6 +42,7 @@ export default {
         case "user-all-like":
         case "user-followers":
         case "user-followings":
+          this.isUser = true;
           return "login user";
       }
     },

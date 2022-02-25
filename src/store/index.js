@@ -15,7 +15,7 @@ export default new Vuex.Store({
       isAdmin: false,
       role: "",
     },
-    isAdmin: true,
+    isAdmin: false,
     isAuthenticated: false,
     currentPathName: "",
   },
