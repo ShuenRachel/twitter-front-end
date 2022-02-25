@@ -3,86 +3,43 @@
     <div class="popular-wrapper">
       <div class="popular-heading">Popular</div>
       <div class="popular-users">
-        <div class="popular-user" v-for="user in users" :key="user.id">{{user.name}}</div>
+        <div class="popular-user" v-for="user in users" :key="user.id">
+          {{ user.name }}
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import { defineComponent } from '@vue/composition-api'
-
-// const dummyUsers = [
-//   {
-//     id: 1,
-//     name: "root",
-//     avatar:
-//       "https://loremflickr.com/320/240/monster/?random=38.331340455952436",
-//     followerCount: 0,
-//     isFollowing: false,
-//   },
-//   {
-//     id: 2,
-//     name: "user1",
-//     avatar: "https://loremflickr.com/320/240/monster/?random=74.11942935327585",
-//     followerCount: 0,
-//     isFollowing: false,
-//   },
-//   {
-//     id: 3,
-//     name: "user2",
-//     avatar: "https://loremflickr.com/320/240/monster/?random=49.78238087182702",
-//     followerCount: 0,
-//     isFollowing: false,
-//   },
-//   {
-//     id: 4,
-//     name: "user3",
-//     avatar: "https://loremflickr.com/320/240/monster/?random=48.15326019028885",
-//     followerCount: 0,
-//     isFollowing: false,
-//   },
-//   {
-//     id: 5,
-//     name: "user4",
-//     avatar:
-//       "https://loremflickr.com/320/240/monster/?random=0.10651629332425472",
-//     followerCount: 0,
-//     isFollowing: false,
-//   },
-//   {
-//     id: 6,
-//     name: "user5",
-//     avatar: "https://loremflickr.com/320/240/monster/?random=82.50344786292148",
-//     followerCount: 0,
-//     isFollowing: false,
-//   },
-// ];
-
-// console.log(dummyUsers);
+import usersAPI from "./../apis/users";
 
 export default {
   data() {
     return {
-      users: [
-        {
-          id: 1,
-          name: "root",
-          avatar:
-            "https://loremflickr.com/320/240/monster/?random=38.331340455952436",
-          followerCount: 0,
-          isFollowing: false,
-        },
-        {
-          id: 2,
-          name: "user1",
-          avatar:
-            "https://loremflickr.com/320/240/monster/?random=74.11942935327585",
-          followerCount: 0,
-          isFollowing: false,
-        },
-      ],
+      users: [],
     };
+  },
+  methods: {
+    async fetchUsers() {
+      try {
+        const response = await usersAPI.getTopUsers();
+        const { data } = response;
+
+        if (response.statusText !== "OK") {
+          throw new Error(response.message);
+        }
+
+        this.users = data
+
+      } catch (error) {
+
+        console.log(error);
+      }
+    },
+  },
+  created() {
+    this.fetchUsers();
   },
 };
 </script>
