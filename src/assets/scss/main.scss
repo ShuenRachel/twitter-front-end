@@ -158,3 +158,11 @@ span.account {
     content: "@"; // account前的 @
   }
 }
+
+span.reply-account {
+  color: $brand-orange;
+  &::before {
+    content: "@"; // account前的 @
+  }
+}
+

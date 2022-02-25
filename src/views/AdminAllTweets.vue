@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import AdminTweets from '../component/TweetsList.vue'
+import AdminTweets from '../components/TweetsList.vue'
 
 export default {
   components: {

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import AdminUsers from '../component/AdminUsers.vue'
+import AdminUsers from '../components/AdminUsers.vue'
 
 const dummyData = {
   "users": [
