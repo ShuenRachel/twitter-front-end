@@ -88,7 +88,8 @@ $border-setting: 1px solid $border-color;
 
 .btn-white {
   color: $brand-orange;
-  background-color: $bg-white;
+  border: 1px solid $brand-orange;
+  background-color: transparent;
 }
 
 .link {

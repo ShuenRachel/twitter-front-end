@@ -4,7 +4,13 @@
       <div class="popular-heading">Popular</div>
       <div class="popular-users">
         <div class="popular-user" v-for="user in users" :key="user.id">
-          {{ user.name }}
+          <div class="popular-user-avatar"><img :src="user.avatar" alt=""></div>
+          <div class="popular-user-details">
+            <span class="name">{{ user.name }}</span>
+            <span class="account">account</span>
+          </div>
+          <button v-if="user.isFollowing" class="popular-user-btn btn btn-orange">正在跟隨</button>
+          <button v-else class="popular-user-btn btn btn-white">跟隨</button>
         </div>
       </div>
     </div>
@@ -64,6 +70,22 @@ export default {
     padding-left: 15px;
     font-size: 18px;
     font-weight: 700;
+  }
+}
+
+.popular-user {
+  padding: 10px 15px;
+  border-top: $border-setting;
+  display: flex;
+  &-avatar {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    img {
+      display: block;
+      width: 100%;
+      border-radius: 50%;
+    }
   }
 }
 </style>
