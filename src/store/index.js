@@ -15,14 +15,16 @@ export default new Vuex.Store({
       isAdmin: false,
       role: "",
     },
+    viewUser: {
+      name: "view user",
+      tweetCount: 1
+    },
     isAdmin: false,
     isAuthenticated: false,
     currentPathName: "",
   },
   mutations: {
     setCurrentUser(state, currentUser) {
-      console.log("vuex");
-      console.log(currentUser);
       state.currentUser = {
         ...state.currentUser,
         ...currentUser,
