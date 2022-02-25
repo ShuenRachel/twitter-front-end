@@ -4,10 +4,10 @@
       <div class="form-title-icon">
         <img src="/image/logo.svg" alt="" srcset="" />
       </div>
-      <div v-if="currentPath === '/admin/login'" class="form-title-text">
+      <div v-if="currentPathName === 'admin-login'" class="form-title-text">
         後台登入
       </div>
-      <div v-else-if="currentPath === '/user/login'" class="form-title-text">
+      <div v-else-if="currentPathName === 'user-login'" class="form-title-text">
         登入 Alphitter
       </div>
     </div>
@@ -31,10 +31,10 @@
     <button class="btn btn-orange" :disabled="isProcessing" @click.stop.prevent="handleSubmit">
       登入
     </button>
-    <div v-if="currentPath === '/admin/login'" class="link-group">
+    <div v-if="currentPathName === 'admin-login'" class="link-group">
       <router-link to="/user/login" class="link">前台登入</router-link>
     </div>
-    <div v-else-if="currentPath === '/user/login'" class="link-group">
+    <div v-else-if="currentPathName === 'user-login'" class="link-group">
       <router-link to="/user/regist" class="link">註冊 Alphitter</router-link>
       <span class="link-dot">・</span>
       <router-link to="/admin/login" class="link">後台登入</router-link>
@@ -60,7 +60,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["currentPath"]),
+    ...mapState(["currentPathName"]),
   },
   watch: {
     initIsProcessing(newValue) {
