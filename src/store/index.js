@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     currentUser: {
       account: "",
-      name: "",
+      name: "TextUser",
       email: "",
       introduction: "",
       avatar: "",
@@ -17,7 +17,7 @@ export default new Vuex.Store({
     },
     isAdmin: true,
     isAuthenticated: false,
-    currentPath: "/",
+    currentPathName: "",
   },
   mutations: {
     setCurrentUser(state, currentUser) {
@@ -30,8 +30,8 @@ export default new Vuex.Store({
       state.isAdmin = currentUser.isAdmin
       state.isAuthenticated = true;
     },
-    updatePath(state, newPath) {
-      state.currentPath = newPath;
+    updatePath(state, newPathName) {
+      state.currentPathName = newPathName;
     },
   },
   actions: {},
