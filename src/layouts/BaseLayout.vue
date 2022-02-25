@@ -1,7 +1,7 @@
 <template>
   <div class="page-container">
     <Navbar class="container-left" />
-    <div class="container-middle"><Header /><router-view /></div>
+    <div class="container-middle"><Header /><router-view class="container-middle-main" /></div>
     <PopularUsers class="container-right" />
   </div>
 </template>
@@ -35,6 +35,9 @@ export default {
     }
     &-middle {
       flex-grow: 1;
+      &-main {
+        border-top: $border-setting;
+      } 
     }
     &-right {
       flex-basis: 463px;

@@ -36,7 +36,7 @@ export default {
 <style lang="scss" scoped>
 @import "../assets/scss/main.scss";
 .navbar-panel {
-  border-right: 1px solid $card-fill;
+  border-right: $border-setting;
   .nav-wrapper {
     margin-left: 113px;
     margin-right: 55px;

@@ -7,6 +7,6 @@
 <style lang="scss" scoped>
 @import "../assets/scss/main.scss";
 .popular-panel {
-  background: grey;
+  border-left: $border-setting;
 }
 </style>
