@@ -22,14 +22,14 @@
                 </svg>
                 <span class="tweet__footer__actives__count">13</span>
               </div>
-              <div class="tweet__footer__actives__like">
-                <svg @click="handleLike" v-if="!isLike" class="actives-icon actives-icon__unlike" width="12.5" height="11.8" viewBox="0 0 21 20" fill="#657786" xmlns="http://www.w3.org/2000/svg">
+              <div @click="handleLike" class="tweet__footer__actives__like">
+                <svg v-if="!isLike" class="actives-icon actives-icon__unlike" width="12.5" height="11.8" viewBox="0 0 21 20" fill="#657786" xmlns="http://www.w3.org/2000/svg">
                 <path d="M10.8 19.6379H10.786C8.203 19.5899 0.75 12.8559 0.75 6.47788C0.75 3.41388 3.275 0.723877 6.153 0.723877C8.443 0.723877 9.983 2.30388 10.799 3.45388C11.613 2.30588 13.153 0.723877 15.444 0.723877C18.324 0.723877 20.848 3.41388 20.848 6.47888C20.848 12.8549 13.394 19.5889 10.811 19.6359H10.8V19.6379ZM6.154 2.22488C4.074 2.22488 2.251 4.21288 2.251 6.47988C2.251 12.2199 9.285 18.0759 10.801 18.1379C12.319 18.0759 19.351 12.2209 19.351 6.47988C19.351 4.21288 17.528 2.22488 15.448 2.22488C12.92 2.22488 11.508 5.16088 11.496 5.18988C11.266 5.75188 10.34 5.75188 10.109 5.18988C10.095 5.15988 8.684 2.22488 6.155 2.22488H6.154Z" />
                 </svg>
-                <svg @click="handleLike" v-if="isLike" class="actives-icon actives-icon__like" width="20" height="18" viewBox="0 0 22 20" fill="#E0245E" xmlns="http://www.w3.org/2000/svg">
+                <svg v-if="isLike" class="actives-icon actives-icon__like" width="20" height="18" viewBox="0 0 22 20" fill="#E0245E" xmlns="http://www.w3.org/2000/svg">
                 <path d="M11 19.6381H10.986C8.40295 19.5901 0.949951 12.8561 0.949951 6.47812C0.949951 3.41412 3.47495 0.724121 6.35295 0.724121C8.64295 0.724121 10.183 2.30412 10.999 3.45412C11.813 2.30612 13.353 0.724121 15.644 0.724121C18.524 0.724121 21.048 3.41412 21.048 6.47912C21.048 12.8551 13.594 19.5891 11.011 19.6361H11V19.6381Z" />
                 </svg>
-                <span class="tweet__footer__actives__count">76</span>
+                <span class="tweet__footer__actives__count" :class="{ liked: isLike }">76</span>
               </div>
           </div>
         </div>
@@ -106,18 +106,38 @@ export default {
         display: flex;
         svg.actives-icon {
           margin-right: 11px;
-          &__reply:hover {
-            fill: $brand-orange;
-          }
           &__like {
             margin-right: 3.5px;
           }
         }
         span {
-          color: $text-sub; 
+          color: $text-sub;
+          &.liked {
+            color: #E0245E
+          }
         }
         &__reply {
           margin-right: 51px;
+          &:hover {
+            span {
+              color: $brand-orange;
+            }
+            svg.actives-icon {
+              fill: $brand-orange;
+              stroke: $brand-orange;
+            }
+          }
+        }
+        &__like {
+          &:hover {
+            span {
+              color: #E0245E;
+            }
+            svg.actives-icon {
+              fill: #E0245E;
+              stroke: #E0245E;
+            }
+          }
         }
       }
       div.delete {
