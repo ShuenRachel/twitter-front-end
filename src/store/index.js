@@ -6,15 +6,15 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     currentUser: {
-      id: -1,
-      account: "",
-      name: "TextUser",
-      email: "",
-      introduction: "",
-      avatar: "",
-      cover: "",
+      id: 2,
+      account: "user1",
+      name: "user1",
+      email: "user1@example.com",
+      introduction: "Nemo qui repellat ex.\nImpedit rerum nobis modi alias voluptas sunt sed eos.\nMollitia iste modi sunt eos aspernatur vel hic placeat natus.\nAccusamus sunt officiis.\nIpsum aut eum dignissimos delectus vero ut quasi accusamus.",
+      avatar: "https://loremflickr.com/320/240/monster/?random=74.11942935327585",
+      cover: "https://loremflickr.com/320/240/monster/?random=74.51846285116876",
       isAdmin: false,
-      role: "",
+      role: "user",
     },
     viewUser: {
       name: "view user",
