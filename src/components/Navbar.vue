@@ -24,7 +24,6 @@
               width="24"
               height="24"
               viewBox="0 0 24 24"
-              class="icon"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -88,8 +87,8 @@
             </svg>
             設定</router-link
           >
-          <button class="btn btn-orange">推文</button>
         </div>
+        <button class="btn btn-orange">推文</button>
       </div>
       <div class="nav-footer">
         <svg
@@ -136,9 +135,7 @@ export default {
     justify-content: space-between;
   }
 }
-svg.icon {
-  fill: red;
-}
+
 .nav {
   &-icon {
     width: 30px;
@@ -153,6 +150,7 @@ svg.icon {
     .link-wrapper {
       display: flex;
       flex-flow: column nowrap;
+      margin-bottom: 24px;
       .route-link {
         font-weight: 700;
         font-size: 18px;
