@@ -6,8 +6,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     currentUser: {
+      id: -1,
       account: "",
-      name: "",
+      name: "TextUser",
       email: "",
       introduction: "",
       avatar: "",
@@ -15,23 +16,25 @@ export default new Vuex.Store({
       isAdmin: false,
       role: "",
     },
-    isAdmin: true,
+    viewUser: {
+      name: "view user",
+      tweetCount: 1
+    },
+    isAdmin: false,
     isAuthenticated: false,
-    currentPath: "/",
+    currentPathName: "",
   },
   mutations: {
     setCurrentUser(state, currentUser) {
-      console.log('vuex')
-      console.log(currentUser);
       state.currentUser = {
         ...state.currentUser,
         ...currentUser,
       };
-      state.isAdmin = currentUser.isAdmin
+      state.isAdmin = currentUser.isAdmin;
       state.isAuthenticated = true;
     },
-    updatePath(state, newPath) {
-      state.currentPath = newPath;
+    updatePathName(state, newPathName) {
+      state.currentPathName = newPathName;
     },
   },
   actions: {},
