@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LoginForm @after-form-submit="afterFormSubmit" />
+    <LoginForm :init-is-processing="isProcessing" @after-form-submit="afterFormSubmit" />
   </div>
 </template>
 
@@ -13,9 +13,15 @@ export default {
   components: {
     LoginForm,
   },
+  data() {
+    return {
+      isProcessing: false
+    }
+  },
   methods: {
     async afterFormSubmit(account, password) {
       try {
+        this.isProcessing = true
 
         const response = await authorizationAPI.userLogin({ account, password });
         const { data } = response;
@@ -31,6 +37,7 @@ console.log('1', data.user)
         this.$router.push("/user/home");
         console.log(response);
       } catch (error) {
+        this.isProcessing = false
         console.log('user login error', error);
       }
     },

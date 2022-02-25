@@ -28,7 +28,7 @@
         <div class="input-line"></div>
       </div>
     </div>
-    <button class="btn btn-orange" @click.stop.prevent="handleSubmit">
+    <button class="btn btn-orange" :disabled="isProcessing" @click.stop.prevent="handleSubmit">
       登入
     </button>
     <div v-if="currentPath === '/admin/login'" class="link-group">
@@ -46,14 +46,26 @@
 import { mapState } from "vuex";
 
 export default {
+  props: {
+    initIsProcessing: {
+      type: Boolean,
+      required: true
+    }
+  },
   data() {
     return {
       account: "",
       password: "",
+      isProcessing: false
     };
   },
   computed: {
     ...mapState(["currentPath"]),
+  },
+  watch: {
+    initIsProcessing(newValue) {
+      this.isProcessing = newValue
+    }
   },
   methods: {
     handleSubmit() {
