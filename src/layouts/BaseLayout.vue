@@ -39,9 +39,6 @@ export default {
     }
     &-middle {
       flex-grow: 1;
-      &-main {
-        border-top: $border-setting;
-      } 
     }
     &-right {
       flex-basis: 463px;
