@@ -21,7 +21,7 @@ export default {
   computed: {
     ...mapState(["currentPathName"]),
     title() {
-      switch (this.currentPath) {
+      switch (this.currentPathName) {
         case "admin-tweets":
           return "推文清單";
         case "admin-users":

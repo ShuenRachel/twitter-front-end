@@ -21,16 +21,16 @@ export default new Vuex.Store({
   },
   mutations: {
     setCurrentUser(state, currentUser) {
-      console.log('vuex')
+      console.log("vuex");
       console.log(currentUser);
       state.currentUser = {
         ...state.currentUser,
         ...currentUser,
       };
-      state.isAdmin = currentUser.isAdmin
+      state.isAdmin = currentUser.isAdmin;
       state.isAuthenticated = true;
     },
-    updatePath(state, newPathName) {
+    updatePathName(state, newPathName) {
       state.currentPathName = newPathName;
     },
   },
