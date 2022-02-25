@@ -7,7 +7,7 @@
           <router-link class="route-link" to="/admin/tweets"
             >推文清單</router-link
           >
-          <router-link class="route-link" to="/admin/tweets"
+          <router-link class="route-link" to="/admin/users"
             >使用者列表</router-link
           >
         </div>
@@ -37,13 +37,8 @@
 import { mapState } from "vuex";
 
 export default {
-  data() {
-    return {
-      isAdmin: false,
-    };
-  },
   computed: {
-    ...mapState(["currentUser"]),
+    ...mapState(["currentUser", "isAdmin"]),
   },
 };
 </script>
