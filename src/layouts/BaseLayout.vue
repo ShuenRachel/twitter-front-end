@@ -2,7 +2,7 @@
   <div class="page-container">
     <Navbar class="container-left" />
     <div class="container-middle"><Header /><router-view class="container-middle-main" /></div>
-    <PopularUsers class="container-right" />
+    <PopularUsers class="container-right" v-if="!isAdmin" />
   </div>
 </template>
 
@@ -10,6 +10,7 @@
 import Navbar from "@/components/Navbar.vue";
 import Header from "@/components/Header.vue";
 import PopularUsers from "@/components/PopularUsers.vue";
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -17,6 +18,9 @@ export default {
     Header,
     PopularUsers,
   },
+  computed: {
+    ...mapState(["isAdmin"])
+  }
 };
 </script>
 
