@@ -64,7 +64,12 @@ export default {
           throw new Error(response.message);
         }
 
-        this.fetchUsers();
+        this.users = this.users.map((user) => {
+          if (user.id === userId) {
+            user.isFollowing = true;
+          }
+          return user;
+        });
       } catch (error) {
         // TODO error alert
         console.log(error);
@@ -78,9 +83,13 @@ export default {
           throw new Error(response.message);
         }
 
-        this.fetchUsers();
+        this.users = this.users.map((user) => {
+          if (user.id === userId) {
+            user.isFollowing = false;
+          }
+          return user;
+        });
       } catch (error) {
-        this.isProcessing = false;
         // TODO error alert
         console.log(error);
       }
