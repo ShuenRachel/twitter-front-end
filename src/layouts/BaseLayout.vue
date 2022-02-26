@@ -1,8 +1,9 @@
 <template>
   <div class="page-container">
-    <Navbar class="container-left" />
+    <Navbar class="container-left" @after-show-modal="afterShowModal"/>
     <div class="container-middle"><Header /><router-view class="container-middle-main" /></div>
     <PopularUsers class="container-right" v-if="!isAdmin" />
+    <TweetModal v-if="modalVisibility" />
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import Navbar from "@/components/Navbar.vue";
 import Header from "@/components/Header.vue";
 import PopularUsers from "@/components/PopularUsers.vue";
+import TweetModal from "@/components/TweetModal.vue";
 import { mapState } from "vuex";
 
 export default {
@@ -17,9 +19,20 @@ export default {
     Navbar,
     Header,
     PopularUsers,
+    TweetModal
+  },
+  data() {
+    return {
+      modalVisibility: false
+    }
   },
   computed: {
     ...mapState(["isAdmin"])
+  },
+  methods: {
+    afterShowModal() {
+      this.modalVisibility = true
+    }
   }
 };
 </script>
