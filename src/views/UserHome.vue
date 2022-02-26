@@ -1,14 +1,16 @@
 <template>
   <div class="tweets-wrapper">
+    <TweetNew class="tweet-new" />
     <TweetsList
       v-for="tweet in tweetsData"
       :key="tweet.id"
       :init-tweet-data="tweet"
     />
-  </div>
+  <div>
 </template>
 
 <script>
+import TweetNew from "@/components/TweetNew.vue";
 import TweetsList from "@/components/TweetsList.vue";
 // import tweetsAPI from "./../apis/tweets"
 
@@ -374,6 +376,7 @@ const dummyData = [
 
 export default {
   components: {
+    TweetNew,
     TweetsList,
   },
   data() {
@@ -400,6 +403,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../assets/scss/main.scss";
+.tweet-new {
+  border-top: $border-setting;
+  border-bottom: 10px solid $border-color;
+}
 .tweets-wrapper {
   max-height: 600px;
   max-width: 600px;

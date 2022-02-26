@@ -88,7 +88,7 @@
             設定</router-link
           >
         </div>
-        <button class="btn btn-orange">推文</button>
+        <button class="btn btn-orange" @click.stop.prevent="showModal">推文</button>
       </div>
       <div class="nav-footer">
         <svg
@@ -119,6 +119,11 @@ export default {
   computed: {
     ...mapState(["currentUser", "isAdmin"]),
   },
+  methods: {
+    showModal() {
+      this.$emit("after-show-modal")
+    }
+  }
 };
 </script>
 
