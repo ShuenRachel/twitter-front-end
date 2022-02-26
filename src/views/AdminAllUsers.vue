@@ -8,7 +8,7 @@
 
 <script>
 import AdminUsers from '../components/AdminUsers.vue'
-import authorizationAPI from "./../apis/authorization";
+import adminAPI from "./../apis/admin";
 
 export default {
   created() {
@@ -25,7 +25,7 @@ export default {
   methods: {
     async fetchUsers() {
       try {
-        const response = await authorizationAPI.getAllUsers()
+        const response = await adminAPI.getAllUsers()
         const { data } =response
         this.users = data
       } catch(error) {
