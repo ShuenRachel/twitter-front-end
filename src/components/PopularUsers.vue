@@ -4,13 +4,27 @@
       <div class="popular-heading">Popular</div>
       <div class="popular-users">
         <div class="popular-user" v-for="user in users" :key="user.id">
-          <div class="popular-user-avatar"><img :src="user.avatar" alt=""></div>
+          <div class="popular-user-avatar">
+            <img :src="user.avatar" alt="" />
+          </div>
           <div class="popular-user-details">
             <span class="name">{{ user.name }}</span>
-            <span class="account">account</span>
+            <span class="account">TBC</span>
           </div>
-          <button v-if="user.isFollowing" class="popular-user-btn btn btn-orange">正在跟隨</button>
-          <button v-else class="popular-user-btn btn btn-white">跟隨</button>
+          <button
+            v-if="user.isFollowing"
+            class="popular-user-btn btn btn-orange"
+            @click.stop.prevent="deleteFollowing(user.id)"
+          >
+            正在跟隨
+          </button>
+          <button
+            v-else
+            class="popular-user-btn btn btn-white"
+            @click.stop.prevent="addFollowing(user.id)"
+          >
+            跟隨
+          </button>
         </div>
       </div>
     </div>
@@ -36,10 +50,47 @@ export default {
           throw new Error(response.message);
         }
 
-        this.users = data
-
+        this.users = data;
       } catch (error) {
+        console.log(error);
+      }
+    },
+    async addFollowing(userId) {
+      try {
+        this.isProcessing = true;
+        const response = await usersAPI.addFollowing(userId);
 
+        if (response.statusText !== "OK") {
+          throw new Error(response.message);
+        }
+
+        this.users = this.users.map((user) => {
+          if (user.id === userId) {
+            user.isFollowing = true;
+          }
+          return user;
+        });
+      } catch (error) {
+        // TODO error alert
+        console.log(error);
+      }
+    },
+    async deleteFollowing(userId) {
+      try {
+        const response = await usersAPI.deleteFollowing(userId);
+
+        if (response.statusText !== "OK") {
+          throw new Error(response.message);
+        }
+
+        this.users = this.users.map((user) => {
+          if (user.id === userId) {
+            user.isFollowing = false;
+          }
+          return user;
+        });
+      } catch (error) {
+        // TODO error alert
         console.log(error);
       }
     },
