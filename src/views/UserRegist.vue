@@ -4,7 +4,7 @@
       <div class="form-title-icon">
         <img src="/image/logo.svg" alt="" srcset="" />
       </div>
-      <div class="form-title-text">build your account</div>
+      <div class="form-title-text">建立你的帳號</div>
     </div>
     <SettingForm
       :init-is-processing="isProcessing"
