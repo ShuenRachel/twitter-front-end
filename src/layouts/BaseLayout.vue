@@ -3,7 +3,7 @@
     <Navbar class="container-left" @after-show-modal="afterShowModal"/>
     <div class="container-middle"><Header /><router-view class="container-middle-main" /></div>
     <PopularUsers class="container-right" v-if="!isAdmin" />
-    <TweetModal v-if="modalVisibility" />
+    <TweetModal v-if="modalVisibility" @after-close-modal="afterCloseModal" />
   </div>
 </template>
 
@@ -32,6 +32,9 @@ export default {
   methods: {
     afterShowModal() {
       this.modalVisibility = true
+    },
+    afterCloseModal() {
+      this.modalVisibility = false
     }
   }
 };

@@ -6,14 +6,15 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
                 <button
                   type="button"
                   class="close"
                   data-dismiss="modal"
                   aria-label="Close"
                 >
-                  <span aria-hidden="true" @click="showModal = false"
+                  <span
+                    aria-hidden="true"
+                    @click.stop.prevent="handleCloseModal"
                     >&times;</span
                   >
                 </button>
@@ -29,9 +30,6 @@
                 >
                   Close
                 </button>
-                <button type="button" class="btn btn-primary">
-                  Save changes
-                </button>
               </div>
             </div>
           </div>
@@ -40,6 +38,16 @@
     </transition>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    handleCloseModal() {
+      this.$emit("after-close-modal");
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 .modal-mask {
