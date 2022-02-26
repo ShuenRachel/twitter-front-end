@@ -24,9 +24,13 @@ export default {
   },
   methods: {
     async fetchUsers() {
-      const response = await authorizationAPI.getAllUsers()
-      const { data } =response
-      this.users = data
+      try {
+        const response = await authorizationAPI.getAllUsers()
+        const { data } =response
+        this.users = data
+      } catch(error) {
+        console.log('error: ', error);
+      }
     }
   },
 }
