@@ -12,7 +12,9 @@
             回覆 <span class="reply-account">daniel</span>
           </div>
           <div class="content">
+            <router-link :to="{ name: 'user-tweet', params: { tweet_id: tweet.id }}">
             <p>{{tweet.description}}</p>
+            </router-link>
           </div>
         </div>
         <div v-if="isUserPage" class="tweet__footer">
