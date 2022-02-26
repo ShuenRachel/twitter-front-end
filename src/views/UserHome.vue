@@ -1,12 +1,14 @@
 <template>
-  <div class="tweets-wrapper">
-    <TweetNew class="tweet-new" />
-    <TweetsList
-      v-for="tweet in tweetsData"
-      :key="tweet.id"
-      :init-tweet-data="tweet"
-    />
   <div>
+    <TweetNew class="tweet-new" />
+    <div class="tweets-wrapper">
+      <TweetsList
+        v-for="tweet in tweetsData"
+        :key="tweet.id"
+        :init-tweet-data="tweet"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -386,8 +388,8 @@ export default {
   },
   methods: {
     fetchTweets() {
-      this.tweetsData = dummyData
-    }
+      this.tweetsData = dummyData;
+    },
     // async fetchTweets() {
     //   try {
     //     const response = await tweetsAPI
@@ -397,7 +399,7 @@ export default {
     // }
   },
   created() {
-    this.fetchTweets()
+    this.fetchTweets();
   },
 };
 </script>
