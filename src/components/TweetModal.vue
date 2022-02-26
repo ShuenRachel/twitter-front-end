@@ -20,15 +20,17 @@
                 </button>
               </div>
               <div class="modal-body">
-                <p>Modal body text goes here.</p>
+                <div class="input-area">
+                  <input type="text" v-model="tweet" maxlength="140">
+                </div>
               </div>
               <div class="modal-footer">
                 <button
                   type="button"
                   class="btn btn-secondary"
-                  @click="showModal = false"
+                  @click.stop.prevent="submitTweet"
                 >
-                  Close
+                  推文
                 </button>
               </div>
             </div>
@@ -40,11 +42,29 @@
 </template>
 
 <script>
+import tweetAPI from "./../apis/tweets";
 export default {
+  data() {
+    return {
+      tweet: ""
+    }
+  },
   methods: {
     handleCloseModal() {
       this.$emit("after-close-modal");
     },
+    async submitTweet() {
+      try {
+        // TODO: warning text > 140 words
+        // TODO: handle api response
+        if(this.tweet.length > 140) return
+        const response = tweetAPI.createTweet(this.tweet)
+
+        console.log(response)
+      } catch(error) {
+        console.log(error)
+      }
+    }
   },
 };
 </script>
