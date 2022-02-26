@@ -38,38 +38,36 @@
         </div>
       </div>
     </div>
-    <div class="tweet">
-      <div class="user-avatar" style="background-image: url('https://via.placeholder.com/50x50/DFDFDF?text=No+Image');">
-      </div>
-      <div class="info-container">
-        <div class="info">
-          <span class="name">Apple</span>
-          <span class="account">apple・3 小時</span>
-          <div class="content">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing ...</p>
-          </div>
-        </div>
-        <div class="delete">
-          <span class="delete"></span>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 export default {
+  props:{
+    initTweetData: {
+      type: Object,
+      require: true
+    }
+  },
   data() {
     return {
-      isUserPage: false,
+      tweetData: {},
+      // TODO: import vuex control components
+      isUserPage: true,
       isLike: false,
-      isReply: true
+      isReply: false
     }
   },
   methods: {
+    fetchTweet() {
+      this.tweetData = this.initTweetData
+    },
     handleLike() {
       this.isLike = !this.isLike;
     }
+  },
+  created() {
+    this.fetchTweet()
   }
 }
 </script>

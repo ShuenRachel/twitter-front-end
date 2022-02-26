@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TweetsList :init-tweets-data="tweetsData" />
+    <TweetsList v-for="tweet in tweetsData" :key="tweet.id" :init-tweet-data="tweet"/>
   </div>
 </template>
 
@@ -13,7 +13,13 @@ export default {
   },
   data() {
     return {
-      tweetsData: []
+      tweetsData: [{
+        id: 1
+      },{
+        id: 2
+      },{
+        id: 3
+      },]
     }
   },
   methods: {
