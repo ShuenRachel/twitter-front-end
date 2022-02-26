@@ -19,7 +19,7 @@
                   >
                 </button>
               </div>
-              <TweetNew />
+              <TweetNew @after-submit-tweet="handleCloseModal" />
             </div>
           </div>
         </div>

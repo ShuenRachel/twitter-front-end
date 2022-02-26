@@ -43,6 +43,7 @@ export default {
         const response = tweetAPI.createTweet(this.tweet);
 
         console.log(response);
+        this.$emit("after-submit-tweet")
       } catch (error) {
         console.log(error);
       }
