@@ -72,7 +72,7 @@ export default {
         left: calc(50% - 50px);
         width: 100px;
         height: 100px;
-        border: 4px solid $bg-white;
+        border: 4px solid #fff;
         border-radius: 50%;
       }
       &__avatar, &__background {
