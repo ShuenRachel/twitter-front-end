@@ -10,17 +10,17 @@
         <span class="nav-tab">正在跟隨</span>
       </router-link>
     </div>
-    <div v-if="isProfilePage" class="nav-tab">
+    <div v-if="!isFollowPage" class="nav-tab">
       <router-link class="nav-link" :to="{ name: 'user-all-tweets' }">
         <span class="nav-tab">推文</span>
       </router-link>
     </div>
-    <div v-if="isProfilePage" class="nav-tab">
+    <div v-if="!isFollowPage" class="nav-tab">
       <router-link class="nav-link" :to="{ name: 'user-all-replies' }">
         <span class="nav-tab">推文與回覆</span>
       </router-link>
     </div>
-    <div v-if="isProfilePage" class="nav-tab">
+    <div v-if="!isFollowPage" class="nav-tab">
       <router-link class="nav-link" :to="{ name: 'user-all-like' }">
         <span class="nav-tab">喜歡的內容</span>
       </router-link>
