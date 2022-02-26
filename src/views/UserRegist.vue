@@ -1,9 +1,17 @@
 <template>
-  <SettingForm
-    :init-is-processing="isProcessing"
-    :init-submit-status="submitStatus"
-    @after-form-submit="afterFormSubmit"
-  />
+  <div class="card">
+    <div class="form-title">
+      <div class="form-title-icon">
+        <img src="/image/logo.svg" alt="" srcset="" />
+      </div>
+      <div class="form-title-text">build your account</div>
+    </div>
+    <SettingForm
+      :init-is-processing="isProcessing"
+      :init-submit-status="submitStatus"
+      @after-form-submit="afterFormSubmit"
+    />
+  </div>
 </template>
 
 <script>
@@ -17,13 +25,12 @@ export default {
   data() {
     return {
       isProcessing: false,
-      submitStatus: "waiting"
+      submitStatus: "waiting",
     };
   },
   methods: {
     async afterFormSubmit(formData) {
       try {
-
         this.isProcessing = true;
 
         const response = await authorizationAPI.userRegister(formData);
@@ -35,16 +42,42 @@ export default {
           throw new Error(data.message);
         }
         // TODO: show success msg
-        this.submitStatus = data.message
+        this.submitStatus = data.message;
 
         this.$router.push("/user/login");
       } catch (error) {
         this.isProcessing = false;
 
-        this.submitStatus = error.message
+        this.submitStatus = error.message;
       }
     },
   },
 };
 </script>
 
+<style lang="scss" scoped>
+@import "../assets/scss/main.scss";
+.card {
+  max-width: 540px;
+  border: 0;
+  margin: auto;
+  margin-top: 65px;
+}
+
+.form-title {
+  align-self: center;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &-icon {
+    width: 50px;
+    height: 50px;
+  }
+  &-text {
+    margin-top: 20px;
+    font-size: 23px;
+    font-weight: 700;
+  }
+}
+</style>

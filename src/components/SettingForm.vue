@@ -1,11 +1,5 @@
 <template>
-  <div class="card">
-    <div class="form-title">
-      <div class="form-title-icon">
-        <img src="/image/logo.svg" alt="" srcset="" />
-      </div>
-      <div class="form-title-text">build your account</div>
-    </div>
+  <div>
     <div class="form-wrapper">
       <div class="input-gp">
         <label class="input-label">帳號</label>
@@ -72,6 +66,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   props: {
     initIsProcessing: {
@@ -95,6 +91,9 @@ export default {
       isProcessing: false,
       submitStatus: "",
     };
+  },
+  computed: {
+    ...mapState(["currentPathName"]),
   },
   watch: {
     initIsProcessing(newValue) {
@@ -136,38 +135,18 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/scss/main.scss";
-.card {
-  max-width: 540px;
-  border: 0;
-  margin: auto;
-  margin-top: 65px;
-}
-
-.form-title {
-  align-self: center;
-  margin-bottom: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  &-icon {
-    width: 50px;
-    height: 50px;
-  }
-  &-text {
-    margin-top: 20px;
-    font-size: 23px;
-    font-weight: 700;
-  }
-}
 
 .btn-orange {
+  width: 100%;
   font-size: 18px;
   font-weight: 700;
 }
 
 .link-group {
-  align-self: center;
+  width: 100%;
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
   .link {
     font-size: 18px;
     font-weight: 700;

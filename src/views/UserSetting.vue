@@ -1,3 +1,21 @@
 <template>
-  <h1>UserSetting Page.</h1>
+  <div>
+    <SettingForm />
+  </div>
 </template>
+
+<script>
+import SettingForm from "@/components/SettingForm.vue";
+
+export default {
+  components: {
+    SettingForm,
+  },
+  data() {
+    return {
+      isProcessing: false,
+      submitStatus: "waiting",
+    };
+  },
+};
+</script>
