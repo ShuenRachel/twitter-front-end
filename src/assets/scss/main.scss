@@ -63,7 +63,8 @@ input:invalid {
 
 // color
 $brand-orange: #ff6600;
-$card-fill: #f5f8fa; // input 欄位、top users 背景
+$card-fill: #f5f8fa;  // input 欄位、top users 背景
+$border-color: #e6ecf0; 
 $card-bg-color: #f6f7f8; // admin/使用者列表 user-card的背景色
 $text-main: #1c1c1c; // 主文
 $text-sub: #657786; // 次級文字
@@ -73,7 +74,7 @@ $link-blue: #0099ff; // 超連結
 $input-blue: #50b5ff; // input 提示底線
 $warning-red: #fc5a5a;
 $bg-white: #fff;
-$border-setting: 1px solid $card-fill;
+$border-setting: 1px solid $border-color;
 
 // 共用樣式
 .btn {
@@ -87,7 +88,8 @@ $border-setting: 1px solid $card-fill;
 
 .btn-white {
   color: $brand-orange;
-  background-color: $bg-white;
+  border: 1px solid $brand-orange;
+  background-color: transparent;
 }
 
 .link {
