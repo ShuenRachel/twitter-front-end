@@ -19,21 +19,7 @@
                   >
                 </button>
               </div>
-              <div class="modal-body">
-                <div class="user-avatar"><img :src="currentUser.avatar" alt=""></div>
-                <div class="input-area">
-                  <input type="text" v-model="tweet" maxlength="140" placeholder="有什麼新鮮事？"/>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  @click.stop.prevent="submitTweet"
-                >
-                  推文
-                </button>
-              </div>
+              <TweetNew />
             </div>
           </div>
         </div>
@@ -43,9 +29,13 @@
 </template>
 
 <script>
+import TweetNew from "@/components/TweetNew.vue";
 import tweetAPI from "./../apis/tweets";
 import { mapState } from "vuex";
 export default {
+  components: {
+    TweetNew,
+  },
   data() {
     return {
       tweet: "",
