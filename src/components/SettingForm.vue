@@ -52,15 +52,29 @@
         <div class="input-line"></div>
       </div>
     </div>
-    <button
-      class="btn btn-orange"
-      :disabled="isProcessing"
-      @click.stop.prevent="handleSubmit"
+    <div class="form-footer" v-if="currentPathName === 'user-regist'">
+      <button
+        class="btn btn-orange btn-full"
+        :disabled="isProcessing"
+        @click.stop.prevent="handleSubmit"
+      >
+        註冊
+      </button>
+      <div class="link-group">
+        <router-link to="/user/login" class="link">取消</router-link>
+      </div>
+    </div>
+    <div
+      class="form-footer d-flex justify-content-end"
+      v-else-if="currentPathName === 'user-setting'"
     >
-      註冊
-    </button>
-    <div class="link-group">
-      <router-link to="/user/login" class="link">取消</router-link>
+      <button
+        class="btn btn-orange btn-small"
+        :disabled="isProcessing"
+        @click.stop.prevent="handleSubmit"
+      >
+        儲存
+      </button>
     </div>
   </div>
 </template>
@@ -137,13 +151,20 @@ export default {
 @import "../assets/scss/main.scss";
 
 .btn-orange {
-  width: 100%;
   font-size: 18px;
   font-weight: 700;
 }
 
+.btn {
+  &-full {
+    width: 100%;
+  }
+  &-small {
+    width: 116px;
+  }
+}
+
 .link-group {
-  width: 100%;
   margin-top: 20px;
   display: flex;
   justify-content: center;
