@@ -1,5 +1,5 @@
 import { apiHelper } from "../utils/helpers";
-const getToken = () => localStorage.getItem("token");
+// const getToken = () => localStorage.getItem("token");
 
 export default {
   userLogin(loginData) {
@@ -11,11 +11,4 @@ export default {
   userRegister(registerData) {
     return apiHelper.post("/users", { ...registerData });
   },
-  getAllUsers() {
-    return apiHelper.get("/admin/users", {
-      headers: {
-        Authorization: `Bearer ${getToken()}`
-      }
-    });
-  }
 };
