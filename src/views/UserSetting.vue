@@ -10,7 +10,7 @@
 
 <script>
 import SettingForm from "@/components/SettingForm.vue";
-import userAPI from "./../apis/user";
+import userAPI from "./../apis/users";
 
 export default {
   components: {
@@ -27,7 +27,7 @@ export default {
       try {
         this.isProcessing = true;
 
-        const response = await userAPI.userRegister(formData);
+        const response = await userAPI.updateSetting(formData);
         const { data } = response;
 
         console.log(data);

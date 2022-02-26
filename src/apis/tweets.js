@@ -4,7 +4,7 @@ const getToken = () => localStorage.getItem("token");
 export default {
   createTweet(tweet) {
     return apiHelper.post(
-      "/admin/tweets",
+      "/tweets",
       { description: tweet },
       {
         headers: {
