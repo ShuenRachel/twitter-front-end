@@ -1,28 +1,46 @@
 <template>
   <div>
     <Tweet :init-tweet-id="tweetId" />
+    <!-- <TweetsList
+      v-for="tweet in tweetsData"
+      :key="tweet.id"
+      :init-tweet-data="tweet"
+    /> -->
   </div>
 </template>
 
 <script>
 import Tweet from "@/components/Tweet.vue";
+// import TweetsList from "@/components/TweetsList.vue";
+import tweetsAPI from "./../apis/tweets"
 
 export default {
   components: {
     Tweet,
+    // TweetsList
   },
   data() {
     return {
-      tweetId: -1
+      tweetId: "",
+    };
+  },
+  methods: {
+    async getReplies() {
+      try {
+        const response = tweetsAPI.getReplies(this.tweetId)
+        console.log(response)
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
-  created(){
+  created() {
     const { tweet_id } = this.$route.params;
-    this.tweetId = tweet_id
-  }, 
+    this.tweetId = tweet_id.toString();
+  },
   beforeRouteUpdate(to, from, next) {
-    const { tweet_id } = to.params
-    this.tweetId = tweet_id
+    const { tweet_id } = to.params;
+    this.tweetId = tweet_id.toString();
     next();
   },
 };

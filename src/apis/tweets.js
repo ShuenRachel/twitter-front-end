@@ -27,6 +27,13 @@ export default {
       },
     });
   },
+  getReplies(tweetId) {
+    return apiHelper.get(`/tweets/${tweetId}/replies`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
+  },
   addLike(tweetId) {
     return apiHelper.post(`/tweets/${tweetId}/like`, null, {
       headers: {
