@@ -11,17 +11,29 @@
       </div>
       <div class="tweet__info-container">
         <div class="info">
-          <span class="name">{{user.name}}</span>
-          <span class="account">{{user.account}}</span>
+          <span class="name">{{ user.name }}</span>
+          <span class="account">{{ user.account }}</span>
           <div class="content">
             <p>
-              {{user.introduction}}
+              {{ user.introduction }}
             </p>
           </div>
         </div>
         <div class="follow-ship">
-          <button v-if="user.isFollowing" class="following">正在跟隨</button>
-          <button v-else class="follow">跟隨</button>
+          <button
+            v-if="user.isFollowing"
+            class="following"
+            @click.stop.prevent="deleteFollowing(user.id)"
+          >
+            正在跟隨
+          </button>
+          <button
+            v-else
+            class="follow"
+            @click.stop.prevent="addFollowing(user.id)"
+          >
+            跟隨
+          </button>
         </div>
       </div>
     </div>
@@ -29,6 +41,8 @@
 </template>
 
 <script>
+import usersAPI from "./../apis/users";
+
 export default {
   props: {
     initUser: {
@@ -44,12 +58,41 @@ export default {
     fetchUser() {
       if (this.initUser.followerId) {
         this.user = this.initUser;
-        // this.user.id = this.initUser.followerId
+        this.user.id = this.initUser.followerId;
       } else if (this.initUser.followingId) {
         this.user = this.initUser;
-        this.user.id = this.initUser.followingId
+        this.user.id = this.initUser.followingId;
       }
       return;
+    },
+    async addFollowing(userId) {
+      try {
+        this.isProcessing = true;
+        const response = await usersAPI.addFollowing(userId);
+
+        if (response.statusText !== "OK") {
+          throw new Error(response.message);
+        }
+
+        this.user.isFollowing = true;
+      } catch (error) {
+        // TODO error alert
+        console.log(error);
+      }
+    },
+    async deleteFollowing(userId) {
+      try {
+        const response = await usersAPI.deleteFollowing(userId);
+
+        if (response.statusText !== "OK") {
+          throw new Error(response.message);
+        }
+
+        this.user.isFollowing = false;
+      } catch (error) {
+        // TODO error alert
+        console.log(error);
+      }
     },
   },
   created() {
