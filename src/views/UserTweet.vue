@@ -12,7 +12,7 @@
 <script>
 import Tweet from "@/components/Tweet.vue";
 // import TweetsList from "@/components/TweetsList.vue";
-import tweetsAPI from "./../apis/tweets"
+import tweetsAPI from "./../apis/tweets";
 
 export default {
   components: {
@@ -22,21 +22,27 @@ export default {
   data() {
     return {
       tweetId: "",
+      replies: []
     };
   },
   methods: {
     async getReplies() {
       try {
-        const response = tweetsAPI.getReplies(this.tweetId)
-        console.log(response)
+        const response = await tweetsAPI.getReplies(this.tweetId);
+        console.log(response);
+        if (response.statusText !== "OK") {
+          throw new Error(response.message);
+        }
+        this.replies = response.data
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    }
+    },
   },
   created() {
     const { tweet_id } = this.$route.params;
     this.tweetId = tweet_id.toString();
+    this.getReplies();
   },
   beforeRouteUpdate(to, from, next) {
     const { tweet_id } = to.params;
