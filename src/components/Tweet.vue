@@ -4,8 +4,8 @@
       <div class="tweet-content-header">
         <div class="user-avatar"><img :src="avatar" alt="" /></div>
         <div class="user-data">
-          <span class="user-data-name">{{ tweetUserName }}name</span>
-          <span class="user-data-account">account</span>
+          <span class="user-data-name">{{ tweetUserName }}</span>
+          <span class="user-data-account account">{{tweetUserAccount}}</span>
         </div>
       </div>
       <div class="tweet-content">
@@ -83,6 +83,7 @@ export default {
       description: "",
       createdAt: "",
       tweetUserName: "",
+      tweetUserAccount: "",
       avatar: "",
       repliedCount: -1,
       likeCount: 0,
@@ -99,12 +100,14 @@ export default {
     async fetchTweet(id) {
       try {
         const response = await tweetsAPI.getTweet(id);
+        console.log(response)
         const { data } = response;
         const {
           TweetId: tweetId,
           description,
           createdAt,
           tweetUserName,
+          tweetUserAccount,
           avatar,
           repliedCount,
           likeCount,
@@ -116,6 +119,7 @@ export default {
         this.description = description;
         this.createdAt = createdAt;
         this.tweetUserName = tweetUserName;
+        this.tweetUserAccount = tweetUserAccount;
         this.avatar = avatar;
         this.repliedCount = repliedCount;
         this.likeCount = likeCount;
