@@ -119,6 +119,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   store.commit("updatePathName", to.name);
+  store.dispatch("fetchCurrentUser");
   next();
 });
 
