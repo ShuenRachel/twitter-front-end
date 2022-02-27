@@ -2,21 +2,38 @@
   <div class="follow-list">
     <div class="tweet">
       <div class="avatar-container">
-        <div class="tweet__user-avatar"
-        style="background-image: url('https://via.placeholder.com/50x50/DFDFDF?text=No+Image');">
-        </div>
+        <div
+          class="tweet__user-avatar"
+          style="
+            background-image: url('https://via.placeholder.com/50x50/DFDFDF?text=No+Image');
+          "
+        ></div>
       </div>
       <div class="tweet__info-container">
         <div class="info">
-          <span class="name">Apple</span>
-          <span class="account">apple</span>
+          <span class="name">{{ user.name }}</span>
+          <span class="account">{{ user.account }}</span>
           <div class="content">
-            <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
+            <p>
+              {{ user.introduction }}
+            </p>
           </div>
         </div>
         <div class="follow-ship">
-          <button v-if="isFollowing" class="following">正在跟隨</button>
-          <button v-else class="follow">跟隨</button>
+          <button
+            v-if="user.isFollowing"
+            class="following"
+            @click.stop.prevent="deleteFollowing(user.id)"
+          >
+            正在跟隨
+          </button>
+          <button
+            v-else
+            class="follow"
+            @click.stop.prevent="addFollowing(user.id)"
+          >
+            跟隨
+          </button>
         </div>
       </div>
     </div>
@@ -24,13 +41,64 @@
 </template>
 
 <script>
+import usersAPI from "./../apis/users";
+
 export default {
+  props: {
+    initUser: {
+      type: Object,
+    },
+  },
   data() {
     return {
-      isFollowing: true
-    }
-  }
-}
+      user: {},
+    };
+  },
+  methods: {
+    fetchUser() {
+      if (this.initUser.followerId) {
+        this.user = this.initUser;
+        this.user.id = this.initUser.followerId;
+      } else if (this.initUser.followingId) {
+        this.user = this.initUser;
+        this.user.id = this.initUser.followingId;
+      }
+      return;
+    },
+    async addFollowing(userId) {
+      try {
+        this.isProcessing = true;
+        const response = await usersAPI.addFollowing(userId);
+
+        if (response.statusText !== "OK") {
+          throw new Error(response.message);
+        }
+
+        this.user.isFollowing = true;
+      } catch (error) {
+        // TODO error alert
+        console.log(error);
+      }
+    },
+    async deleteFollowing(userId) {
+      try {
+        const response = await usersAPI.deleteFollowing(userId);
+
+        if (response.statusText !== "OK") {
+          throw new Error(response.message);
+        }
+
+        this.user.isFollowing = false;
+      } catch (error) {
+        // TODO error alert
+        console.log(error);
+      }
+    },
+  },
+  created() {
+    this.fetchUser();
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -69,7 +137,8 @@ div.tweet {
       position: absolute;
       top: 10px;
       right: 15px;
-      button.following, button.follow {
+      button.following,
+      button.follow {
         border-radius: 100px;
       }
       button.following {
