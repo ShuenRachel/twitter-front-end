@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import UserLogin from "../views/UserLogin.vue";
 import NotFound from "../views/NotFound.vue";
 import BaseLayout from "@/layouts/BaseLayout.vue";
+import UserProfileLayout from "@/layouts/UserProfileLayout.vue";
 import store from "./../store";
 
 Vue.use(VueRouter);
@@ -57,19 +58,25 @@ const routes = [
         component: () => import("../views/UserTweet.vue"),
       },
       {
-        path: "user/:user_id/tweets",
-        name: "user-all-tweets",
-        component: () => import("../views/UserAllTweets.vue"),
-      },
-      {
-        path: "user/:user_id/replies",
-        name: "user-all-replies",
-        component: () => import("../views/UserAllReplies.vue"),
-      },
-      {
-        path: "user/:user_id/like",
-        name: "user-all-like",
-        component: () => import("../views/UserAllLike.vue"),
+        path: "user/:user_id/",
+        component: UserProfileLayout,
+        children: [
+          {
+            path: "tweets",
+            name: "user-all-tweets",
+            component: () => import("../views/UserAllTweets.vue"),
+          },
+          {
+            path: "replies",
+            name: "user-all-replies",
+            component: () => import("../views/UserAllReplies.vue"),
+          },
+          {
+            path: "like",
+            name: "user-all-like",
+            component: () => import("../views/UserAllLike.vue"),
+          },
+        ],
       },
       {
         path: "user/:user_id/followers",
