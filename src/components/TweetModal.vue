@@ -19,7 +19,23 @@
                   >
                 </button>
               </div>
-              <TweetNew @after-submit-tweet="handleCloseModal" />
+              <div v-if="initReplyTweet" class="reply-tweet">
+                <div class="reply-avatar">
+                  <img :src="initReplyTweet.avatar" alt="" />
+                </div>
+                <div class="reply-content">
+                  <div class="reply-content-data">
+                    <span>{{ initReplyTweet.tweetUserName }}</span>
+                    <span class="account">{{ initReplyTweet.tweetUserAccount }}</span>
+                    <span>{{ initReplyTweet.createdAt | fromNow }}</span>
+                  </div>
+                  <div class="reply-content-text">
+                    {{initReplyTweet.description}}
+                  </div>
+                  <span class="reply-content-footer">回覆給 <span>@{{initReplyTweet.tweetUserAccount}}</span></span>
+                </div>
+              </div>
+              <TweetNew :reply-id="initReplyTweet.TweetId" @after-submit-tweet="handleCloseModal" />
             </div>
           </div>
         </div>
@@ -32,7 +48,13 @@
 import TweetNew from "@/components/TweetNew.vue";
 import tweetAPI from "./../apis/tweets";
 import { mapState } from "vuex";
+import { fromNowFilter } from "../utils/mixin";
 export default {
+  props: {
+    initReplyTweet: {
+      type: Object,
+    },
+  },
   components: {
     TweetNew,
   },
@@ -40,6 +62,11 @@ export default {
     return {
       tweet: "",
     };
+  },
+  watch: {
+    initReplyTweet(newValue) {
+      console.log("modal:", newValue);
+    },
   },
   computed: {
     ...mapState(["currentUser"]),
@@ -64,6 +91,7 @@ export default {
       }
     },
   },
+  mixins: [fromNowFilter],
 };
 </script>
 

@@ -24,7 +24,7 @@
         </div>
         <div v-if="isUserPage" class="tweet__footer">
           <div class="tweet__footer__actives">
-            <div class="tweet__footer__actives__reply">
+            <div class="tweet__footer__actives__reply"  @click.stop.prevent="handleReplyClicked(tweet.TweetId)">
               <svg
                 class="actives-icon actives-icon__reply"
                 width="12"
@@ -112,7 +112,6 @@ export default {
       // TODO: import vuex control components
       isUserPage: true,
       isLike: false,
-      isReply: false,
     };
   },
   methods: {
@@ -145,6 +144,9 @@ export default {
         console.log(error);
       }
     },
+    handleReplyClicked(tweetId) {
+      this.$emit("after-reply-clicked", tweetId)
+    }
   },
   created() {
     this.fetchTweet();
