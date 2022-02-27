@@ -20,6 +20,20 @@ export default {
       },
     });
   },
+  getTweet(tweetId) {
+    return apiHelper.get(`/tweets/${tweetId}`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
+  },
+  getReplies(tweetId) {
+    return apiHelper.get(`/tweets/${tweetId}/replies`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
+  },
   addLike(tweetId) {
     return apiHelper.post(`/tweets/${tweetId}/like`, null, {
       headers: {
@@ -33,5 +47,16 @@ export default {
         Authorization: `Bearer ${getToken()}`,
       },
     });
+  },
+  postReply(tweetId, reply) {
+    return apiHelper.post(
+      `/tweets/${tweetId}/replies`,
+      { comment: reply },
+      {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      }
+    );
   },
 };

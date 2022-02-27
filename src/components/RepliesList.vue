@@ -11,8 +11,10 @@
       <div class="tweet__info-container">
         <div class="info">
           <span class="name">{{ tweet.tweetUserName }}</span>
-          <span class="account">{{ tweet.tweetUserAccount }}{{ tweet.createdAt | fromNow }}</span>
-          <div v-if="isReply" class="reply-account">
+          <span class="account"
+            >{{ tweet.tweetUserAccount }}{{ tweet.createdAt | fromNow }}</span
+          >
+          <div class="reply-account">
             回覆 <span class="reply-account">daniel</span>
           </div>
           <router-link
@@ -24,7 +26,7 @@
         </div>
         <div v-if="isUserPage" class="tweet__footer">
           <div class="tweet__footer__actives">
-            <div class="tweet__footer__actives__reply"  @click.stop.prevent="handleReplyClicked(tweet.TweetId)">
+            <div class="tweet__footer__actives__reply">
               <svg
                 class="actives-icon actives-icon__reply"
                 width="12"
@@ -41,54 +43,7 @@
                 tweet.repliedCount
               }}</span>
             </div>
-            <div
-              v-if="tweet.liked"
-              @click="deleteLike(tweet.TweetId)"
-              class="tweet__footer__actives__like"
-            >
-              <svg
-                class="actives-icon actives-icon__like"
-                width="12.5"
-                height="11.8"
-                viewBox="0 0 22 20"
-                fill="#E0245E"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11 19.6381H10.986C8.40295 19.5901 0.949951 12.8561 0.949951 6.47812C0.949951 3.41412 3.47495 0.724121 6.35295 0.724121C8.64295 0.724121 10.183 2.30412 10.999 3.45412C11.813 2.30612 13.353 0.724121 15.644 0.724121C18.524 0.724121 21.048 3.41412 21.048 6.47912C21.048 12.8551 13.594 19.5891 11.011 19.6361H11V19.6381Z"
-                />
-              </svg>
-              <span class="tweet__footer__actives__count liked">{{
-                tweet.likeCount
-              }}</span>
-            </div>
-            <div
-              v-else
-              @click="addLike(tweet.TweetId)"
-              class="tweet__footer__actives__like"
-            >
-              <svg
-                class="actives-icon actives-icon__unlike"
-                width="12.5"
-                height="11.8"
-                viewBox="0 0 21 20"
-                fill="#657786"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10.8 19.6379H10.786C8.203 19.5899 0.75 12.8559 0.75 6.47788C0.75 3.41388 3.275 0.723877 6.153 0.723877C8.443 0.723877 9.983 2.30388 10.799 3.45388C11.613 2.30588 13.153 0.723877 15.444 0.723877C18.324 0.723877 20.848 3.41388 20.848 6.47888C20.848 12.8549 13.394 19.5889 10.811 19.6359H10.8V19.6379ZM6.154 2.22488C4.074 2.22488 2.251 4.21288 2.251 6.47988C2.251 12.2199 9.285 18.0759 10.801 18.1379C12.319 18.0759 19.351 12.2209 19.351 6.47988C19.351 4.21288 17.528 2.22488 15.448 2.22488C12.92 2.22488 11.508 5.16088 11.496 5.18988C11.266 5.75188 10.34 5.75188 10.109 5.18988C10.095 5.15988 8.684 2.22488 6.155 2.22488H6.154Z"
-                />
-              </svg>
-              <span
-                class="tweet__footer__actives__count"
-                :class="{ liked: tweet.liked }"
-                >{{ tweet.likeCount }}</span
-              >
-            </div>
           </div>
-        </div>
-        <div v-if="!isUserPage" class="delete">
-          <span class="delete"></span>
         </div>
       </div>
     </div>
@@ -97,59 +52,13 @@
 
 <script>
 import { fromNowFilter } from "../utils/mixin";
-import tweetsAPI from "./../apis/tweets";
 
 export default {
   props: {
-    initTweetData: {
+    initReplyData: {
       type: Object,
       require: true,
     },
-  },
-  data() {
-    return {
-      tweet: {},
-      // TODO: import vuex control components
-      isUserPage: true,
-      isLike: false,
-    };
-  },
-  methods: {
-    fetchTweet() {
-      this.tweet = this.initTweetData;
-    },
-    async addLike(tweetId) {
-      try {
-        const response = await tweetsAPI.addLike(tweetId);
-        if (response.data.status !== "success") {
-          throw new Error(response.message);
-        }
-        this.tweet.liked = true;
-        this.tweet.likeCount += 1
-      } catch (error) {
-        // TODO: alert
-        console.log(error);
-      }
-    },
-    async deleteLike(tweetId) {
-      try {
-        const response = await tweetsAPI.deleteLike(tweetId);
-        if (response.data.status !== "success") {
-          throw new Error(response.message);
-        }
-        this.tweet.liked = false;
-        this.tweet.likeCount -= 1
-      } catch (error) {
-        // TODO: alert
-        console.log(error);
-      }
-    },
-    handleReplyClicked(tweetId) {
-      this.$emit("after-reply-clicked", tweetId)
-    }
-  },
-  created() {
-    this.fetchTweet();
   },
   mixins: [fromNowFilter],
 };

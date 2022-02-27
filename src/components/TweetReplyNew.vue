@@ -3,18 +3,18 @@
     <div class="user-avatar"><img :src="currentUser.avatar" alt=""></div>
     <div class="tweet-area">
       <input
-        v-model="tweet"
+        v-model="reply"
         type="text"
         maxlength="140"
-        placeholder="有什麼新鮮事？"
+        placeholder="推你的回覆"
       />
     </div>
     <button
       type="button"
       class="btn btn-secondary"
-      @click.stop.prevent="submitTweet"
+      @click.stop.prevent="submitReply"
     >
-      推文
+      回覆
     </button>
   </div>
 </template>
@@ -23,26 +23,29 @@
 import tweetAPI from "./../apis/tweets";
 import { mapState } from "vuex";
 export default {
+  props: {
+    replyId: {
+      type: Number
+    }
+  },
   data() {
     return {
-      tweet: "",
+      reply: "",
     };
   },
   computed: {
     ...mapState(["currentUser"]),
   },
   methods: {
-    async submitTweet() {
+    async submitReply() {
       try {
         // TODO: warning text > 140 words
         // TODO: alert after success
-        if (this.tweet.length > 140) return;
-        const response = await tweetAPI.createTweet(this.tweet);
-        if (response.statusText !== "OK") {
-          throw new Error(response.message);
-        }
-        this.tweet = ""
-        this.$emit("after-submit-tweet")
+        if (this.reply.length > 140) return;
+        const response = await tweetAPI.postReply(this.reply);
+
+        console.log(response);
+        this.$emit("after-reply-tweet")
       } catch (error) {
         console.log(error);
       }
