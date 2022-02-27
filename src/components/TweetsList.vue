@@ -43,7 +43,7 @@
             </div>
             <div
               v-if="tweet.liked"
-              @click="handleLike"
+              @click="addLike(tweet.TweetId)"
               class="tweet__footer__actives__like"
             >
               <svg
@@ -64,7 +64,7 @@
             </div>
             <div
               v-else
-              @click="handleLike"
+              @click="addLike(tweet.TweetId)"
               class="tweet__footer__actives__like"
             >
               <svg
@@ -97,6 +97,8 @@
 
 <script>
 import { fromNowFilter } from "../utils/mixin";
+import tweetsAPI from "./../apis/tweets";
+
 export default {
   props: {
     initTweetData: {
@@ -117,8 +119,17 @@ export default {
     fetchTweet() {
       this.tweet = this.initTweetData;
     },
-    handleLike() {
-      this.isLike = !this.isLike;
+    async addLike(tweetId) {
+      try {
+        const response = await tweetsAPI.addLike(tweetId);
+        if (response.data.status !== "success") {
+          throw new Error(response.message);
+        }
+        this.tweet.liked = true
+      } catch (error) {
+        // TODO: alert
+        console.log(error);
+      }
     },
   },
   created() {

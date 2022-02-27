@@ -16,7 +16,6 @@ import TweetNew from "@/components/TweetNew.vue";
 import TweetsList from "@/components/TweetsList.vue";
 import tweetsAPI from "./../apis/tweets"
 
-
 export default {
   components: {
     TweetNew,
