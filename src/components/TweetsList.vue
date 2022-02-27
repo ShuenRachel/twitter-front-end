@@ -11,7 +11,7 @@
       <div class="tweet__info-container">
         <div class="info">
           <span class="name">{{ tweet.tweetUserName }}</span>
-          <span class="account">apple・{{ tweet.createdAt | fromNow }}</span>
+          <span class="account">{{ tweet.tweetUserAccount }}{{ tweet.createdAt | fromNow }}</span>
           <div v-if="isReply" class="reply-account">
             回覆 <span class="reply-account">daniel</span>
           </div>
