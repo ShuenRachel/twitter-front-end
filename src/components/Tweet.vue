@@ -100,7 +100,6 @@ export default {
     async fetchTweet(id) {
       try {
         const response = await tweetsAPI.getTweet(id);
-        console.log(response)
         const { data } = response;
         const {
           TweetId: tweetId,

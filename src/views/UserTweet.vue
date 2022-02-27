@@ -1,23 +1,19 @@
 <template>
   <div>
     <Tweet :init-tweet-id="tweetId" />
-    <!-- <TweetsList
-      v-for="tweet in tweetsData"
-      :key="tweet.id"
-      :init-tweet-data="tweet"
-    /> -->
+    <RepliesList />
   </div>
 </template>
 
 <script>
 import Tweet from "@/components/Tweet.vue";
-// import TweetsList from "@/components/TweetsList.vue";
+import RepliesList from "@/components/RepliesList.vue";
 import tweetsAPI from "./../apis/tweets";
 
 export default {
   components: {
     Tweet,
-    // TweetsList
+    RepliesList
   },
   data() {
     return {
@@ -29,7 +25,7 @@ export default {
     async getReplies() {
       try {
         const response = await tweetsAPI.getReplies(this.tweetId);
-        console.log(response);
+        console.log('replies:',response);
         if (response.statusText !== "OK") {
           throw new Error(response.message);
         }
