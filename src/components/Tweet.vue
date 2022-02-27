@@ -71,6 +71,12 @@ import tweetsAPI from "./../apis/tweets";
 import { fromNowFilter } from "../utils/mixin";
 
 export default {
+  props: {
+    initTweetId: {
+      type: String,
+      require: true,
+    },
+  },
   data() {
     return {
       tweetId: "",
@@ -83,6 +89,11 @@ export default {
       liked: false,
       replies: [],
     };
+  },
+  watch: {
+    initTweetId(newValue) {
+      this.fetchTweet(newValue)
+    },
   },
   methods: {
     async fetchTweet(id) {
