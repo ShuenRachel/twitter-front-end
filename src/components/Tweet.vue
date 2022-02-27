@@ -33,11 +33,7 @@
         </svg>
       </div>
       <div class="btn-like">
-        <div
-          v-if="liked"
-          @click="deleteLike(tweet.TweetId)"
-          class=""
-        >
+        <div v-if="liked" @click="deleteLike(tweetId)" class="">
           <svg
             class="actives-icon actives-icon__like"
             width="12.5"
@@ -51,11 +47,7 @@
             />
           </svg>
         </div>
-        <div
-          v-else
-          @click="addLike(tweet.TweetId)"
-          class=""
-        >
+        <div v-else @click="addLike(tweetId)" class="">
           <svg
             class="actives-icon actives-icon__unlike"
             width="12.5"
@@ -119,6 +111,32 @@ export default {
         this.liked = liked;
         this.replies = replies;
       } catch (error) {
+        console.log(error);
+      }
+    },
+    async addLike(id) {
+      try {
+        const response = await tweetsAPI.addLike(id);
+        if (response.data.status !== "success") {
+          throw new Error(response.message);
+        }
+        this.liked = true;
+        this.likeCount += 1;
+      } catch (error) {
+        // TODO: alert
+        console.log(error);
+      }
+    },
+    async deleteLike(id) {
+      try {
+        const response = await tweetsAPI.deleteLike(id);
+        if (response.data.status !== "success") {
+          throw new Error(response.message);
+        }
+        this.liked = false;
+        this.likeCount -= 1;
+      } catch (error) {
+        // TODO: alert
         console.log(error);
       }
     },
