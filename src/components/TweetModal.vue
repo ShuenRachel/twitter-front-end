@@ -14,7 +14,7 @@
                 >
                   <span
                     aria-hidden="true"
-                    @click.stop.prevent="handleCloseModal"
+                    @click="handleCloseModal"
                     >&times;</span
                   >
                 </button>
@@ -35,7 +35,8 @@
                   <span class="reply-content-footer">回覆給 <span>@{{initReplyTweet.tweetUserAccount}}</span></span>
                 </div>
               </div>
-              <TweetNew :reply-id="initReplyTweet.TweetId" @after-submit-tweet="handleCloseModal" />
+              <TweetReplyNew v-if="initReplyTweet" :reply-id="initReplyTweet.TweetId"  @after-reply-tweet="handleCloseModal" />
+              <TweetNew v-else @after-submit-tweet="handleCloseModal" />
             </div>
           </div>
         </div>
@@ -46,6 +47,7 @@
 
 <script>
 import TweetNew from "@/components/TweetNew.vue";
+import TweetReplyNew from "@/components/TweetReplyNew.vue";
 import tweetAPI from "./../apis/tweets";
 import { mapState } from "vuex";
 import { fromNowFilter } from "../utils/mixin";
@@ -57,6 +59,7 @@ export default {
   },
   components: {
     TweetNew,
+    TweetReplyNew
   },
   data() {
     return {

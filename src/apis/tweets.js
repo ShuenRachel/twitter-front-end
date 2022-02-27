@@ -48,4 +48,15 @@ export default {
       },
     });
   },
+  postReply(tweetId, reply) {
+    return apiHelper.post(
+      `/tweets/${tweetId}/replies`,
+      { comment: reply },
+      {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      }
+    );
+  },
 };
