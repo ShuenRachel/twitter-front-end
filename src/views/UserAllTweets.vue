@@ -1,7 +1,5 @@
 <template>
   <div class="user-all-tweets">
-    <UserProfile :user-id="userId" />
-    <NavTabs />
     <TweetsList
       v-for="tweet in tweetsData"
       :key="tweet.id"
@@ -10,15 +8,11 @@
 </template>
 
 <script>
-import NavTabs from "../components/NavTabs.vue";
-import UserProfile from '../components/UserProfile.vue'
 import TweetsList from '../components/TweetsList.vue'
 import usersAPI from '../apis/users'
 
 export default {
   components: { 
-    UserProfile,
-    NavTabs,
     TweetsList
   },
   created() {
@@ -39,8 +33,16 @@ export default {
           throw new Error('status: '+ response.status)
         }
 
-        this.tweetsData = response.data;
-        console.log(this.tweetsData)
+        this.tweetsData = response.data.map(tweet => {
+          return {
+            TweetId: tweet.id,
+            UserId: tweet.UserId,
+            description: tweet.description,
+            createdAt: tweet.createdAt,
+            updateAt: tweet.updateAt,
+            //還缺 tweetUserName、tweetUserAccount、這則推文回覆數、這則推文被like數
+          }
+        });
       } catch (error) {
         console.log(error)
       }
@@ -48,6 +50,7 @@ export default {
   },
   beforeRouteUpdate (to, from, next) {
     this.userId = to.params.user_id
+    this.fetchTweets(Number(this.userId))
     next()
   },
 };
