@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UserProfile />
+    <UserProfile :user-id="userId"/>
     <NavTabs />
     <router-view />
   </div>
@@ -14,6 +14,16 @@ export default {
   components: {
     UserProfile,
     NavTabs
-  }
+  },
+  data() {
+    return {
+      userId: this.$route.params.user_id,
+      tweetsData: []
+    }
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.userId = to.params.user_id
+    next()
+  },
 }
 </script>
