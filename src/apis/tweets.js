@@ -13,4 +13,14 @@ export default {
       }
     );
   },
+  getAllTweets() {
+    return apiHelper.get(
+      "/tweets",
+      {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      }
+    );
+  },
 };
