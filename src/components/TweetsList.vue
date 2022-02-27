@@ -43,7 +43,7 @@
             </div>
             <div
               v-if="tweet.liked"
-              @click="addLike(tweet.TweetId)"
+              @click="deleteLike(tweet.TweetId)"
               class="tweet__footer__actives__like"
             >
               <svg
@@ -122,10 +122,24 @@ export default {
     async addLike(tweetId) {
       try {
         const response = await tweetsAPI.addLike(tweetId);
+        console.log(response)
         if (response.data.status !== "success") {
           throw new Error(response.message);
         }
-        this.tweet.liked = true
+        this.tweet.liked = true;
+      } catch (error) {
+        // TODO: alert
+        console.log(error);
+      }
+    },
+    async deleteLike(tweetId) {
+      try {
+        const response = await tweetsAPI.deleteLike(tweetId);
+        console.log(response)
+        if (response.data.status !== "success") {
+          throw new Error(response.message);
+        }
+        this.tweet.liked = false;
       } catch (error) {
         // TODO: alert
         console.log(error);
