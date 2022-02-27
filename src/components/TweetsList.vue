@@ -122,11 +122,11 @@ export default {
     async addLike(tweetId) {
       try {
         const response = await tweetsAPI.addLike(tweetId);
-        console.log(response)
         if (response.data.status !== "success") {
           throw new Error(response.message);
         }
         this.tweet.liked = true;
+        this.tweet.likeCount += 1
       } catch (error) {
         // TODO: alert
         console.log(error);
@@ -135,11 +135,11 @@ export default {
     async deleteLike(tweetId) {
       try {
         const response = await tweetsAPI.deleteLike(tweetId);
-        console.log(response)
         if (response.data.status !== "success") {
           throw new Error(response.message);
         }
         this.tweet.liked = false;
+        this.tweet.likeCount -= 1
       } catch (error) {
         // TODO: alert
         console.log(error);
