@@ -35,11 +35,13 @@ export default {
     async submitTweet() {
       try {
         // TODO: warning text > 140 words
-        // TODO: handle api response
+        // TODO: alert after success
         if (this.tweet.length > 140) return;
-        const response = tweetAPI.createTweet(this.tweet);
-
-        console.log(response);
+        const response = await tweetAPI.createTweet(this.tweet);
+        if (response.statusText !== "OK") {
+          throw new Error(response.message);
+        }
+        this.tweet = ""
         this.$emit("after-submit-tweet")
       } catch (error) {
         console.log(error);

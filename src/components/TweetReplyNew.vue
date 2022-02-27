@@ -40,7 +40,7 @@ export default {
     async submitReply() {
       try {
         // TODO: warning text > 140 words
-        // TODO: handle api response
+        // TODO: alert after success
         if (this.reply.length > 140) return;
         const response = await tweetAPI.postReply(this.reply);
 
