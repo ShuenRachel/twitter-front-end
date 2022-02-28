@@ -1,48 +1,83 @@
 <template>
   <div>
-    <Tweet :init-tweet-id="tweetId" />
-    <RepliesList v-for="reply in replies" :key="reply.commentId" :reply="reply" />
+    <Tweet
+      :init-tweet-data="tweetsData"
+      @after-reply-clicked="showReplyModal"
+    />
+    <RepliesList
+      v-for="reply in replies"
+      :key="reply.commentId"
+      :reply="reply"
+    />
+    <TweetModal
+      :init-reply-tweet="tweetsData"
+      v-if="modalVisibility"
+      @after-close-modal="afterCloseModal"
+    />
   </div>
 </template>
 
 <script>
 import Tweet from "@/components/Tweet.vue";
 import RepliesList from "@/components/RepliesList.vue";
+import TweetModal from "@/components/TweetModal.vue";
 import tweetsAPI from "./../apis/tweets";
 
 export default {
   components: {
     Tweet,
-    RepliesList
+    RepliesList,
+    TweetModal,
   },
   data() {
     return {
-      tweetId: "",
-      replies: []
+      tweetsData: {},
+      replies: [],
+      modalVisibility: false,
     };
   },
   methods: {
-    async getReplies() {
+    async getReplies(tweetId) {
       try {
-        const response = await tweetsAPI.getReplies(this.tweetId);
-        console.log('replies:',response);
+        const response = await tweetsAPI.getReplies(tweetId);
+        console.log("replies:", response);
         if (response.statusText !== "OK") {
           throw new Error(response.message);
         }
-        this.replies = response.data
+        this.replies = response.data;
       } catch (error) {
         console.log(error);
       }
     },
+    async fetchTweet(tweetId) {
+      try {
+        const response = await tweetsAPI.getTweet(tweetId);
+
+        this.tweetsData = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    showReplyModal(tweetId) {
+      this.fetchTweet(tweetId);
+      this.modalVisibility = true;
+    },
+    afterCloseModal() {
+      this.modalVisibility = false;
+      const { tweet_id } = this.$route.params;
+      this.getReplies(tweet_id);
+      this.fetchTweet(tweet_id);
+    },
   },
   created() {
     const { tweet_id } = this.$route.params;
-    this.tweetId = tweet_id.toString();
-    this.getReplies();
+    this.getReplies(tweet_id);
+    this.fetchTweet(tweet_id);
   },
   beforeRouteUpdate(to, from, next) {
     const { tweet_id } = to.params;
-    this.tweetId = tweet_id.toString();
+    this.fetchTweet(tweet_id);
+    this.getReplies(tweet_id);
     next();
   },
 };

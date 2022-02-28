@@ -42,8 +42,8 @@ export default {
         // TODO: warning text > 140 words
         // TODO: alert after success
         if (this.reply.length > 140) return;
-        const response = await tweetAPI.postReply(this.reply);
-
+        const response = await tweetAPI.postReply(this.replyId, this.reply);
+        console.log('submit')
         console.log(response);
         this.$emit("after-reply-tweet")
       } catch (error) {
