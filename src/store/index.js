@@ -45,7 +45,6 @@ export default new Vuex.Store({
     async fetchCurrentUser({commit}) {
       try {
         const { data } = await usersAPI.getCurrentUser();
-        console.log(data);
         const { id, name, account, avatar, cover, email, introduction, isAdmin, role } = data.user;
 
         commit("setCurrentUser", {
@@ -60,7 +59,7 @@ export default new Vuex.Store({
           role
         });
       } catch (error) {
-        console.log("Cant fetch current user");
+        console.log("Can't fetch current user");
         console.log(error);
       }
     },
