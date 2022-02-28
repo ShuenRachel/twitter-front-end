@@ -41,7 +41,6 @@ export default {
 
         this.tweetsData = response.data
         this.isLikeEmpty = false
-        console.log(response)
       } catch (error) {
         console.log(error)
       }

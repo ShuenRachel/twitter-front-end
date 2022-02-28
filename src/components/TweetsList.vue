@@ -4,10 +4,7 @@
       <!-- TODO: import user avatar -->
       <div
         class="tweet__user-avatar"
-        style="
-          background-image: url('https://via.placeholder.com/50x50/DFDFDF?text=No+Image');
-        "
-      ></div>
+        :style="{ backgroundImage: 'url(' + tweet.avatar + ')' }"></div>
       <div class="tweet__info-container">
         <div class="info">
           <span class="name">{{ tweet.tweetUserName }}</span>
@@ -86,7 +83,6 @@
         </div>
         <div v-if="!isUserPage" class="delete">
           <span @click="handleDeleteClicked(tweet.TweetId)" class="delete"></span>
-
         </div>
       </div>
     </div>
