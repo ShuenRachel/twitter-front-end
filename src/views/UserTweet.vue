@@ -1,7 +1,7 @@
 <template>
   <div>
     <Tweet :init-tweet-id="tweetId" />
-    <RepliesList />
+    <RepliesList v-for="reply in replies" :key="reply.commentId" :reply="reply" />
   </div>
 </template>
 
