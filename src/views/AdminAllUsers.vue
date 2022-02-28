@@ -26,8 +26,9 @@ export default {
     async fetchUsers() {
       try {
         const response = await adminAPI.getAllUsers()
-        const { data } =response
+        const { data } = response
         this.users = data
+        console.log(this.users)
       } catch(error) {
         console.log('error: ', error);
       }
@@ -41,5 +42,6 @@ export default {
 
   section.users-card {
     padding: 15px;
+    border-top: $border-setting;
   }
 </style>
