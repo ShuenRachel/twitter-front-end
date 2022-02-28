@@ -36,6 +36,7 @@ const routes = [
 
   {
     path: "/admin",
+    exact: true,
     redirect: "/admin/tweets",
   },
   {
@@ -95,16 +96,18 @@ const routes = [
       {
         path: "admin/tweets",
         name: "admin-tweets",
+        exact: true,
         component: () => import("../views/AdminAllTweets.vue"),
+        beforeEnter: authorizeIsAdmin,
       },
       {
         path: "admin/users",
         name: "admin-users",
         component: () => import("../views/AdminAllUsers.vue"),
+        beforeEnter: authorizeIsAdmin,
       },
     ],
   },
-
   {
     path: "*",
     name: "not-found",
@@ -116,6 +119,17 @@ const router = new VueRouter({
   linkExactActiveClass: "active",
   routes,
 });
+
+const authorizeIsAdmin = (to, from, next) => {
+  console.log('authoriza!')
+  const currentUser = store.state.currentUser
+  if (currentUser && !currentUser.isAdmin) {
+    next('/404')
+    return
+  }
+
+  next()
+}
 
 router.beforeEach(async (to, from, next) => {
   const tokenInLocalStorage = localStorage.getItem("token");
