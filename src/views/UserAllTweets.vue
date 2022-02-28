@@ -35,14 +35,19 @@ export default {
 
         this.tweetsData = response.data.map(tweet => {
           return {
-            TweetId: tweet.id,
-            UserId: tweet.UserId,
+            TweetId: tweet.TweetId,
+            UserId: tweet.tweetUserId,
+            avatar: tweet.avatar,
             description: tweet.description,
             createdAt: tweet.createdAt,
-            updateAt: tweet.updateAt,
-            //還缺 tweetUserName、tweetUserAccount、這則推文回覆數、這則推文被like數
+            tweetUserName: tweet.tweetUserName,
+            tweetUserAccount: tweet.tweetUserAccount,
+            repliedCount: tweet.repliedCount,
+            likeCount: tweet.likeCount,
+            liked: tweet.liked
           }
         });
+
       } catch (error) {
         console.log(error)
       }
