@@ -40,6 +40,11 @@ export default new Vuex.Store({
     updatePathName(state, newPathName) {
       state.currentPathName = newPathName;
     },
+    revokeAuthentication(state) {
+      state.currentUser = {}
+      state.isAuthenticated = false
+      localStorage.removeItem('token')
+    }
   },
   actions: {
     async fetchCurrentUser({commit}) {
