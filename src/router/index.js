@@ -12,7 +12,7 @@ const routes = [
   {
     path: "/",
     name: "root",
-    redirect: "/user/login",
+    redirect: "/user/home",
   },
   {
     path: "/user",
@@ -117,10 +117,33 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  console.log(to)
+router.beforeEach(async (to, from, next) => {
+  const token = localStorage.getItem("token");
+
+  let isAuthenticated = false;
+
   store.commit("updatePathName", to.name);
-  store.dispatch("fetchCurrentUser");
+
+  if (token) {
+    isAuthenticated = await store.dispatch("fetchCurrentUser");
+  }
+
+  const pathWithoutAuthentication = [
+    "user-login",
+    "user-regist",
+    "admin-login",
+  ];
+
+  if (!isAuthenticated && !pathWithoutAuthentication.includes(to.name)) {
+    next("/user/login");
+    return;
+  }
+
+  if (isAuthenticated && pathWithoutAuthentication.includes(to.name)) {
+    next("/user/home");
+    return;
+  }
+
   next();
 });
 

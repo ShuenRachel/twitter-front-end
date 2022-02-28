@@ -63,9 +63,11 @@ export default new Vuex.Store({
           isAdmin,
           role
         });
+        return true
       } catch (error) {
         console.log("Can't fetch current user");
         console.log(error);
+        return false
       }
     },
   },
