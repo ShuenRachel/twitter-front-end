@@ -23,6 +23,20 @@ export default {
       },
     });
   },
+  getUserReplies(userId) {
+    return apiHelper.get(`/users/${userId}/replied_tweets`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
+  },
+  getUserLike(userId) {
+    return apiHelper.get(`/users/${userId}/likes`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
+  },
   getTopUsers() {
     return apiHelper.get("/users/top", {
       headers: {

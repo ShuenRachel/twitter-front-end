@@ -12,9 +12,6 @@
         <div class="info">
           <span class="name">{{ tweet.tweetUserName }}</span>
           <span class="account">{{ tweet.tweetUserAccount }}{{ tweet.createdAt | fromNow }}</span>
-          <div v-if="isReply" class="reply-account">
-            回覆 <span class="reply-account">daniel</span>
-          </div>
           <router-link
             :to="{ name: 'user-tweet', params: { tweet_id: tweet.TweetId } }"
             ><div class="content">
@@ -151,6 +148,11 @@ export default {
   created() {
     this.fetchTweet();
   },
+  watch: {
+    initTweetData() {
+      this.fetchTweet();
+    }
+  },
   mixins: [fromNowFilter],
 };
 </script>
@@ -180,8 +182,8 @@ div.tweet {
   }
   &__info-container {
     padding-left: 15px;
-    div.reply-account {
-      color: $text-sub;
+    div.content {
+      max-width: 510px;
     }
     div.tweet__footer__actives {
       display: flex;

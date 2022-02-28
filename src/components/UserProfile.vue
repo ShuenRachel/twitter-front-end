@@ -1,6 +1,6 @@
 <template>
   <div class="user-profile-container">
-    <!-- 切版實在把cover的設定放下去style -->
+    <!-- 切版時 再把backgroundImage的設定放下去style -->
     <div style="width:598px; height:200px; background-repeat: no-repeat; background-size: cover;" :style="{ backgroundImage: 'url(' + user.cover + ')' }"></div>
     <div>{{ user.name }}</div>
     <div>@{{ user.account }}</div>
@@ -8,6 +8,12 @@
     <div>currentUserId: {{ currentUser.id }}, currentUser: {{ currentUser.name }}.</div>
     <a>跟隨中</a>
     <a>跟隨者</a>
+    <button class="user-edit">編輯個人資料</button>
+    <div class="follow-ship">
+      <button v-if="user.isFollowing" class="following">正在跟隨</button>
+      <button v-else class="follow">跟隨</button>
+    </div>
+
   </div>
 </template>
 
@@ -37,8 +43,8 @@ export default {
         avatar: '',
         cover: '',
         introduction: '',
-        
-      }
+        isFollowing: false
+      },
     }
   },
   methods: {
@@ -55,7 +61,8 @@ export default {
           name: data.name,
           avatar: data.avatar,
           cover: data.cover,
-          introduction: data.introduction
+          introduction: data.introduction,
+          isFollowing: data.isFollowing
         }
         
       } catch (error) {
