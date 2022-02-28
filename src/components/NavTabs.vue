@@ -52,6 +52,7 @@ export default {
           this.isProfilePage = false
           this.isFollowPage = true;
           break;
+        case "user-id":
         case "user-all-tweets":
         case "user-all-replies":
         case "user-all-like":

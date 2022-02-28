@@ -85,4 +85,13 @@ export default {
       }
     );
   },
+  updateUserProfile(user_id, {formData}) {
+    return apiHelper.put(
+      `/users/${user_id}`,
+      formData ,
+      {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      }
+    );
+  }
 };

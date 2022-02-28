@@ -8,21 +8,31 @@
     <div>currentUserId: {{ currentUser.id }}, currentUser: {{ currentUser.name }}.</div>
     <a>跟隨中</a>
     <a>跟隨者</a>
-    <button class="user-edit">編輯個人資料</button>
+    <button @click.stop.prevent="showEditModal" class="user-edit">編輯個人資料</button>
     <div class="follow-ship">
       <button v-if="user.isFollowing" class="following">正在跟隨</button>
       <button v-else class="follow">跟隨</button>
     </div>
-
+    <UserEditModal v-if="modalVisibility"
+    :init-user-id="user_id"
+    :init-user-cover="user.cover"
+    :init-user-avatar="user.avatar"
+    :init-user-name="user.name"
+    :init-user-introduction="user.introduction"
+    @after-close-modal="afterCloseModal" />
   </div>
 </template>
 
 <script>
 import usersAPI from '../apis/users'
+import UserEditModal from '../components/UserEditModal.vue'
 import { mapState } from 'vuex'
 
 
 export default {
+  components: {
+    UserEditModal
+  },
   props: {
     userId: {
       type: String,
@@ -33,10 +43,12 @@ export default {
     ...mapState(['currentUser'])
   },
   created() {
+    this.user_id = this.userId
     this.fetchUserProfile(Number(this.userId))
   },
   data() {
     return{
+      user_id: '',
       user: {
         account: '',
         name: '',
@@ -45,6 +57,7 @@ export default {
         introduction: '',
         isFollowing: false
       },
+      modalVisibility: false
     }
   },
   methods: {
@@ -68,7 +81,13 @@ export default {
       } catch (error) {
         console.log(error)
       }
-    }
+    },
+    showEditModal() {
+      this.modalVisibility = true
+    },
+    afterCloseModal() {
+      this.modalVisibility = false
+    },
   },
   watch: {
     userId(newValue) {
