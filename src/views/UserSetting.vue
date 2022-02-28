@@ -11,6 +11,7 @@
 <script>
 import SettingForm from "@/components/SettingForm.vue";
 import userAPI from "./../apis/users";
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -22,12 +23,15 @@ export default {
       submitStatus: "waiting",
     };
   },
+  computed: {
+    ...mapState(["currentUser"]),
+  },
   methods: {
     async afterFormSubmit(formData) {
       try {
         this.isProcessing = true;
 
-        const response = await userAPI.updateSetting(formData);
+        const response = await userAPI.updateSetting(this.currentUser.id, formData);
         const { data } = response;
 
         console.log(data);
@@ -36,9 +40,9 @@ export default {
           throw new Error(data.message);
         }
         // TODO: show success msg
-        this.submitStatus = data.message;
+        this.submitStatus = "success"
 
-        this.$router.push("/user/login");
+        this.$router.push("/user/home");
       } catch (error) {
         this.isProcessing = false;
 
