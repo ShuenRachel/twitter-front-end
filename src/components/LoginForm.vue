@@ -4,10 +4,10 @@
       <div class="form-title-icon">
         <img src="/image/logo.svg" alt="" srcset="" />
       </div>
-      <div v-if="currentPathName === 'admin-login'" class="form-title-text">
+      <div v-if="isAdminLogin" class="form-title-text">
         後台登入
       </div>
-      <div v-else-if="currentPathName === 'user-login'" class="form-title-text">
+      <div v-else class="form-title-text">
         登入 Alphitter
       </div>
     </div>
@@ -31,10 +31,10 @@
     <button class="btn btn-orange" :disabled="isProcessing" @click.stop.prevent="handleSubmit">
       登入
     </button>
-    <div v-if="currentPathName === 'admin-login'" class="link-group">
+    <div v-if="isAdminLogin" class="link-group">
       <router-link to="/user/login" class="link">前台登入</router-link>
     </div>
-    <div v-else-if="currentPathName === 'user-login'" class="link-group">
+    <div v-else class="link-group">
       <router-link to="/user/regist" class="link">註冊 Alphitter</router-link>
       <span class="link-dot">・</span>
       <router-link to="/admin/login" class="link">後台登入</router-link>
@@ -56,7 +56,8 @@ export default {
     return {
       account: "",
       password: "",
-      isProcessing: false
+      isProcessing: false,
+      isAdminLogin: false
     };
   },
   computed: {
@@ -76,7 +77,13 @@ export default {
       }
       this.$emit("after-form-submit", this.account, this.password);
     },
-  },
+  },created() {
+    if (this.$route.name === 'admin-login') {
+      this.isAdminLogin = true
+    } else if (this.$route.name === 'user-login') {
+      this.isAdminLogin = false
+    }
+  }
 };
 </script>
 
