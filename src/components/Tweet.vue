@@ -2,23 +2,26 @@
   <div class="tweet-wrapper">
     <div class="tweet-content">
       <div class="tweet-content-header">
-        <div class="user-avatar"><img :src="avatar" alt="" /></div>
+        <div class="user-avatar"><img :src="tweetData.avatar" alt="" /></div>
         <div class="user-data">
-          <span class="user-data-name">{{ tweetUserName }}</span>
-          <span class="user-data-account account">{{tweetUserAccount}}</span>
+          <span class="user-data-name">{{ tweetData.tweetUserName }}</span>
+          <span class="user-data-account account">{{ tweetData.tweetUserAccount }}</span>
         </div>
       </div>
       <div class="tweet-content">
-        <p class="tweet-content-text">{{ description }}</p>
-        <span class="tweet-content-time">{{ createdAt | fromNow }}</span>
+        <p class="tweet-content-text">{{ tweetData.description }}</p>
+        <span class="tweet-content-time">{{ tweetData.createdAt | fromNow }}</span>
       </div>
     </div>
     <div class="tweet-data">
-      <span class="tweet-data-replies">{{ repliedCount }} Replies</span>
-      <span class="tweet-data-likes">{{ likeCount }} Likes</span>
+      <span class="tweet-data-replies">{{ tweetData.repliedCount }} Replies</span>
+      <span class="tweet-data-likes">{{ tweetData.likeCount }} Likes</span>
     </div>
     <div class="tweet-action">
-      <div class="btn-comment">
+      <div
+        class="btn-comment"
+        @click.stop.prevent="handleReplyClicked(tweetData.TweetId)"
+      >
         <svg
           class="actives-icon actives-icon__reply"
           width="12"
@@ -33,7 +36,7 @@
         </svg>
       </div>
       <div class="btn-like">
-        <div v-if="liked" @click="deleteLike(tweetId)" class="">
+        <div v-if="tweetData.liked" @click="deleteLike(tweetData.TweetId)" class="">
           <svg
             class="actives-icon actives-icon__like"
             width="12.5"
@@ -47,7 +50,7 @@
             />
           </svg>
         </div>
-        <div v-else @click="addLike(tweetId)" class="">
+        <div v-else @click="addLike(tweetData.TweetId)" class="">
           <svg
             class="actives-icon actives-icon__unlike"
             width="12.5"
@@ -72,61 +75,22 @@ import { fromNowFilter } from "../utils/mixin";
 
 export default {
   props: {
-    initTweetId: {
-      type: String,
+    initTweetData: {
+      type: Object,
       require: true,
     },
   },
   data() {
-    return {
-      tweetId: "",
-      description: "",
-      createdAt: "",
-      tweetUserName: "",
-      tweetUserAccount: "",
-      avatar: "",
-      repliedCount: -1,
-      likeCount: 0,
-      liked: false,
-      replies: [],
-    };
+    return { tweetData: {} };
   },
   watch: {
-    initTweetId(newValue) {
-      this.fetchTweet(newValue)
+    initTweetData() {
+      this.fetchTweet();
     },
   },
   methods: {
-    async fetchTweet(id) {
-      try {
-        const response = await tweetsAPI.getTweet(id);
-        const { data } = response;
-        const {
-          TweetId: tweetId,
-          description,
-          createdAt,
-          tweetUserName,
-          tweetUserAccount,
-          avatar,
-          repliedCount,
-          likeCount,
-          liked,
-          replies,
-        } = data;
-
-        this.tweetId = tweetId;
-        this.description = description;
-        this.createdAt = createdAt;
-        this.tweetUserName = tweetUserName;
-        this.tweetUserAccount = tweetUserAccount;
-        this.avatar = avatar;
-        this.repliedCount = repliedCount;
-        this.likeCount = likeCount;
-        this.liked = liked;
-        this.replies = replies;
-      } catch (error) {
-        console.log(error);
-      }
+    fetchTweet() {
+      this.tweetData = this.initTweetData
     },
     async addLike(id) {
       try {
@@ -134,8 +98,8 @@ export default {
         if (response.data.status !== "success") {
           throw new Error(response.message);
         }
-        this.liked = true;
-        this.likeCount += 1;
+        this.tweetData.liked = true;
+        this.tweetData.likeCount += 1;
       } catch (error) {
         // TODO: alert
         console.log(error);
@@ -147,12 +111,15 @@ export default {
         if (response.data.status !== "success") {
           throw new Error(response.message);
         }
-        this.liked = false;
-        this.likeCount -= 1;
+        this.tweetData.liked = false;
+        this.tweetData.likeCount -= 1;
       } catch (error) {
         // TODO: alert
         console.log(error);
       }
+    },
+    handleReplyClicked(tweetId) {
+      this.$emit("after-reply-clicked", tweetId);
     },
   },
   created() {
