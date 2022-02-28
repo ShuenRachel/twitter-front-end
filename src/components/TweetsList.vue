@@ -85,7 +85,8 @@
           </div>
         </div>
         <div v-if="!isUserPage" class="delete">
-          <span class="delete"></span>
+          <span @click="handleDeleteClicked(tweet.TweetId)" class="delete"></span>
+
         </div>
       </div>
     </div>
@@ -143,6 +144,14 @@ export default {
     },
     handleReplyClicked(tweetId) {
       this.$emit("after-reply-clicked", tweetId)
+    },
+    handleDeleteClicked(tweetId) {
+      let result = confirm(`確定要刪除TweetId為：${tweetId} 此篇推文？`)
+      if (result) {
+          this.$emit("after-delete-clicked", tweetId)
+      } else {
+          alert('你按了取消按鈕');
+      }
     }
   },
   created() {

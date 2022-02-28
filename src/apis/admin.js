@@ -8,5 +8,19 @@ export default {
         Authorization: `Bearer ${getToken()}`
       }
     });
-  }
+  },
+  getAllTweets() {
+    return apiHelper.get("/tweets", {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
+  },
+  deleteTweet(tweetId) {
+    return apiHelper.delete(`/admin/tweets/${tweetId}`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
+  },
 };
