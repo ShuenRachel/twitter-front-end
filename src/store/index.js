@@ -24,6 +24,7 @@ export default new Vuex.Store({
       name: "view user",
       tweetCount: 1,
     },
+    token: "",
     isAdmin: false,
     isAuthenticated: false,
     currentPathName: "",
@@ -34,6 +35,7 @@ export default new Vuex.Store({
         ...state.currentUser,
         ...currentUser,
       };
+      state.token = localStorage.getItem('token')
       state.isAdmin = currentUser.isAdmin;
       state.isAuthenticated = true;
     },
@@ -43,7 +45,8 @@ export default new Vuex.Store({
     revokeAuthentication(state) {
       state.currentUser = {}
       state.isAuthenticated = false
-      localStorage.removeItem('token')
+      state.token = ''
+      localStorage.removeItem("token");
     }
   },
   actions: {
@@ -67,6 +70,7 @@ export default new Vuex.Store({
       } catch (error) {
         console.log("Can't fetch current user");
         console.log(error);
+        commit("revokeAuthentication");
         return false
       }
     },
