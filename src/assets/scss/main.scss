@@ -164,6 +164,7 @@ $border-setting: 1px solid $border-color;
 
 span.account {
   color: $text-sub;
+  cursor: pointer;
   &::before {
     content: "@"; // account前的 @
   }

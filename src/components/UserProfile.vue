@@ -8,71 +8,90 @@
     <div>{{ user.name }}</div>
     <div>@{{ user.account }}</div>
     <div>{{ user.introduction }}</div>
-    <div><a><span>{{ user.followingCount }} 個</span>跟隨中</a></div>
-    <div><a><span>{{ user.followerCount }} 位</span>跟隨者</a></div>
-    <button @click.stop.prevent="showEditModal" class="user-edit">編輯個人資料</button>
+    <div>
+      <router-link
+        :to="{ name: 'user-followings', params: { user_id: user_id } }"
+        ><span>{{ user.followingCount }} 個</span>跟隨中</router-link
+      >
+    </div>
+    <div>
+      <router-link
+        :to="{ name: 'user-followers', params: { user_id: user_id } }"
+        ><span>{{ user.followerCount }} 位</span>跟隨者</router-link
+      >
+    </div>
+    <button @click.stop.prevent="showEditModal" class="user-edit">
+      編輯個人資料
+    </button>
     <div class="follow-ship">
       <button v-if="user.isFollowing" class="following">正在跟隨</button>
       <button v-else class="follow">跟隨</button>
     </div>
-    <div style="border:1px solid red;">test currentUser >>  currentUserId: {{ currentUser.id }}, currentUserName: {{ currentUser.name }}.</div>
-    <UserEditModal v-if="modalVisibility"
-    :init-user-id="user_id"
-    :init-user-cover="user.cover"
-    :init-user-avatar="user.avatar"
-    :init-user-name="user.name"
-    :init-user-introduction="user.introduction"
-    @after-close-modal="afterCloseModal" />
+    <div style="border: 1px solid red">
+      test currentUser >> currentUserId: {{ currentUser.id }}, currentUserName:
+      {{ currentUser.name }}.
+    </div>
+    <UserEditModal
+      v-if="modalVisibility"
+      :init-user-id="user_id"
+      :init-user-cover="user.cover"
+      :init-user-avatar="user.avatar"
+      :init-user-name="user.name"
+      :init-user-introduction="user.introduction"
+      @after-close-modal="afterCloseModal"
+    />
   </div>
 </template>
 
 <script>
-import usersAPI from '../apis/users'
-import UserEditModal from '../components/UserEditModal.vue'
-import { mapState } from 'vuex'
-
+import usersAPI from "../apis/users";
+import UserEditModal from "../components/UserEditModal.vue";
+import { mapState } from "vuex";
 
 export default {
   components: {
-    UserEditModal
+    UserEditModal,
   },
   props: {
     userId: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
-    ...mapState(['currentUser'])
+    ...mapState(["currentUser"]),
   },
   created() {
-    this.user_id = this.userId
-    this.fetchUserProfile(Number(this.userId))
+    this.user_id = this.userId;
+    this.fetchUserProfile(Number(this.userId));
   },
   data() {
-    return{
-      user_id: '',
+    return {
+      user_id: "",
       user: {
-        account: '',
-        name: '',
-        avatar: '',
-        cover: '',
-        introduction: '',
+        account: "",
+        name: "",
+        avatar: "",
+        cover: "",
+        introduction: "",
         followingCount: 0,
         followerCount: 0,
-        isFollowing: false
+        isFollowing: false,
       },
-      modalVisibility: false
-    }
+      modalVisibility: false,
+    };
   },
   methods: {
     async fetchUserProfile(userId) {
       try {
-        const response = await usersAPI.getUser(userId)
-        const { data } =response
+        const response = await usersAPI.getUser(userId);
+        const { data } = response;
 
-        if (response.statusText !== 'OK') {
-          throw new Error('status: '+ response.status)
+        console.log("--new user--");
+        console.log(data);
+
+        if (response.statusText !== "OK") {
+          throw new Error("status: " + response.status);
         }
         this.user = {
           account: data.account,
@@ -82,26 +101,25 @@ export default {
           introduction: data.introduction,
           followingCount: data.followingCount,
           followerCount: data.followerCount,
-          isFollowing: data.isFollowing
-        }
-        
+          isFollowing: data.isFollowing,
+        };
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     },
     showEditModal() {
-      this.modalVisibility = true
+      this.modalVisibility = true;
     },
     afterCloseModal() {
-      this.modalVisibility = false
+      this.modalVisibility = false;
     },
   },
   watch: {
     userId(newValue) {
-      this.fetchUserProfile(Number(newValue))
-    }
-  }
-}
+      this.fetchUserProfile(Number(newValue));
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

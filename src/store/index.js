@@ -39,6 +39,9 @@ export default new Vuex.Store({
       state.isAdmin = currentUser.isAdmin;
       state.isAuthenticated = true;
     },
+    setViewUser(state, viewUser) {
+console.log(state.viewUser, viewUser)
+    },
     updatePathName(state, newPathName) {
       state.currentPathName = newPathName;
     },

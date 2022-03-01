@@ -7,7 +7,7 @@
         viewBox="0 0 17 14"
         fill="black"
         xmlns="http://www.w3.org/2000/svg"
-        v-show="backArrowVisibility"
+        v-if="backArrowVisibility"
         @click="$router.push('/user/home')"
       >
         <path

@@ -1,7 +1,9 @@
 import axios from 'axios'
 // import Swal from 'sweetalert2'
 
-const baseURL = 'https://ac-simple-twitter-api.herokuapp.com/api'
+
+const baseURL = "https://ac-simple-twitter-api.herokuapp.com/api";
+
 
 const axiosInstance = axios.create({
   baseURL,
