@@ -5,28 +5,40 @@
       <div class="popular-users">
         <div class="popular-user" v-for="user in users" :key="user.id">
           <div class="popular-user-avatar">
-            <img :src="user.avatar" alt="" @click.stop.prevent="toUserProfilePage(user.id)" />
+            <img
+              :src="user.avatar"
+              alt=""
+              @click.stop.prevent="toUserProfilePage(user.id)"
+            />
           </div>
-            <div class="popular-user-details">
-              <span class="name" @click.stop.prevent="toUserProfilePage(user.id)">{{ user.name }}</span>
-              <span class="account" @click.stop.prevent="toUserProfilePage(user.id)">{{ user.account }}</span>
-            </div>
-            <div class="popular-user-follow-button">
-              <button
-                v-if="user.isFollowing"
-                class="popular-user-btn btn btn-orange btn-following"
-                @click.stop.prevent="deleteFollowing(user.id)"
-              >
-                正在跟隨
-              </button>
-              <button
-                v-else
-                class="popular-user-btn btn btn-white btn-follow"
-                @click.stop.prevent="addFollowing(user.id)"
-              >
-                跟隨
-              </button>
-            </div>
+          <div class="popular-user-details">
+            <span
+              class="name"
+              @click.stop.prevent="toUserProfilePage(user.id)"
+              >{{ user.name }}</span
+            >
+            <span
+              class="account"
+              @click.stop.prevent="toUserProfilePage(user.id)"
+              >{{ user.account }}</span
+            >
+          </div>
+          <div class="popular-user-follow-button">
+            <button
+              v-if="user.isFollowing"
+              class="popular-user-btn btn btn-orange btn-following"
+              @click.stop.prevent="deleteFollowing(user.id)"
+            >
+              正在跟隨
+            </button>
+            <button
+              v-else
+              class="popular-user-btn btn btn-white btn-follow"
+              @click.stop.prevent="addFollowing(user.id)"
+            >
+              跟隨
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -35,6 +47,7 @@
 
 <script>
 import usersAPI from "./../apis/users";
+import { Toastification } from "./../utils/mixin";
 
 export default {
   data() {
@@ -55,6 +68,9 @@ export default {
         this.users = data;
       } catch (error) {
         console.log(error);
+        this.ToastSuccess({
+          title: "Cant' get popular user",
+        });
       }
     },
     async addFollowing(userId) {
@@ -97,12 +113,16 @@ export default {
       }
     },
     toUserProfilePage(userId) {
-      this.$router.push({ name: 'user-all-tweets', params: { user_id: userId } })
-    }
+      this.$router.push({
+        name: "user-all-tweets",
+        params: { user_id: userId },
+      });
+    },
   },
   created() {
     this.fetchUsers();
   },
+  mixins: [Toastification],
 };
 </script>
 
@@ -157,7 +177,7 @@ export default {
       display: flex;
       flex-direction: column;
       cursor: pointer;
-      span:nth-child(1){
+      span:nth-child(1) {
         margin-bottom: 3px;
       }
     }
@@ -169,7 +189,7 @@ export default {
         font-size: 15px;
         font-weight: 700;
       }
-      button.btn-follow { 
+      button.btn-follow {
         width: 60px;
         height: 35px;
       }
@@ -180,5 +200,4 @@ export default {
     }
   }
 }
-
 </style>
