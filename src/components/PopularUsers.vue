@@ -61,7 +61,7 @@ export default {
         const response = await usersAPI.getTopUsers();
         const { data } = response;
 
-        if (response.statusText === "OK") {
+        if (response.statusText !== "OK") {
           throw new Error(response.message);
         }
 
