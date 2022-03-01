@@ -1,4 +1,5 @@
 import moment from "moment";
+import Toast from "../components/Toast.vue";
 
 export const fromNowFilter = {
   filters: {
@@ -19,3 +20,28 @@ export const emptyImageFilter = {
     },
   },
 };
+
+export const Toastification = {
+  methods: {
+    ToastSuccess({ title = '', description = '' }) {
+      this.$toast({
+        component: Toast,
+        props: {
+          icon: "success",
+          title,
+          description,
+        },
+      });
+    },
+    ToastError({ title = '', description = '' }) {
+      this.$toast({
+        component: Toast,
+        props: {
+          icon: "error",
+          title,
+          description,
+        },
+      });
+    }
+  }
+}
