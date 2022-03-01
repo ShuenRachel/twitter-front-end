@@ -1,17 +1,9 @@
 <template>
   <div class="user-profile-container">
     <!-- 切版時 再把backgroundImage的設定放下去style -->
-    <div
-      style="
-        width: 598px;
-        height: 200px;
-        background-repeat: no-repeat;
-        background-size: cover;
-      "
-      :style="{ backgroundImage: 'url(' + user.cover + ')' }"
-    ></div>
-    <div style="width: 140px; height: 140px">
-      <img :src="user.avatar" alt="" />
+    <div class="user-profile-cover" :style="{ backgroundImage: 'url(' + user.cover + ')' }"></div>
+    <div class="user-profile-avatar">
+      <img :src="user.avatar" alt="">
     </div>
     <div>{{ user.name }}</div>
     <div>@{{ user.account }}</div>
@@ -132,4 +124,30 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/scss/main.scss";
+
+div.user-profile {
+  &-container {
+    position: relative;
+    max-width: 598px;
+  }
+  &-cover {
+    width:598px;
+    height:200px;
+    background-repeat: no-repeat;
+    background-size: cover;
+  } 
+  &-avatar {
+    position: absolute;
+    top: 124px;
+    left: 15px;
+    width:140px;
+    height:140px;
+    img {
+      width: 100%;
+      border: 4px solid #FFFFFF;
+      border-radius: 50%;
+    }
+  }
+}
+
 </style>
