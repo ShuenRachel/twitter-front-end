@@ -1,62 +1,31 @@
 import { apiHelper } from "../utils/helpers";
-const getToken = () => localStorage.getItem("token");
 
 export default {
   createTweet(tweet) {
     return apiHelper.post(
       "/tweets",
-      { description: tweet },
-      {
-        headers: {
-          Authorization: `Bearer ${getToken()}`,
-        },
-      }
+      { description: tweet }
     );
   },
   getAllTweets() {
-    return apiHelper.get("/tweets", {
-      headers: {
-        Authorization: `Bearer ${getToken()}`,
-      },
-    });
+    return apiHelper.get("/tweets");
   },
   getTweet(tweetId) {
-    return apiHelper.get(`/tweets/${tweetId}`, {
-      headers: {
-        Authorization: `Bearer ${getToken()}`,
-      },
-    });
+    return apiHelper.get(`/tweets/${tweetId}`);
   },
   getReplies(tweetId) {
-    return apiHelper.get(`/tweets/${tweetId}/replies`, {
-      headers: {
-        Authorization: `Bearer ${getToken()}`,
-      },
-    });
+    return apiHelper.get(`/tweets/${tweetId}/replies`);
   },
   addLike(tweetId) {
-    return apiHelper.post(`/tweets/${tweetId}/like`, null, {
-      headers: {
-        Authorization: `Bearer ${getToken()}`,
-      },
-    });
+    return apiHelper.post(`/tweets/${tweetId}/like`, null);
   },
   deleteLike(tweetId) {
-    return apiHelper.post(`/tweets/${tweetId}/unlike`, null, {
-      headers: {
-        Authorization: `Bearer ${getToken()}`,
-      },
-    });
+    return apiHelper.post(`/tweets/${tweetId}/unlike`, null);
   },
   postReply(tweetId, reply) {
     return apiHelper.post(
       `/tweets/${tweetId}/replies`,
-      { comment: reply },
-      {
-        headers: {
-          Authorization: `Bearer ${getToken()}`,
-        },
-      }
+      { comment: reply }
     );
   },
 };
