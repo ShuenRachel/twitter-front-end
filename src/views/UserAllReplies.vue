@@ -10,8 +10,10 @@
 <script>
 import RepliesList from '../components/RepliesList.vue'
 import usersAPI from '../apis/users'
+import { Toastification } from "./../utils/mixin";
 
 export default {
+  mixins: [Toastification],
   components: { 
     RepliesList
   },
@@ -51,7 +53,9 @@ export default {
         });
         console.log(this.repliesData)
       } catch (error) {
-        console.log(error)
+        this.ToastError({
+          title: "無法取得用戶回覆清單，請稍後再試",
+        });
       }
     }
   },

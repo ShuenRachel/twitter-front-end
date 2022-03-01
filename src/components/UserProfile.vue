@@ -47,8 +47,10 @@
 import usersAPI from "../apis/users";
 import UserEditModal from "../components/UserEditModal.vue";
 import { mapState } from "vuex";
+import { Toastification } from "./../utils/mixin";
 
 export default {
+  mixins: [Toastification],
   components: {
     UserEditModal,
   },
@@ -104,7 +106,9 @@ export default {
           isFollowing: data.isFollowing,
         };
       } catch (error) {
-        console.log(error);
+        this.ToastError({
+          title: "無法取得用戶資料，請稍後再試",
+        });
       }
     },
     showEditModal() {

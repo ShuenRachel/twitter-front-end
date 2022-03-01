@@ -11,8 +11,10 @@
 <script>
 import TweetsList from '../components/TweetsList.vue'
 import usersAPI from '../apis/users'
+import { Toastification } from "./../utils/mixin";
 
 export default {
+  mixins: [Toastification],
   components: { 
     TweetsList
   },
@@ -42,7 +44,9 @@ export default {
         this.tweetsData = response.data
         this.isLikeEmpty = false
       } catch (error) {
-        console.log(error)
+        this.ToastError({
+          title: "無法取得用戶讚好清單，請稍後再試",
+        });
       }
     }
   },

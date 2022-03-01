@@ -71,7 +71,7 @@
 
 <script>
 import tweetsAPI from "./../apis/tweets";
-import { fromNowFilter } from "../utils/mixin";
+import { fromNowFilter, Toastification } from "../utils/mixin";
 
 export default {
   props: {
@@ -96,13 +96,14 @@ export default {
       try {
         const response = await tweetsAPI.addLike(id);
         if (response.data.status !== "success") {
-          throw new Error(response.message);
+          throw new Error();
         }
         this.tweetData.liked = true;
         this.tweetData.likeCount += 1;
       } catch (error) {
-        // TODO: alert
-        console.log(error);
+        this.ToastError({
+          title: "無法讚好推文，請稍後再試",
+        });
       }
     },
     async deleteLike(id) {
@@ -114,8 +115,9 @@ export default {
         this.tweetData.liked = false;
         this.tweetData.likeCount -= 1;
       } catch (error) {
-        // TODO: alert
-        console.log(error);
+        this.ToastError({
+          title: "無法取消讚好推文，請稍後再試",
+        });
       }
     },
     handleReplyClicked(tweetId) {
@@ -126,7 +128,7 @@ export default {
     const { tweet_id } = this.$route.params;
     this.fetchTweet(tweet_id);
   },
-  mixins: [fromNowFilter],
+  mixins: [fromNowFilter, Toastification],
 };
 </script>
 

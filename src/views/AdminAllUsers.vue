@@ -9,8 +9,10 @@
 <script>
 import AdminUsers from '../components/AdminUsers.vue'
 import adminAPI from "./../apis/admin";
+import { Toastification } from "./../utils/mixin";
 
 export default {
+  mixins: [Toastification],
   created() {
     this.fetchUsers()
   },
@@ -30,7 +32,9 @@ export default {
         this.users = data
         console.log(this.users)
       } catch(error) {
-        console.log('error: ', error);
+        this.ToastError({
+          title: "無法取得用戶資料，請稍後再試",
+        });
       }
     }
   },
