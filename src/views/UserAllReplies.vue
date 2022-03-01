@@ -1,10 +1,9 @@
 <template>
   <div class="user-all-replies">
-    <h1>UserAllReplies Page.</h1>
-    <RepliesList />
-      <!-- v-for="reply in repliesData"
+    <RepliesList
+      v-for="reply in repliesData"
       :key="reply.id"
-      :init-reply-data="reply" /> 等後端修api -->
+      :reply="reply" />
   </div>
 </template>
 
@@ -36,12 +35,18 @@ export default {
 
         this.repliesData = response.data.map(reply => {
           return {
-            ReplyId: reply.id,
-            UserId: reply.UserId,
-            description: reply.description,
-            createdAt: reply.createdAt,
-            updateAt: reply.updateAt,
-            //確認還須什麼資料，確認收到的欄位是否一樣
+            TweetId: reply.tweetId,
+            tweetUserId: reply.tweetUserId,
+            tweetUserAccount: reply.tweetUserAccount,
+            // commentId: reply.commentId,
+            comment: reply.comment,
+            createdAt: reply.replyTime,
+            commentUser: {
+              id: reply.replyUserId,
+              name: reply.replyUserName,
+              account:  reply.replyUserAccount,
+              avatar: reply.replyUserAvatar
+            },
           }
         });
         console.log(this.repliesData)
