@@ -35,28 +35,42 @@ export default new Vuex.Store({
         ...state.currentUser,
         ...currentUser,
       };
-      state.token = localStorage.getItem('token')
+      state.token = localStorage.getItem("token");
       state.isAdmin = currentUser.isAdmin;
       state.isAuthenticated = true;
     },
     setViewUser(state, viewUser) {
-console.log(state.viewUser, viewUser)
+      console.log("set");
+      console.log(state.viewUser, viewUser);
+      state.viewUser.name = viewUser.name
+      // TODO: wait for api setting
+      // state.viewUser.tweetCount = viewUser.tweetCount;
     },
     updatePathName(state, newPathName) {
       state.currentPathName = newPathName;
     },
     revokeAuthentication(state) {
-      state.currentUser = {}
-      state.isAuthenticated = false
-      state.token = ''
+      state.currentUser = {};
+      state.isAuthenticated = false;
+      state.token = "";
       localStorage.removeItem("token");
-    }
+    },
   },
   actions: {
-    async fetchCurrentUser({commit}) {
+    async fetchCurrentUser({ commit }) {
       try {
         const { data } = await usersAPI.getCurrentUser();
-        const { id, name, account, avatar, cover, email, introduction, isAdmin, role } = data.user;
+        const {
+          id,
+          name,
+          account,
+          avatar,
+          cover,
+          email,
+          introduction,
+          isAdmin,
+          role,
+        } = data.user;
 
         commit("setCurrentUser", {
           id,
@@ -67,14 +81,28 @@ console.log(state.viewUser, viewUser)
           email,
           introduction,
           isAdmin,
-          role
+          role,
         });
-        return true
+        return true;
       } catch (error) {
         console.log("Can't fetch current user");
         console.log(error);
         commit("revokeAuthentication");
-        return false
+        return false;
+      }
+    },
+    async fetehViewUser({ commit }, userId) {
+      try {
+        const response = await usersAPI.getUser(userId);
+        const { data } = response;
+
+        if (response.statusText !== "OK") {
+          throw new Error("status: " + response.status);
+        }
+
+        commit("setViewUser", data);
+      } catch (error) {
+        console.log(error);
       }
     },
   },

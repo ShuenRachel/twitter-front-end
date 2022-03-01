@@ -1,13 +1,12 @@
 <template>
   <div class="header">
-    <div class="header-btn">
+    <div class="header-btn" v-if="backArrowVisibility">
       <svg
         width="17"
         height="14"
         viewBox="0 0 17 14"
         fill="black"
         xmlns="http://www.w3.org/2000/svg"
-        v-if="backArrowVisibility"
         @click="$router.push('/user/home')"
       >
         <path
