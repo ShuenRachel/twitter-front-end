@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from "vuex"
 import userAPI from '../apis/users'
 
 export default {
@@ -125,9 +125,11 @@ export default {
         // TODO: warning alert: 
         // TODO: handle api response
         if (this.userIntroduction.length > 140) return;
-        const response = await userAPI.updateUserProfile(this.userId, {formData});
-        const { data } = response
-        console.log(data) 
+
+        const response = await userAPI.updateUserProfile({user_id: this.userId,  formData });
+        console.log(response)
+        // const { data } = response
+        // console.log(data) 
 
       } catch (error) {
         console.log(error);
