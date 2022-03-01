@@ -86,10 +86,6 @@ export default {
     );
   },
   updateUserProfile( {user_id, formData } ) {
-    // console.log( user_id, formData )
-    // for (let [name, value] of formData.entries()) {
-    //     console.log(name + ': ' + value)
-    // }
     return apiHelper.put(
       `/users/${user_id}`,
       formData ,

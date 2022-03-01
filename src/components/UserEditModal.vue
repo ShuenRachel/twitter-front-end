@@ -19,6 +19,7 @@
                   >
                 </button>
                 <button 
+                :disabled="isProcessing"
                 type="submit"
                 class="submit-edit">
                   儲存
@@ -49,7 +50,7 @@
                 <div class="profile-content">
                   <div class="user-name">
                     <input v-model="userName" type="text"
-                    name="user-name" class="user-name" placeholder="名稱">
+                    name="name" class="user-name" placeholder="名稱">
                   </div>
                   <div class="user-introduction">
                     <textarea v-model="userIntroduction"  name="introduction" id="user-introduction" class="user-introduction" placeholder="自我介紹"></textarea>
@@ -127,9 +128,12 @@ export default {
         if (this.userIntroduction.length > 140) return;
 
         const response = await userAPI.updateUserProfile({user_id: this.userId,  formData });
-        console.log(response)
-        // const { data } = response
-        // console.log(data) 
+        
+        const { data } = response
+        if (data.status !== "success") {
+          throw new Error(data.status)
+        }
+        this.handleCloseModal();
 
       } catch (error) {
         console.log(error);
