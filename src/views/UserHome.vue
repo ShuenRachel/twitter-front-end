@@ -18,8 +18,10 @@ import TweetNew from "@/components/TweetNew.vue";
 import TweetsList from "@/components/TweetsList.vue";
 import TweetModal from "@/components/TweetModal.vue";
 import tweetsAPI from "./../apis/tweets";
+import { Toastification } from "./../utils/mixin";
 
 export default {
+  mixins: [Toastification],
   components: {
     TweetNew,
     TweetsList,
@@ -39,7 +41,9 @@ export default {
 
         this.tweetsData = response.data;
       } catch (error) {
-        console.log(error);
+        this.ToastError({
+          title: "無法取得推文資料，請稍後再試",
+        });
       }
     },
     async fetchTweet(tweetId) {
@@ -48,7 +52,9 @@ export default {
 
         this.replyTweet = response.data;
       } catch (error) {
-        console.log(error);
+        this.ToastError({
+          title: "無法取得推文資料，請稍後再試",
+        });
       }
     },
     showReplyModal(tweetId) {

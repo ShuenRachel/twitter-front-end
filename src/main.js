@@ -4,14 +4,15 @@ import router from './router'
 import store from './store'
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
+import "./assets/scss/main.scss"
 
 const options = {
   position: "top-right",
-  timeout: 2000,
+  timeout: 5000,
   closeOnClick: true,
   pauseOnFocusLoss: false,
   pauseOnHover: true,
-  draggable: true,
+  draggable: false,
   draggablePercent: 0.6,
   showCloseButtonOnHover: false,
   closeButton: false,

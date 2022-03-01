@@ -42,8 +42,10 @@
 
 <script>
 import usersAPI from "./../apis/users";
+import { Toastification } from "./../utils/mixin";
 
 export default {
+  mixins: [Toastification],
   props: {
     initUser: {
       type: Object,
@@ -76,8 +78,9 @@ export default {
 
         this.user.isFollowing = true;
       } catch (error) {
-        // TODO error alert
-        console.log(error);
+        this.ToastError({
+          title: "無法追隨用戶，請稍後再試",
+        });
       }
     },
     async deleteFollowing(userId) {
@@ -90,8 +93,9 @@ export default {
 
         this.user.isFollowing = false;
       } catch (error) {
-        // TODO error alert
-        console.log(error);
+        this.ToastError({
+          title: "無法取消追隨用戶，請稍後再試",
+        });
       }
     },
   },

@@ -10,8 +10,10 @@
 <script>
 import LoginForm from "@/components/LoginForm.vue";
 import authorizationAPI from "./../apis/authorization";
+import { Toastification } from "./../utils/mixin";
 
 export default {
+  mixins: [Toastification],
   name: "AdminLogin",
   components: {
     LoginForm,
@@ -43,7 +45,10 @@ export default {
         this.$router.push("/admin/tweets");
       } catch (error) {
         this.isProcessing = false
-        console.log('admin login error:' , error);
+        // TODO: need check error msg?
+        this.ToastError({
+          title: "無法登入，請稍後再試",
+        });
       }
     },
   },

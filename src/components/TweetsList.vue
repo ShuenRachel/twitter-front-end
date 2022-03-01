@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import { fromNowFilter } from "../utils/mixin";
+import { fromNowFilter, Toastification } from "../utils/mixin";
 import tweetsAPI from "./../apis/tweets";
 import { mapState } from "vuex";
 
@@ -145,8 +145,9 @@ export default {
         this.tweet.liked = true;
         this.tweet.likeCount += 1;
       } catch (error) {
-        // TODO: alert
-        console.log(error);
+        this.ToastError({
+          title: "無法讚好推文，請稍後再試",
+        });
       }
     },
     async deleteLike(tweetId) {
@@ -158,8 +159,9 @@ export default {
         this.tweet.liked = false;
         this.tweet.likeCount -= 1;
       } catch (error) {
-        // TODO: alert
-        console.log(error);
+        this.ToastError({
+          title: "無法取消讚好推文，請稍後再試",
+        });
       }
     },
     handleReplyClicked(tweetId) {
@@ -170,6 +172,7 @@ export default {
       if (result) {
         this.$emit("after-delete-clicked", tweetId);
       } else {
+        // TODO: confirm this message
         alert("你按了取消按鈕");
       }
     },
@@ -188,7 +191,7 @@ export default {
       this.fetchTweet();
     },
   },
-  mixins: [fromNowFilter],
+  mixins: [fromNowFilter, Toastification],
 };
 </script>
 

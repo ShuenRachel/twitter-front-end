@@ -7,8 +7,10 @@
 <script>
 import LoginForm from "@/components/LoginForm.vue";
 import authorizationAPI from "./../apis/authorization";
+import { Toastification } from "./../utils/mixin";
 
 export default {
+  mixins: [Toastification],
   name: "UserLogin",
   components: {
     LoginForm,
@@ -37,8 +39,11 @@ export default {
         this.$router.push("/user/home");
         console.log(response);
       } catch (error) {
+        // TODO: check if need to check err msg
         this.isProcessing = false
-        console.log('user login error', error);
+        this.ToastError({
+          title: "無法登入，請稍後再試",
+        });
       }
     },
   },
