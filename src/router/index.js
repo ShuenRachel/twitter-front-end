@@ -62,6 +62,11 @@ const routes = [
         component: UserProfileLayout,
         children: [
           {
+            path: "",
+            name: "user-id",
+            component: () => import("../views/UserAllTweets.vue"),
+          },
+          {
             path: "tweets",
             name: "user-all-tweets",
             component: () => import("../views/UserAllTweets.vue"),
@@ -118,7 +123,6 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log(to)
   store.commit("updatePathName", to.name);
   store.dispatch("fetchCurrentUser");
   next();
