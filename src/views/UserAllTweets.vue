@@ -31,8 +31,9 @@ export default {
   
         if (response.statusText !== 'OK') {
           throw new Error('status: '+ response.status)
+        } else if (response.data.status === 'error') {
+          throw new Error('status: '+ response.data.message)
         }
-
         this.tweetsData = response.data.map(tweet => {
           return {
             TweetId: tweet.TweetId,
