@@ -7,24 +7,26 @@
           <div class="popular-user-avatar">
             <img :src="user.avatar" alt="" />
           </div>
-          <div class="popular-user-details">
-            <span class="name">{{ user.name }}</span>
-            <span class="account">TBC</span>
-          </div>
-          <button
-            v-if="user.isFollowing"
-            class="popular-user-btn btn btn-orange"
-            @click.stop.prevent="deleteFollowing(user.id)"
-          >
-            正在跟隨
-          </button>
-          <button
-            v-else
-            class="popular-user-btn btn btn-white"
-            @click.stop.prevent="addFollowing(user.id)"
-          >
-            跟隨
-          </button>
+            <div class="popular-user-details">
+              <span class="name">{{ user.name }}</span>
+              <span class="account">{{ user.account }}</span>
+            </div>
+            <div class="popular-user-follow-button">
+              <button
+                v-if="user.isFollowing"
+                class="popular-user-btn btn btn-orange btn-following"
+                @click.stop.prevent="deleteFollowing(user.id)"
+              >
+                正在跟隨
+              </button>
+              <button
+                v-else
+                class="popular-user-btn btn btn-white btn-follow"
+                @click.stop.prevent="addFollowing(user.id)"
+              >
+                跟隨
+              </button>
+            </div>
         </div>
       </div>
     </div>
@@ -108,38 +110,72 @@ export default {
 @import "../assets/scss/main.scss";
 .popular-panel {
   border-left: $border-setting;
+  overflow: scroll;
+  height: 100vh;
   .popular-wrapper {
-    width: 350px;
-    height: 750px;
+    max-width: 350px;
+    overflow-y: scroll;
     border-radius: 14px;
     background: $card-fill;
-    margin-top: 15px;
-    margin-left: 30px;
+    margin: 15px 30px;
   }
 }
 
 .popular {
   &-heading {
-    padding-top: 10px;
-    padding-left: 15px;
+    padding: 10px 0 9px 15px;
     font-size: 18px;
     font-weight: 700;
   }
 }
 
-.popular-user {
-  padding: 10px 15px;
-  border-top: $border-setting;
-  display: flex;
-  &-avatar {
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    img {
-      display: block;
-      width: 100%;
+.popular-users {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 15px;
+  .popular-user {
+    position: relative;
+    padding: 10px 15px;
+    border-top: $border-setting;
+    display: flex;
+    align-items: center;
+    &-avatar {
+      height: 50px;
+      width: 50px;
       border-radius: 50%;
+      background-color: $empty-img;
+      margin-right: 10px;
+      img {
+        display: block;
+        width: 100%;
+        border-radius: 50%;
+      }
+    }
+    &-details {
+      display: flex;
+      flex-direction: column;
+      span:nth-child(1){
+        margin-bottom: 3px;
+      }
+    }
+    &-follow-button {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      button {
+        font-size: 15px;
+        font-weight: 700;
+      }
+      button.btn-follow { 
+        width: 60px;
+        height: 35px;
+      }
+      button.btn-following {
+        width: 90px;
+        height: 35px;
+      }
     }
   }
 }
+
 </style>

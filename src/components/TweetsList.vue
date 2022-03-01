@@ -4,21 +4,31 @@
       <!-- TODO: import user avatar -->
       <div
         class="tweet__user-avatar"
-        :style="{ backgroundImage: 'url(' + tweet.avatar + ')' }"></div>
+        :style="{ backgroundImage: 'url(' + tweet.avatar + ')' }"
+      ></div>
       <div class="tweet__info-container">
         <div class="info">
           <span class="name">{{ tweet.tweetUserName }}</span>
-          <span class="account">{{ tweet.tweetUserAccount }}{{ tweet.createdAt | fromNow }}</span>
+          <span class="account"
+            >{{ tweet.tweetUserAccount }}{{ tweet.createdAt | fromNow }}</span
+          >
           <router-link
+            v-if="!isAdmin"
             :to="{ name: 'user-tweet', params: { tweet_id: tweet.TweetId } }"
             ><div class="content">
               <p>{{ tweet.description }}</p>
             </div></router-link
           >
+          <div v-else class="content">
+            <p>{{ tweet.description }}</p>
+          </div>
         </div>
-        <div v-if="isUserPage" class="tweet__footer">
+        <div v-if="!isAdmin" class="tweet__footer">
           <div class="tweet__footer__actives">
-            <div class="tweet__footer__actives__reply"  @click.stop.prevent="handleReplyClicked(tweet.TweetId)">
+            <div
+              class="tweet__footer__actives__reply"
+              @click.stop.prevent="handleReplyClicked(tweet.TweetId)"
+            >
               <svg
                 class="actives-icon actives-icon__reply"
                 width="12"
@@ -81,8 +91,11 @@
             </div>
           </div>
         </div>
-        <div v-if="!isUserPage" class="delete">
-          <span @click="handleDeleteClicked(tweet.TweetId)" class="delete"></span>
+        <div v-if="isAdmin" class="delete">
+          <span
+            @click="handleDeleteClicked(tweet.TweetId)"
+            class="delete"
+          ></span>
         </div>
       </div>
     </div>
@@ -92,6 +105,7 @@
 <script>
 import { fromNowFilter } from "../utils/mixin";
 import tweetsAPI from "./../apis/tweets";
+import { mapState } from "vuex";
 
 export default {
   props: {
@@ -108,6 +122,9 @@ export default {
       isLike: false,
     };
   },
+  computed: {
+    ...mapState(["isAdmin"]),
+  },
   methods: {
     fetchTweet() {
       this.tweet = this.initTweetData;
@@ -119,7 +136,7 @@ export default {
           throw new Error(response.message);
         }
         this.tweet.liked = true;
-        this.tweet.likeCount += 1
+        this.tweet.likeCount += 1;
       } catch (error) {
         // TODO: alert
         console.log(error);
@@ -132,23 +149,23 @@ export default {
           throw new Error(response.message);
         }
         this.tweet.liked = false;
-        this.tweet.likeCount -= 1
+        this.tweet.likeCount -= 1;
       } catch (error) {
         // TODO: alert
         console.log(error);
       }
     },
     handleReplyClicked(tweetId) {
-      this.$emit("after-reply-clicked", tweetId)
+      this.$emit("after-reply-clicked", tweetId);
     },
     handleDeleteClicked(tweetId) {
-      let result = confirm(`確定要刪除TweetId為：${tweetId} 此篇推文？`)
+      let result = confirm(`確定要刪除TweetId為：${tweetId} 此篇推文？`);
       if (result) {
-          this.$emit("after-delete-clicked", tweetId)
+        this.$emit("after-delete-clicked", tweetId);
       } else {
-          alert('你按了取消按鈕');
+        alert("你按了取消按鈕");
       }
-    }
+    },
   },
   created() {
     this.fetchTweet();
@@ -156,7 +173,7 @@ export default {
   watch: {
     initTweetData() {
       this.fetchTweet();
-    }
+    },
   },
   mixins: [fromNowFilter],
 };

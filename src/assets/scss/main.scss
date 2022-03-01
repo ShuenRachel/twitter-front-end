@@ -2,6 +2,7 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: 'Noto Sans TC', sans-serif;
 }
 * {
   box-sizing: border-box;
@@ -84,12 +85,18 @@ $border-setting: 1px solid $border-color;
 .btn-orange {
   color: $bg-white;
   background-color: $brand-orange;
+  &:hover {
+    background-color: #ff8833;
+  }
 }
 
 .btn-white {
   color: $brand-orange;
   border: 1px solid $brand-orange;
   background-color: transparent;
+  &:hover {
+    background-color: #EBF1F5;
+  }
 }
 
 .link {

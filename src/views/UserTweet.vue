@@ -4,6 +4,9 @@
       :init-tweet-data="tweetsData"
       @after-reply-clicked="showReplyModal"
     />
+    <div v-if="!replies.length" class="no-content">
+      No reply:[
+    </div>
     <RepliesList
       v-for="reply in replies"
       :key="reply.commentId"

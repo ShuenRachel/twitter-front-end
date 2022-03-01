@@ -12,7 +12,7 @@ const routes = [
   {
     path: "/",
     name: "root",
-    redirect: "/user/login",
+    redirect: "/user/home",
   },
   {
     path: "/user",
@@ -36,6 +36,7 @@ const routes = [
 
   {
     path: "/admin",
+    exact: true,
     redirect: "/admin/tweets",
   },
   {
@@ -61,6 +62,11 @@ const routes = [
         path: "user/:user_id/",
         component: UserProfileLayout,
         children: [
+          {
+            path: "",
+            name: "user-id",
+            component: () => import("../views/UserAllTweets.vue"),
+          },
           {
             path: "tweets",
             name: "user-all-tweets",
@@ -95,16 +101,18 @@ const routes = [
       {
         path: "admin/tweets",
         name: "admin-tweets",
+        exact: true,
         component: () => import("../views/AdminAllTweets.vue"),
+        beforeEnter: authorizeIsAdmin,
       },
       {
         path: "admin/users",
         name: "admin-users",
         component: () => import("../views/AdminAllUsers.vue"),
+        beforeEnter: authorizeIsAdmin,
       },
     ],
   },
-
   {
     path: "*",
     name: "not-found",
@@ -117,10 +125,45 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  console.log(to)
+
+const authorizeIsAdmin = (to, from, next) => {
+  console.log('authoriza!')
+  const currentUser = store.state.currentUser
+  if (currentUser && !currentUser.isAdmin) {
+    next('/404')
+    return
+  }
+
+  next()
+}
+
+router.beforeEach(async (to, from, next) => {
+  const tokenInLocalStorage = localStorage.getItem("token");
+  const tokenInStore = store.state.token
+  let isAuthenticated = store.state.isAuthenticated;
+
   store.commit("updatePathName", to.name);
-  store.dispatch("fetchCurrentUser");
+
+  if (tokenInLocalStorage !== tokenInStore) {
+    isAuthenticated = await store.dispatch("fetchCurrentUser");
+  }
+
+  const pathWithoutAuthentication = [
+    "user-login",
+    "user-regist",
+    "admin-login",
+  ];
+
+  if (!isAuthenticated && !pathWithoutAuthentication.includes(to.name)) {
+    next("/user/login");
+    return;
+  }
+
+  if (isAuthenticated && pathWithoutAuthentication.includes(to.name)) {
+    next("/user/home");
+    return;
+  }
+
   next();
 });
 
