@@ -64,12 +64,10 @@ export default {
         if (response.statusText !== "OK") {
           throw new Error(response.message);
         }
-
         this.users = data;
       } catch (error) {
-        console.log(error);
-        this.ToastSuccess({
-          title: "Cant' get popular user",
+        this.ToastError({
+          title: "無法取得人氣用戶資料，請稍後再試",
         });
       }
     },
@@ -89,8 +87,9 @@ export default {
           return user;
         });
       } catch (error) {
-        // TODO error alert
-        console.log(error);
+        this.ToastError({
+          title: "無法追隨用戶，請稍後再試",
+        });
       }
     },
     async deleteFollowing(userId) {
@@ -108,8 +107,9 @@ export default {
           return user;
         });
       } catch (error) {
-        // TODO error alert
-        console.log(error);
+        this.ToastError({
+          title: "無法取消追隨用戶，請稍後再試",
+        });
       }
     },
     toUserProfilePage(userId) {

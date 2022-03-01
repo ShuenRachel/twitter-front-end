@@ -14,8 +14,10 @@
 <script>
 import TweetsList from '../components/TweetsList.vue'
 import adminAPI from '../apis/admin'
+import { Toastification } from "./../utils/mixin";
 
 export default {
+  mixins: [Toastification],
   components: {
     TweetsList,
   },
@@ -39,7 +41,9 @@ export default {
         this.tweetsData = response.data
 
       } catch (error) {
-        console.log(error)
+        this.ToastError({
+          title: "無法取得推文資料，請稍後再試",
+        });
       }
     },
     async deleteTweet(tweetId) {
@@ -54,9 +58,10 @@ export default {
         this.fetchTweets()
 
       } catch (error) {
-        console.log(error)
+        this.ToastError({
+          title: "無法刪除推文，請稍後再試",
+        });
       }
-      
     } 
   }
 }

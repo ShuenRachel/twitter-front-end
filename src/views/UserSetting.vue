@@ -12,8 +12,10 @@
 import SettingForm from "@/components/SettingForm.vue";
 import userAPI from "./../apis/users";
 import { mapState } from "vuex";
+import { Toastification } from "./../utils/mixin";
 
 export default {
+  mixins: [Toastification],
   components: {
     SettingForm,
   },
@@ -31,7 +33,10 @@ export default {
       try {
         this.isProcessing = true;
 
-        const response = await userAPI.updateSetting(this.currentUser.id, formData);
+        const response = await userAPI.updateSetting(
+          this.currentUser.id,
+          formData
+        );
         const { data } = response;
 
         console.log(data);
@@ -39,14 +44,20 @@ export default {
         if (data.status !== "success") {
           throw new Error(data.message);
         }
-        // TODO: show success msg
-        this.submitStatus = "success"
+        this.submitStatus = "success";
+
+        this.ToastSuccess({
+          title: "成個更新設定！",
+        });
 
         this.$router.push("/user/home");
       } catch (error) {
         this.isProcessing = false;
 
         this.submitStatus = error.message;
+        this.ToastError({
+          title: "無法更新設定，請稍後再試",
+        });
       }
     },
   },

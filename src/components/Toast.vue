@@ -61,11 +61,9 @@ export default {
   }
   &__description--success {
     font-size: 16px;
-    color: green
   }
   &__description--error {
     font-size: 16px;
-    color: red
   }
   &__icon {
     width: 56px;

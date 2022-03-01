@@ -1,6 +1,6 @@
 <template>
   <div class="tweet-wrapper">
-    <div class="user-avatar"><img :src="currentUser.avatar" alt=""></div>
+    <div class="user-avatar"><img :src="currentUser.avatar" alt="" /></div>
     <div class="tweet-area">
       <input
         v-model="tweet"
@@ -22,7 +22,9 @@
 <script>
 import tweetAPI from "./../apis/tweets";
 import { mapState } from "vuex";
+import { Toastification } from "./../utils/mixin";
 export default {
+  mixins: [Toastification],
   data() {
     return {
       tweet: "",
@@ -41,10 +43,17 @@ export default {
         if (response.statusText !== "OK") {
           throw new Error(response.message);
         }
-        this.tweet = ""
-        this.$emit("after-submit-tweet")
+        this.tweet = "";
+
+        this.ToastSuccess({
+          title: "已成功發佈推文",
+        });
+
+        this.$emit("after-submit-tweet");
       } catch (error) {
-        console.log(error);
+        this.ToastError({
+          title: "無法發佈推文，請稍後再試",
+        });
       }
     },
   },
