@@ -63,6 +63,11 @@ const routes = [
         component: UserProfileLayout,
         children: [
           {
+            path: "",
+            name: "user-id",
+            component: () => import("../views/UserAllTweets.vue"),
+          },
+          {
             path: "tweets",
             name: "user-all-tweets",
             component: () => import("../views/UserAllTweets.vue"),
@@ -119,6 +124,7 @@ const router = new VueRouter({
   linkExactActiveClass: "active",
   routes,
 });
+
 
 const authorizeIsAdmin = (to, from, next) => {
   console.log('authoriza!')

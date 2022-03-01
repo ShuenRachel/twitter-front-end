@@ -4,7 +4,7 @@
       v-for="tweet in tweetsData"
       :key="tweet.id"
       :init-tweet-data="tweet" />
-    <div v-if="isLikeEmpty">目前尚無喜歡的內容</div>
+    <div class="empty-data" v-if="isLikeEmpty">目前尚無喜歡的內容</div>
   </div>
 </template>
 
@@ -33,12 +33,12 @@ export default {
   
         if (response.statusText !== 'OK') {
           throw new Error('status: '+ response.status)
-        } else if (response.data.status === 'error' && response.data.message === 'No liked tweets!') {
+        } else if (response.data.length === 0) {
           this.tweetsData= [] // 切換到喜歡的內容為空的使用者要先把 tweetsData 清空。
           this.isLikeEmpty = true
           throw new Error('status: '+ response.data.status + ', message: ' + response.data.message)
         }
-
+        console.log(response.data)
         this.tweetsData = response.data
         this.isLikeEmpty = false
       } catch (error) {

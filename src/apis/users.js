@@ -36,8 +36,14 @@ export default {
   },
   updateSetting(user_id, formData) {
     return apiHelper.put(
-      `/users/${user_id}`,
+      `/users/${user_id}/edit`,
       { ...formData }
     );
   },
+  updateUserProfile( {user_id, formData } ) {
+    return apiHelper.put(
+      `/users/${user_id}`,
+      formData
+    );
+  }
 };
