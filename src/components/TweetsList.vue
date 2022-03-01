@@ -5,11 +5,18 @@
       <div
         class="tweet__user-avatar"
         :style="{ backgroundImage: 'url(' + tweet.avatar + ')' }"
+        @click.stop.prevent="toUserProfilePage(tweet.tweetUserId)"
       ></div>
       <div class="tweet__info-container">
         <div class="info">
-          <span class="name">{{ tweet.tweetUserName }}</span>
-          <span class="account"
+          <span
+            class="name"
+            @click.stop.prevent="toUserProfilePage(tweet.tweetUserId)"
+            >{{ tweet.tweetUserName }}</span
+          >
+          <span
+            class="account"
+            @click.stop.prevent="toUserProfilePage(tweet.tweetUserId)"
             >{{ tweet.tweetUserAccount }}{{ tweet.createdAt | fromNow }}</span
           >
           <router-link
@@ -166,6 +173,12 @@ export default {
         alert("你按了取消按鈕");
       }
     },
+    toUserProfilePage(userId) {
+      this.$router.push({
+        name: "user-all-tweets",
+        params: { user_id: userId },
+      });
+    },
   },
   created() {
     this.fetchTweet();
@@ -201,9 +214,13 @@ div.tweet {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50%;
+    cursor: pointer;
   }
   &__info-container {
     padding-left: 15px;
+    .info {
+      cursor: pointer;
+    }
     div.content {
       max-width: 510px;
     }
