@@ -5,11 +5,11 @@
       <div class="popular-users">
         <div class="popular-user" v-for="user in users" :key="user.id">
           <div class="popular-user-avatar">
-            <img :src="user.avatar" alt="" />
+            <img :src="user.avatar" alt="" @click.stop.prevent="toUserProfilePage(user.id)" />
           </div>
             <div class="popular-user-details">
-              <span class="name">{{ user.name }}</span>
-              <span class="account">{{ user.account }}</span>
+              <span class="name" @click.stop.prevent="toUserProfilePage(user.id)">{{ user.name }}</span>
+              <span class="account" @click.stop.prevent="toUserProfilePage(user.id)">{{ user.account }}</span>
             </div>
             <div class="popular-user-follow-button">
               <button
@@ -97,7 +97,7 @@ export default {
       }
     },
     toUserProfilePage(userId) {
-      this.$router.push({ name: 'user', params: { username: 'eduardo' } })
+      this.$router.push({ name: 'user-all-tweets', params: { user_id: userId } })
     }
   },
   created() {
@@ -145,6 +145,7 @@ export default {
       border-radius: 50%;
       background-color: $empty-img;
       margin-right: 10px;
+      cursor: pointer;
       img {
         display: block;
         width: 100%;
@@ -154,6 +155,7 @@ export default {
     &-details {
       display: flex;
       flex-direction: column;
+      cursor: pointer;
       span:nth-child(1){
         margin-bottom: 3px;
       }
