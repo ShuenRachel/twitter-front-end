@@ -3,40 +3,43 @@
     <TweetsList
       v-for="tweet in tweetsData"
       :key="tweet.id"
-      :init-tweet-data="tweet" />
+      :init-tweet-data="tweet"
+    />
   </div>
 </template>
 
 <script>
-import TweetsList from '../components/TweetsList.vue'
-import usersAPI from '../apis/users'
+import TweetsList from "../components/TweetsList.vue";
+import usersAPI from "../apis/users";
 
 export default {
-  components: { 
-    TweetsList
+  components: {
+    TweetsList,
   },
   created() {
-    this.fetchTweets(Number(this.userId))
+    this.fetchTweets(Number(this.userId));
   },
   data() {
     return {
       userId: this.$route.params.user_id,
-      tweetsData: []
-    }
+      tweetsData: [],
+    };
   },
   methods: {
     async fetchTweets(userId) {
       try {
-        const response = await usersAPI.getUserTweets(userId)
-  
-        if (response.statusText !== 'OK') {
-          throw new Error('status: '+ response.status)
-        }
+        const response = await usersAPI.getUserTweets(userId);
 
-        this.tweetsData = response.data.map(tweet => {
+        if (response.statusText !== "OK") {
+          throw new Error("status: " + response.status);
+        }
+        console.log("--tweet---");
+        console.log(response.data);
+
+        this.tweetsData = response.data.map((tweet) => {
           return {
             TweetId: tweet.TweetId,
-            UserId: tweet.tweetUserId,
+            tweetUserId: tweet.tweetUserId,
             avatar: tweet.avatar,
             description: tweet.description,
             createdAt: tweet.createdAt,
@@ -44,19 +47,18 @@ export default {
             tweetUserAccount: tweet.tweetUserAccount,
             repliedCount: tweet.repliedCount,
             likeCount: tweet.likeCount,
-            liked: tweet.liked
-          }
+            liked: tweet.liked,
+          };
         });
-
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    }
+    },
   },
-  beforeRouteUpdate (to, from, next) {
-    this.userId = to.params.user_id
-    this.fetchTweets(Number(this.userId))
-    next()
+  beforeRouteUpdate(to, from, next) {
+    this.userId = to.params.user_id;
+    this.fetchTweets(Number(this.userId));
+    next();
   },
 };
 </script>
