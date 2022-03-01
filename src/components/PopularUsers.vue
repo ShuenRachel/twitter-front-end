@@ -110,6 +110,7 @@ export default {
   overflow: scroll;
   height: 100vh;
   .popular-wrapper {
+    min-width: 300px;
     max-width: 350px;
     overflow-y: scroll;
     border-radius: 14px;
