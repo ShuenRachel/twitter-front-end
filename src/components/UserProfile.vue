@@ -1,35 +1,47 @@
 <template>
   <div class="user-profile-container">
     <!-- 切版時 再把backgroundImage的設定放下去style -->
-    <div class="user-profile-cover" :style="{ backgroundImage: 'url(' + user.cover + ')' }"></div>
+    <div
+      class="user-profile-cover"
+      :style="{ backgroundImage: 'url(' + user.cover + ')' }"
+    ></div>
     <div class="user-profile-avatar">
-      <img :src="user.avatar" alt="">
+      <img :src="user.avatar" alt="" />
     </div>
-    <div>{{ user.name }}</div>
-    <div>@{{ user.account }}</div>
-    <div>{{ user.introduction }}</div>
-    <div>
-      <router-link
-        :to="{ name: 'user-followings', params: { user_id: user_id } }"
-        ><span>{{ user.followingCount }} 個</span>跟隨中</router-link
-      >
-    </div>
-    <div>
-      <router-link
-        :to="{ name: 'user-followers', params: { user_id: user_id } }"
-        ><span>{{ user.followerCount }} 位</span>跟隨者</router-link
-      >
-    </div>
-    <button @click.stop.prevent="showEditModal" class="user-edit">
-      編輯個人資料
-    </button>
-    <div class="follow-ship">
-      <button v-if="user.isFollowing" class="following">正在跟隨</button>
-      <button v-else class="follow">跟隨</button>
-    </div>
-    <div style="border: 1px solid red">
-      test currentUser >> currentUserId: {{ currentUser.id }}, currentUserName:
-      {{ currentUser.name }}.
+    <div class="user-profile-info-container">
+      <div class="user-name">
+       <p>{{ user.name }}</p> 
+      </div>
+      <div class="user-account">
+        <span class="account">{{ user.account }}</span>
+      </div>
+      <div class="user-introduction">
+        <p>{{ user.introduction }}</p>
+      </div>
+      <div class="user-follow">
+        <div class="user-follow-followings">
+          <router-link
+            :to="{ name: 'user-followings', params: { user_id: user_id } }"
+            ><span>{{ user.followingCount }} 個</span>跟隨中</router-link
+          >
+        </div>
+        <div class="user-follow-followers">
+          <router-link
+            :to="{ name: 'user-followers', params: { user_id: user_id } }"
+            ><span>{{ user.followerCount }} 位</span>跟隨者</router-link
+          >
+        </div>
+      </div>
+      <div class="user-edit">
+        <button @click.stop.prevent="showEditModal" 
+          class="user-edit btn btn-white">
+          編輯個人資料
+        </button>
+      </div>
+      <div class="user-is-follow">
+        <button v-if="user.isFollowing" class="following">正在跟隨</button>
+        <button v-else class="follow">跟隨</button>
+      </div>
     </div>
     <UserEditModal
       v-if="modalVisibility"
@@ -131,23 +143,73 @@ div.user-profile {
     max-width: 598px;
   }
   &-cover {
-    width:598px;
-    height:200px;
+    width: 598px;
+    height: 200px;
     background-repeat: no-repeat;
     background-size: cover;
-  } 
+  }
   &-avatar {
     position: absolute;
     top: 124px;
     left: 15px;
-    width:140px;
-    height:140px;
+    width: 140px;
+    height: 140px;
     img {
       width: 100%;
-      border: 4px solid #FFFFFF;
+      border: 4px solid #ffffff;
       border-radius: 50%;
     }
   }
-}
+  &-info-container {
+    position: relative;
+    padding: 0 15px;
+    font-size: 14px;
+    div.user-name {
+      margin-top: 69px;
+      font-weight: 900;
+      font-size: 19px;
+      line-height: 27.5px;
+    }
+    div.user-account {
+      font-size: 15px;
+    }
+    div.user-introduction {
+      margin: 10px 0;
+    }
+    div.user-follow {
+      display: flex;
+      &-followings {
+        margin-right: 20px;
+      }
+      &-followings, &-followers {
+        a {
+          text-decoration: none;
+          color: $text-sub;
+          font-weight: 400;
+          span {
+            color: $text-main;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+    div.user-edit {
+      position: absolute;
+      top: -24px;
+      right: 15px;
+      button {
+        width: 120px;
+        height: 35px;
+        font-size: 15px;
+        font-weight: 700;
+      }
+    }
+    div.user-is-follow {
+      position: absolute;
+      button {
 
+      }
+    }
+  }
+}
 </style>
