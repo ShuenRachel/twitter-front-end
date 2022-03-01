@@ -94,6 +94,9 @@ export default {
         console.log(error);
       }
     },
+    toUserProfilePage(userId) {
+      this.$router.push({ name: 'user', params: { username: 'eduardo' } })
+    }
   },
   created() {
     this.fetchUsers();
