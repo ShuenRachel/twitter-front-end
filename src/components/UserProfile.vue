@@ -32,15 +32,16 @@
           >
         </div>
       </div>
-      <div class="user-edit">
+      <div v-if="isCurrentUser" 
+      class="user-edit btn-ps">
         <button @click.stop.prevent="showEditModal" 
-          class="user-edit btn btn-white">
+          class="user-edit btn btn-white profile-btn">
           編輯個人資料
         </button>
       </div>
-      <div class="user-is-follow">
-        <button v-if="user.isFollowing" class="following">正在跟隨</button>
-        <button v-else class="follow">跟隨</button>
+      <div v-if="!isCurrentUser" class="user-is-follow btn-ps">
+        <button v-if="user.isFollowing" class="following btn btn-orange profile-btn">正在跟隨</button>
+        <button v-else class="follow btn btn-white profile-btn">跟隨</button>
       </div>
     </div>
     <UserEditModal
@@ -90,6 +91,7 @@ export default {
         followerCount: 0,
         isFollowing: false,
       },
+      isCurrentUser: true,
       modalVisibility: false,
     };
   },
@@ -143,6 +145,7 @@ div.user-profile {
     max-width: 598px;
   }
   &-cover {
+    min-width: 200px;
     width: 598px;
     height: 200px;
     background-repeat: no-repeat;
@@ -194,20 +197,26 @@ div.user-profile {
       }
     }
     div.user-edit {
-      position: absolute;
-      top: -24px;
-      right: 15px;
       button {
         width: 120px;
+      }
+    }
+    div.btn-ps {
+      position: absolute;
+      top: calc( -69px + 10px );
+      right: 15px;
+      button.profile-btn {
+        font-size: 15px; 
+        font-weight: 700; 
         height: 35px;
-        font-size: 15px;
-        font-weight: 700;
       }
     }
     div.user-is-follow {
-      position: absolute;
-      button {
-
+      button.follow {
+        width: 60px;
+      }
+      button.following {
+        width: 90px;
       }
     }
   }
