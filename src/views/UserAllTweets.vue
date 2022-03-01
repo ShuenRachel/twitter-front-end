@@ -28,14 +28,13 @@ export default {
   methods: {
     async fetchTweets(userId) {
       try {
-        const response = await usersAPI.getUserTweets(userId);
-
-        if (response.statusText !== "OK") {
-          throw new Error("status: " + response.status);
+        const response = await usersAPI.getUserTweets(userId)
+  
+        if (response.statusText !== 'OK') {
+          throw new Error('status: '+ response.status)
+        } else if (response.data.status === 'error') {
+          throw new Error('status: '+ response.data.message)
         }
-        console.log("--tweet---");
-        console.log(response.data);
-
         this.tweetsData = response.data.map((tweet) => {
           return {
             TweetId: tweet.TweetId,
