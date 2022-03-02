@@ -102,4 +102,9 @@ export default {
   display: table-cell;
   vertical-align: middle;
 }
+
+.reply-avatar {
+  width: 50px;
+  height: 50px;
+}
 </style>
