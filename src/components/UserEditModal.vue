@@ -140,6 +140,10 @@ export default {
     handleCloseModal() {
       this.$emit("after-close-modal");
     },
+    handleEditSuccess() {
+      this.$emit("after-edit-success")
+      this.handleCloseModal()
+    },
     async submitEdit(e) {
       // TODO: show warning text -> remove html input max-length
       if (this.userName.length > 50) {
@@ -166,7 +170,7 @@ export default {
         this.ToastSuccess({
           title: "已更新資料",
         });
-        this.handleCloseModal();
+        this.handleEditSuccess()
       } catch (error) {
         this.ToastError({
           title: "無法更新資料，請稍後再試",
