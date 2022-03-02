@@ -136,10 +136,8 @@ export default {
   watch: {
     userId(newValue) {
       this.fetchUserProfile(Number(newValue));
-    },
-    user_id(newValue) {
       this.user_id = Number(newValue)
-    }
+    },
   },
 };
 </script>
