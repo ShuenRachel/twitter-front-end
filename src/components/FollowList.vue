@@ -23,6 +23,7 @@
           <button
             v-if="user.isFollowing"
             class="following"
+            :disabled="isProcessing"
             @click.stop.prevent="deleteFollowing(user.id)"
           >
             正在跟隨
@@ -30,6 +31,7 @@
           <button
             v-else
             class="follow"
+            :disabled="isProcessing"
             @click.stop.prevent="addFollowing(user.id)"
           >
             跟隨
@@ -55,6 +57,7 @@ export default {
   data() {
     return {
       user: {},
+      isProcessing: false,
     };
   },
   computed: {
@@ -77,8 +80,8 @@ export default {
           title: "不能追隨自己",
         });
       }
+      this.isProcessing = true;
       try {
-        this.isProcessing = true;
         const response = await usersAPI.addFollowing(userId);
 
         if (response.statusText !== "OK") {
@@ -86,13 +89,16 @@ export default {
         }
 
         this.user.isFollowing = true;
+        this.isProcessing = false;
       } catch (error) {
         this.ToastError({
           title: "無法追隨用戶，請稍後再試",
         });
+        this.isProcessing = false;
       }
     },
     async deleteFollowing(userId) {
+      this.isProcessing = true;
       try {
         const response = await usersAPI.deleteFollowing(userId);
 
@@ -101,10 +107,12 @@ export default {
         }
 
         this.user.isFollowing = false;
+        this.isProcessing = false;
       } catch (error) {
         this.ToastError({
           title: "無法取消追隨用戶，請稍後再試",
         });
+        this.isProcessing = false;
       }
     },
   },
