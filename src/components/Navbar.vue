@@ -105,7 +105,7 @@
         </button>
       </div>
       <div class="nav-footer">
-        <div class="nav-footer-btn" @click="logout">
+        <div class="nav-footer-btn pointer" @click="logout">
           <svg
             width="20"
             height="18"
