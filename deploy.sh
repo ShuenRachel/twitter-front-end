@@ -1,3 +1,4 @@
+# terminal cmd: ./deploy.sh
 #!/usr/bin/env sh
 
 # abort on errors
