@@ -47,16 +47,19 @@ const routes = [
         path: "user/home",
         name: "user-home",
         component: () => import("../views/UserHome.vue"),
+        meta: { isAdminPage: false },
       },
       {
         path: "user/setting",
         name: "user-setting",
         component: () => import("../views/UserSetting.vue"),
+        meta: { isAdminPage: false },
       },
       {
         path: "user/tweets/:tweet_id",
         name: "user-tweet",
         component: () => import("../views/UserTweet.vue"),
+        meta: { isAdminPage: false },
       },
       {
         path: "user/:user_id/",
@@ -66,25 +69,25 @@ const routes = [
             path: "",
             name: "user-id",
             component: () => import("../views/UserAllTweets.vue"),
-            meta: { needChangeViewUser: true },
+            meta: { needChangeViewUser: true, isAdminPage: false },
           },
           {
             path: "tweets",
             name: "user-all-tweets",
             component: () => import("../views/UserAllTweets.vue"),
-            meta: { needChangeViewUser: true },
+            meta: { needChangeViewUser: true, isAdminPage: false },
           },
           {
             path: "replies",
             name: "user-all-replies",
             component: () => import("../views/UserAllReplies.vue"),
-            meta: { needChangeViewUser: true },
+            meta: { needChangeViewUser: true, isAdminPage: false },
           },
           {
             path: "like",
             name: "user-all-like",
             component: () => import("../views/UserAllLike.vue"),
-            meta: { needChangeViewUser: true },
+            meta: { needChangeViewUser: true, isAdminPage: false },
           },
         ],
       },
@@ -92,13 +95,13 @@ const routes = [
         path: "user/:user_id/followers",
         name: "user-followers",
         component: () => import("../views/UserFollowers.vue"),
-        meta: { needChangeViewUser: true },
+        meta: { needChangeViewUser: true, isAdminPage: false },
       },
       {
         path: "user/:user_id/followings",
         name: "user-followings",
         component: () => import("../views/UserFollowings.vue"),
-        meta: { needChangeViewUser: true },
+        meta: { needChangeViewUser: true, isAdminPage: false },
       },
       {
         path: "user/:user_id",
@@ -109,13 +112,13 @@ const routes = [
         name: "admin-tweets",
         exact: true,
         component: () => import("../views/AdminAllTweets.vue"),
-        beforeEnter: authorizeIsAdmin,
+        meta: { isAdminPage: true },
       },
       {
         path: "admin/users",
         name: "admin-users",
         component: () => import("../views/AdminAllUsers.vue"),
-        beforeEnter: authorizeIsAdmin,
+        meta: { needChangeViewUser: true, isAdminPage: true },
       },
     ],
   },
@@ -131,21 +134,10 @@ const router = new VueRouter({
   routes,
 });
 
-
-const authorizeIsAdmin = (to, from, next) => {
-
-  const currentUser = store.state.currentUser
-  if (currentUser && !currentUser.isAdmin) {
-    next('/404')
-    return
-  }
-
-  next()
-}
-
 router.beforeEach(async (to, from, next) => {
   const tokenInLocalStorage = localStorage.getItem("token");
-  const tokenInStore = store.state.token
+  const tokenInStore = store.state.token;
+  const isAdmin = store.state.isAdmin;
   let isAuthenticated = store.state.isAuthenticated;
 
   store.commit("updatePathName", to.name);
@@ -170,9 +162,13 @@ router.beforeEach(async (to, from, next) => {
     return;
   }
 
-    if (to.meta.needChangeViewUser) {
-      store.dispatch("fetehViewUser", to.params.user_id);
-    }
+  if (to.meta.needChangeViewUser) {
+    store.dispatch("fetehViewUser", to.params.user_id);
+  }
+
+  if (to.meta.isAdminPage && !isAdmin) {
+    next("/404");
+  }
 
   next();
 });
