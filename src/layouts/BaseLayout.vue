@@ -39,18 +39,7 @@ export default {
     }
   },
   beforeRouteUpdate(to, from, next) {
-    console.log('this.isCurrentUserPage', this.isCurrentUserPage)
-    console.log('Number(to.params.user_id)', Number(to.params.user_id))
-    console.log('t/f', Number(to.params.user_id) === this.currentUser.id)
     this.isCurrentUserPage = Number(to.params.user_id) === this.currentUser.id
-    console.log('this.isCurrentUserPage 2', this.isCurrentUserPage)
-    // console.log('userID:' , to.params.user_id)
-    // console.log('true false:' , Number(to.params.user_id) === this.currentUser.id)
-    // if (Number(to.params.user_id) === this.currentUser.id) {
-    //   this.isCurrentUserPage = Number(to.params.user_id) === this.currentUser.id
-    // } else {
-    //   this.isCurrentUserPage = false
-    // }
     next()
   }
 };
