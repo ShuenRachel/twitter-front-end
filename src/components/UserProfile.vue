@@ -32,14 +32,14 @@
           >
         </div>
       </div>
-      <div v-if="isCurrentUser" 
+      <div v-if="currentUser.id === user_id" 
       class="user-edit btn-ps">
         <button @click.stop.prevent="showEditModal" 
           class="user-edit btn btn-white profile-btn">
           編輯個人資料
         </button>
       </div>
-      <div v-if="!isCurrentUser" class="user-is-follow btn-ps">
+      <div v-if="currentUser.id !== user_id" class="user-is-follow btn-ps">
         <button v-if="user.isFollowing" class="following btn btn-orange profile-btn">正在跟隨</button>
         <button v-else class="follow btn btn-white profile-btn">跟隨</button>
       </div>
@@ -75,12 +75,12 @@ export default {
     ...mapState(["currentUser"]),
   },
   created() {
-    this.user_id = this.userId;
-    this.fetchUserProfile(Number(this.userId));
+    this.user_id = Number(this.userId);
+    this.fetchUserProfile(this.userId);
   },
   data() {
     return {
-      user_id: "",
+      user_id: 0,
       user: {
         account: "",
         name: "",
@@ -91,7 +91,6 @@ export default {
         followerCount: 0,
         isFollowing: false,
       },
-      isCurrentUser: true,
       modalVisibility: false,
     };
   },
@@ -132,6 +131,9 @@ export default {
     userId(newValue) {
       this.fetchUserProfile(Number(newValue));
     },
+    user_id(newValue) {
+      this.user_id = Number(newValue)
+    }
   },
 };
 </script>
