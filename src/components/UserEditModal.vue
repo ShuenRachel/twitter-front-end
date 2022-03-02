@@ -50,10 +50,10 @@
                 <div class="profile-content">
                   <div class="user-name">
                     <input v-model="userName" type="text"
-                    name="name" class="user-name" placeholder="名稱">
+                    name="name" class="user-name" placeholder="名稱" maxlength="50">
                   </div>
                   <div class="user-introduction">
-                    <textarea v-model="userIntroduction"  name="introduction" id="user-introduction" class="user-introduction" placeholder="自我介紹"></textarea>
+                    <textarea v-model="userIntroduction"  name="introduction" id="user-introduction" class="user-introduction" placeholder="自我介紹" maxlength="160"></textarea>
                   </div>
                 </div>
               </div>
