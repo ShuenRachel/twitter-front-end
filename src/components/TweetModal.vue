@@ -65,11 +65,6 @@ export default {
       tweet: "",
     };
   },
-  watch: {
-    initReplyTweet(newValue) {
-      console.log("modal:", newValue);
-    },
-  },
   computed: {
     ...mapState(["currentUser"]),
     title() {

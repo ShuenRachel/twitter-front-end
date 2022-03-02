@@ -45,7 +45,6 @@ export default {
     async getReplies(tweetId) {
       try {
         const response = await tweetsAPI.getReplies(tweetId);
-        console.log("replies:", response);
         if (response.statusText !== "OK") {
           throw new Error(response.message);
         }
