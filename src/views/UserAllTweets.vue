@@ -11,8 +11,10 @@
 <script>
 import TweetsList from "../components/TweetsList.vue";
 import usersAPI from "../apis/users";
+import { Toastification } from "./../utils/mixin";
 
 export default {
+  mixins: [Toastification],
   components: {
     TweetsList,
   },
@@ -29,7 +31,7 @@ export default {
     async fetchTweets(userId) {
       try {
         const response = await usersAPI.getUserTweets(userId)
-  
+  // TODO: check if repeated throw err here
         if (response.statusText !== 'OK') {
           throw new Error('status: '+ response.status)
         } else if (response.data.status === 'error') {
@@ -50,7 +52,9 @@ export default {
           };
         });
       } catch (error) {
-        console.log(error);
+        this.ToastError({
+          title: "無法取得用戶推文清單，請稍後再試",
+        });
       }
     },
   },

@@ -17,8 +17,10 @@
 <script>
 import SettingForm from "@/components/SettingForm.vue";
 import authorizationAPI from "./../apis/authorization";
+import { Toastification } from "./../utils/mixin";
 
 export default {
+  mixins: [Toastification],
   components: {
     SettingForm,
   },
@@ -49,6 +51,10 @@ export default {
         this.isProcessing = false;
 
         this.submitStatus = error.message;
+        // TODO: check if need to response different msg from err msg
+        this.ToastError({
+          title: "註冊失敗，請稍後再試",
+        });
       }
     },
   },

@@ -48,7 +48,6 @@
 <script>
 import TweetNew from "@/components/TweetNew.vue";
 import TweetReplyNew from "@/components/TweetReplyNew.vue";
-import tweetAPI from "./../apis/tweets";
 import { mapState } from "vuex";
 import { fromNowFilter } from "../utils/mixin";
 export default {
@@ -80,18 +79,6 @@ export default {
   methods: {
     handleCloseModal() {
       this.$emit("after-close-modal");
-    },
-    async submitTweet() {
-      try {
-        // TODO: warning text > 140 words
-        // TODO: handle api response
-        if (this.tweet.length > 140) return;
-        const response = tweetAPI.createTweet(this.tweet);
-
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      }
     },
   },
   mixins: [fromNowFilter],

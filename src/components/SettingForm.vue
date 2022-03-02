@@ -81,8 +81,10 @@
 
 <script>
 import { mapState } from "vuex";
+import { Toastification } from "./../utils/mixin";
 
 export default {
+  mixins: [Toastification],
   props: {
     initIsProcessing: {
       type: Boolean,
@@ -122,15 +124,20 @@ export default {
     handleSubmit() {
       if (!this.registerData.account) {
         // TODO: show warning in page
-        console.log("all field are required");
+        this.ToastError({
+          title: "無法取消追隨用戶，請稍後再試",
+        });
         return;
       }
       this.$emit("after-form-submit", this.registerData);
     },
     consoleAlert(newValue) {
+      // TODO: update toast value / input warning
       switch (newValue) {
         case "success":
-          return console.log("success");
+          return this.ToastError({
+            title: "無法取消追隨用戶，請稍後再試",
+          });
         case "email already existed":
           return console.log("email already existed");
         case "account already existed":
@@ -138,9 +145,13 @@ export default {
         case "Passwords do not match!":
           return console.log("Passwords do not match!");
         case "All fields are required":
-          return console.log("All fields are required");
+          return this.ToastError({
+            title: "請填寫所有欄位",
+          });
         default:
-          return console.log("error");
+          return this.ToastError({
+            title: "無法註冊，請稍後再試",
+          });
       }
     },
   },

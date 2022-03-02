@@ -1,6 +1,6 @@
 <template>
   <div class="tweet-wrapper">
-    <div class="user-avatar"><img :src="currentUser.avatar" alt=""></div>
+    <div class="user-avatar"><img :src="currentUser.avatar" alt="" /></div>
     <div class="tweet-area">
       <input
         v-model="reply"
@@ -22,11 +22,13 @@
 <script>
 import tweetAPI from "./../apis/tweets";
 import { mapState } from "vuex";
+import { Toastification } from "./../utils/mixin";
 export default {
+  mixins: [Toastification],
   props: {
     replyId: {
-      type: Number
-    }
+      type: Number,
+    },
   },
   data() {
     return {
@@ -43,11 +45,20 @@ export default {
         // TODO: alert after success
         if (this.reply.length > 140) return;
         const response = await tweetAPI.postReply(this.replyId, this.reply);
-        console.log('submit')
-        console.log(response);
-        this.$emit("after-reply-tweet")
+
+        if (response.statusText !== "OK") {
+          throw new Error();
+        }
+
+        this.ToastSuccess({
+          title: "已成功發佈回覆",
+        });
+
+        this.$emit("after-reply-tweet");
       } catch (error) {
-        console.log(error);
+        this.ToastError({
+          title: "無法回覆推文，請稍後再試",
+        });
       }
     },
   },

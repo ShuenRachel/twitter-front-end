@@ -13,8 +13,10 @@
 import NavTabs from "../components/NavTabs";
 import FollowList from "../components/FollowList.vue";
 import usersAPI from "./../apis/users";
+import { Toastification } from "./../utils/mixin";
 
 export default {
+  mixins: [Toastification],
   components: {
     NavTabs,
     FollowList,
@@ -35,7 +37,9 @@ export default {
         console.log(response.data);
         this.followersData = response.data;
       } catch (error) {
-        console.log(error);
+        this.ToastError({
+          title: "無法取得用戶追隨者清單，請稍後再試",
+        });
       }
     },
   },

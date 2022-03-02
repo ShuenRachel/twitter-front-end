@@ -69,8 +69,10 @@
 <script>
 import { mapState } from "vuex"
 import userAPI from '../apis/users'
+import { Toastification } from "./../utils/mixin";
 
 export default {
+  mixins: [Toastification],
   props: {
     initUserId: {
       type: String,
@@ -136,7 +138,9 @@ export default {
         this.handleCloseModal();
 
       } catch (error) {
-        console.log(error);
+        this.ToastError({
+          title: "無法更新資料，請稍後再試",
+        });
         this.isProcessing = false
       }
       
