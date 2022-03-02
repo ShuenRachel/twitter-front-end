@@ -59,3 +59,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.user-avatar {
+  width: 30px;
+  height: 30px;
+}
+</style>
