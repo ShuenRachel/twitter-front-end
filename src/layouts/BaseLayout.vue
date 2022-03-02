@@ -56,6 +56,11 @@ export default {
     }
     &-middle {
       flex-grow: 1;
+      height: 100vh;
+      &-main {
+        overflow-y: scroll;
+        height: 93vh;
+      }
     }
     &-right {
       flex-basis: 463px;
