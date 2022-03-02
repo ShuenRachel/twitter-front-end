@@ -43,6 +43,7 @@
 <script>
 import usersAPI from "./../apis/users";
 import { Toastification } from "./../utils/mixin";
+import { mapState } from "vuex";
 
 export default {
   mixins: [Toastification],
@@ -56,6 +57,9 @@ export default {
       user: {},
     };
   },
+  computed: {
+    ...mapState(["currentUser"]),
+  },
   methods: {
     fetchUser() {
       if (this.initUser.followerId) {
@@ -68,6 +72,11 @@ export default {
       return;
     },
     async addFollowing(userId) {
+      if (userId === this.currentUser.id) {
+        return this.ToastError({
+          title: "不能追隨自己",
+        });
+      }
       try {
         this.isProcessing = true;
         const response = await usersAPI.addFollowing(userId);

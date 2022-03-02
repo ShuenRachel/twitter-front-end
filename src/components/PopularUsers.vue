@@ -27,6 +27,7 @@
             <button
               v-if="user.isFollowing"
               class="popular-user-btn btn btn-orange btn-following"
+              :disabled="user.isProcessing"
               @click.stop.prevent="deleteFollowing(user.id)"
             >
               正在跟隨
@@ -35,6 +36,7 @@
               v-else
               class="popular-user-btn btn btn-white btn-follow"
               @click.stop.prevent="addFollowing(user.id)"
+              :disabled="user.isProcessing"
             >
               跟隨
             </button>
@@ -48,12 +50,16 @@
 <script>
 import usersAPI from "./../apis/users";
 import { Toastification } from "./../utils/mixin";
+import { mapState } from "vuex";
 
 export default {
   data() {
     return {
       users: [],
     };
+  },
+  computed: {
+    ...mapState(["currentUser"]),
   },
   methods: {
     async fetchUsers() {
@@ -64,7 +70,12 @@ export default {
         if (response.statusText !== "OK") {
           throw new Error(response.message);
         }
-        this.users = data;
+        this.users = data.map((user) => {
+          return {
+            ...user,
+            isProcessing: false,
+          };
+        });
       } catch (error) {
         this.ToastError({
           title: "無法取得人氣用戶資料，請稍後再試",
@@ -72,6 +83,16 @@ export default {
       }
     },
     async addFollowing(userId) {
+      if (userId === this.currentUser.id) {
+        return this.ToastError({
+          title: "不能追隨自己",
+        });
+      }
+
+      const targetUser = this.users.find((user) => user.id === userId);
+
+      targetUser.isProcessing = true;
+
       try {
         this.isProcessing = true;
         const response = await usersAPI.addFollowing(userId);
@@ -80,19 +101,19 @@ export default {
           throw new Error(response.message);
         }
 
-        this.users = this.users.map((user) => {
-          if (user.id === userId) {
-            user.isFollowing = true;
-          }
-          return user;
-        });
+        targetUser.isFollowing = true;
+        targetUser.isProcessing = false;
       } catch (error) {
         this.ToastError({
           title: "無法追隨用戶，請稍後再試",
         });
+        targetUser.isProcessing = false;
       }
     },
     async deleteFollowing(userId) {
+      const targetUser = this.users.find((user) => user.id === userId);
+
+      targetUser.isProcessing = true;
       try {
         const response = await usersAPI.deleteFollowing(userId);
 
@@ -100,16 +121,13 @@ export default {
           throw new Error(response.message);
         }
 
-        this.users = this.users.map((user) => {
-          if (user.id === userId) {
-            user.isFollowing = false;
-          }
-          return user;
-        });
+        targetUser.isFollowing = false;
+        targetUser.isProcessing = false;
       } catch (error) {
         this.ToastError({
           title: "無法取消追隨用戶，請稍後再試",
         });
+        targetUser.isProcessing = false;
       }
     },
     toUserProfilePage(userId) {
