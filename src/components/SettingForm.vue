@@ -94,6 +94,9 @@ export default {
       type: String,
       required: true,
     },
+    initUserData: {
+      type: Object,
+    },
   },
   data() {
     return {
@@ -154,6 +157,16 @@ export default {
           });
       }
     },
+    fetehCurrentUser() {
+      this.registerData.account = this.initUserData.account;
+      this.registerData.name = this.initUserData.name;
+      this.registerData.email = this.initUserData.email;
+    },
+  },
+  created() {
+    if (this.initUserData) {
+      this.fetehCurrentUser();
+    }
   },
 };
 </script>
