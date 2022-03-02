@@ -3,6 +3,7 @@
     <SettingForm
       :init-is-processing="isProcessing"
       :init-submit-status="submitStatus"
+      :init-user-data="currentUser"
       @after-form-submit="afterFormSubmit"
     />
   </div>

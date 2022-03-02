@@ -52,6 +52,7 @@
       :init-user-name="user.name"
       :init-user-introduction="user.introduction"
       @after-close-modal="afterCloseModal"
+      @after-edit-success="afterEditSuccess"
     />
   </div>
 </template>
@@ -129,6 +130,10 @@ export default {
     },
     afterCloseModal() {
       this.modalVisibility = false;
+    },
+    afterEditSuccess() {
+      this.fetchUserProfile(Number(this.userId));
+      this.$store.dispatch("fetehViewUser", this.userId)
     },
   },
   watch: {
