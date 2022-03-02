@@ -23,7 +23,7 @@
           <button
             v-if="user.isFollowing"
             class="following"
-            :disabled="isProcessing"
+            :disabled="isProcessing || user.id === currentUser.id"
             @click.stop.prevent="deleteFollowing(user.id)"
           >
             正在跟隨
@@ -31,7 +31,7 @@
           <button
             v-else
             class="follow"
-            :disabled="isProcessing"
+            :disabled="isProcessing || user.id === currentUser.id"
             @click.stop.prevent="addFollowing(user.id)"
           >
             跟隨
@@ -75,11 +75,6 @@ export default {
       return;
     },
     async addFollowing(userId) {
-      if (userId === this.currentUser.id) {
-        return this.ToastError({
-          title: "不能追隨自己",
-        });
-      }
       this.isProcessing = true;
       try {
         const response = await usersAPI.addFollowing(userId);
