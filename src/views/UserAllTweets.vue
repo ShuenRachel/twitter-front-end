@@ -11,6 +11,7 @@
 <script>
 import TweetsList from "../components/TweetsList.vue";
 import usersAPI from "../apis/users";
+import { mapState } from "vuex";
 import { Toastification } from "./../utils/mixin";
 
 export default {
@@ -30,12 +31,12 @@ export default {
   methods: {
     async fetchTweets(userId) {
       try {
-        const response = await usersAPI.getUserTweets(userId)
-  // TODO: check if repeated throw err here
-        if (response.statusText !== 'OK') {
-          throw new Error('status: '+ response.status)
-        } else if (response.data.status === 'error') {
-          throw new Error('status: '+ response.data.message)
+        const response = await usersAPI.getUserTweets(userId);
+        // TODO: check if repeated throw err here
+        if (response.statusText !== "OK") {
+          throw new Error("status: " + response.status);
+        } else if (response.data.status === "error") {
+          throw new Error("status: " + response.data.message);
         }
         this.tweetsData = response.data.map((tweet) => {
           return {
@@ -62,6 +63,14 @@ export default {
     this.userId = to.params.user_id;
     this.fetchTweets(Number(this.userId));
     next();
+  },
+  computed: {
+    ...mapState(["currentUser"]),
+  },
+  watch: {
+    currentUser: function () {
+      this.fetchTweets(Number(this.userId));
+    },
   },
 };
 </script>
