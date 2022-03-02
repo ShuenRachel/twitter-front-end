@@ -1,9 +1,12 @@
 <template>
   <div class="user-profile-container">
     <!-- 切版時 再把backgroundImage的設定放下去style -->
-    <div class="user-profile-cover" :style="{ backgroundImage: 'url(' + user.cover + ')' }"></div>
+    <div
+      class="user-profile-cover"
+      :style="{ backgroundImage: 'url(' + user.cover + ')' }"
+    ></div>
     <div class="user-profile-avatar">
-      <img :src="user.avatar" alt="">
+      <img :src="user.avatar" alt="" />
     </div>
     <div>{{ user.name }}</div>
     <div>@{{ user.account }}</div>
@@ -116,6 +119,10 @@ export default {
     },
     afterCloseModal() {
       this.modalVisibility = false;
+      this.$router.push({
+        name: "user-all-tweets",
+        params: { user_id: this.userId },
+      });
     },
   },
   watch: {
@@ -135,23 +142,22 @@ div.user-profile {
     max-width: 598px;
   }
   &-cover {
-    width:598px;
-    height:200px;
+    width: 598px;
+    height: 200px;
     background-repeat: no-repeat;
     background-size: cover;
-  } 
+  }
   &-avatar {
     position: absolute;
     top: 124px;
     left: 15px;
-    width:140px;
-    height:140px;
+    width: 140px;
+    height: 140px;
     img {
       width: 100%;
-      border: 4px solid #FFFFFF;
+      border: 4px solid #ffffff;
       border-radius: 50%;
     }
   }
 }
-
 </style>
