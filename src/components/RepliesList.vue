@@ -57,10 +57,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/scss/main.scss";
-.pointer {
-  cursor: pointer;
-}
-
 div.tweet {
   position: relative;
   display: flex;
