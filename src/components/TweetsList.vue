@@ -5,17 +5,20 @@
       <div
         class="tweet__user-avatar"
         :style="{ backgroundImage: 'url(' + tweet.avatar + ')' }"
+        :class="{ pointer:  !isAdmin}"
         @click.stop.prevent="toUserProfilePage(tweet.tweetUserId)"
       ></div>
       <div class="tweet__info-container">
         <div class="info">
           <span
             class="name"
+            :class="{ pointer:  !isAdmin}"
             @click.stop.prevent="toUserProfilePage(tweet.tweetUserId)"
             >{{ tweet.tweetUserName }}</span
           >
           <span
             class="account"
+            :class="{ pointer:  !isAdmin}"
             @click.stop.prevent="toUserProfilePage(tweet.tweetUserId)"
             >{{ tweet.tweetUserAccount }}{{ tweet.createdAt | fromNow }}</span
           >
@@ -177,6 +180,8 @@ export default {
       }
     },
     toUserProfilePage(userId) {
+      if(this.isAdmin) return
+
       this.$router.push({
         name: "user-all-tweets",
         params: { user_id: userId },
@@ -217,13 +222,9 @@ div.tweet {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50%;
-    cursor: pointer;
   }
   &__info-container {
     padding-left: 15px;
-    .info {
-      cursor: pointer;
-    }
     div.content {
       max-width: 510px;
     }
