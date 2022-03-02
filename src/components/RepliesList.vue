@@ -32,7 +32,7 @@
               ></span
             >
           </div>
-          <div class="content">
+          <div class="content" :class="{ pointer:  $route.name === 'user-all-replies'}" @click="$router.push({name: 'user-tweet', params: { tweet_id: reply.TweetId }})">
             <p>{{ reply.comment }}</p>
           </div>
         </div>

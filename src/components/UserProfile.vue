@@ -103,9 +103,6 @@ export default {
         const response = await usersAPI.getUser(userId);
         const { data } = response;
 
-        console.log("--new user--");
-        console.log(data);
-
         if (response.statusText !== "OK") {
           throw new Error("status: " + response.status);
         }
@@ -133,7 +130,7 @@ export default {
     },
     afterEditSuccess() {
       this.fetchUserProfile(Number(this.userId));
-      this.$store.dispatch("fetehViewUser", this.userId)
+      this.$store.dispatch("fetchCurrentUser")
     },
   },
   watch: {

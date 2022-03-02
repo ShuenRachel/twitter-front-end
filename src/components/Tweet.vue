@@ -2,10 +2,10 @@
   <div class="tweet-wrapper">
     <div class="tweet-content">
       <div class="tweet-content-header">
-        <div class="user-avatar"><img :src="tweetData.avatar" alt="" /></div>
+        <div class="user-avatar pointer" @click="$router.push({name: 'user-all-tweets', params: { user_id: tweetData.tweetUserId }})"><img :src="tweetData.avatar" alt="" /></div>
         <div class="user-data">
-          <span class="user-data-name">{{ tweetData.tweetUserName }}</span>
-          <span class="user-data-account account">{{ tweetData.tweetUserAccount }}</span>
+          <span class="user-data-name pointer" @click="$router.push({name: 'user-all-tweets', params: { user_id: tweetData.tweetUserId }})">{{ tweetData.tweetUserName }}</span>
+          <span class="user-data-account account pointer" @click="$router.push({name: 'user-all-tweets', params: { user_id: tweetData.tweetUserId }})">{{ tweetData.tweetUserAccount }}</span>
         </div>
       </div>
       <div class="tweet-content">

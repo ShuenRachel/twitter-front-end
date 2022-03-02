@@ -3,7 +3,7 @@
     <div class="nav-wrapper">
       <div class="nav-icon">
         <img
-          src="/image/logo.svg"
+          src="../assets/icon/logo.svg"
           alt=""
           srcset=""
           @click="$router.push('/user/home')"
@@ -158,8 +158,8 @@ export default {
 
 .nav {
   &-icon {
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     margin-top: 14px;
     margin-bottom: 45px;
     cursor: pointer;

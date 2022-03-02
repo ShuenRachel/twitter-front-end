@@ -2,7 +2,7 @@
   <div class="card">
     <div class="form-title">
       <div class="form-title-icon">
-        <img src="/image/logo.svg" alt="" srcset="" />
+        <img src="../assets/icon/logo.svg" alt="" srcset="" />
       </div>
       <div class="form-title-text">建立你的帳號</div>
     </div>

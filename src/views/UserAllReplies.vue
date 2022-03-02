@@ -1,41 +1,39 @@
 <template>
   <div class="user-all-replies">
-    <RepliesList
-      v-for="reply in repliesData"
-      :key="reply.id"
-      :reply="reply" />
+    <RepliesList v-for="reply in repliesData" :key="reply.id" :reply="reply" />
   </div>
 </template>
 
 <script>
-import RepliesList from '../components/RepliesList.vue'
-import usersAPI from '../apis/users'
+import RepliesList from "../components/RepliesList.vue";
+import usersAPI from "../apis/users";
 import { Toastification } from "./../utils/mixin";
+import { mapState } from "vuex";
 
 export default {
   mixins: [Toastification],
-  components: { 
-    RepliesList
+  components: {
+    RepliesList,
   },
   created() {
-    this.fetchReplies(Number(this.userId))
+    this.fetchReplies(Number(this.userId));
   },
   data() {
     return {
       userId: this.$route.params.user_id,
-      repliesData: []
-    }
+      repliesData: [],
+    };
   },
   methods: {
     async fetchReplies(userId) {
       try {
-        const response = await usersAPI.getUserReplies(userId)
-  
-        if (response.statusText !== 'OK') {
-          throw new Error('status: '+ response.status)
+        const response = await usersAPI.getUserReplies(userId);
+
+        if (response.statusText !== "OK") {
+          throw new Error("status: " + response.status);
         }
 
-        this.repliesData = response.data.map(reply => {
+        this.repliesData = response.data.map((reply) => {
           return {
             TweetId: reply.tweetId,
             tweetUserId: reply.tweetUserId,
@@ -46,23 +44,31 @@ export default {
             commentUser: {
               id: reply.replyUserId,
               name: reply.replyUserName,
-              account:  reply.replyUserAccount,
-              avatar: reply.replyUserAvatar
+              account: reply.replyUserAccount,
+              avatar: reply.replyUserAvatar,
             },
-          }
+          };
         });
-        console.log(this.repliesData)
+        console.log(this.repliesData);
       } catch (error) {
         this.ToastError({
           title: "無法取得用戶回覆清單，請稍後再試",
         });
       }
-    }
+    },
   },
-  beforeRouteUpdate (to, from, next) {
-    this.userId = to.params.user_id
-    this.fetchReplies(Number(this.userId))
-    next()
+  beforeRouteUpdate(to, from, next) {
+    this.userId = to.params.user_id;
+    this.fetchReplies(Number(this.userId));
+    next();
+  },
+  computed: {
+    ...mapState(["currentUser"]),
+  },
+  watch: {
+    currentUser: function () {
+      this.fetchReplies(Number(this.userId));
+    },
   },
 };
 </script>
@@ -70,4 +76,3 @@ export default {
 <style lang="scss" scoped>
 @import "../assets/scss/main.scss";
 </style>
-
