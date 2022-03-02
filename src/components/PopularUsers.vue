@@ -27,7 +27,7 @@
             <button
               v-if="user.isFollowing"
               class="popular-user-btn btn btn-orange btn-following"
-              :disabled="user.isProcessing"
+              :disabled="user.isProcessing  || user.id === currentUser.id"
               @click.stop.prevent="deleteFollowing(user.id)"
             >
               正在跟隨
@@ -36,7 +36,7 @@
               v-else
               class="popular-user-btn btn btn-white btn-follow"
               @click.stop.prevent="addFollowing(user.id)"
-              :disabled="user.isProcessing"
+              :disabled="user.isProcessing || user.id === currentUser.id"
             >
               跟隨
             </button>
@@ -83,11 +83,6 @@ export default {
       }
     },
     async addFollowing(userId) {
-      if (userId === this.currentUser.id) {
-        return this.ToastError({
-          title: "不能追隨自己",
-        });
-      }
 
       const targetUser = this.users.find((user) => user.id === userId);
 
