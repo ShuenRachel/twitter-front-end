@@ -36,7 +36,6 @@ const routes = [
 
   {
     path: "/admin",
-    exact: true,
     redirect: "/admin/tweets",
   },
   {
