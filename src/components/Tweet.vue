@@ -2,13 +2,17 @@
   <div class="tweet-wrapper">
     <div class="tweet-content">
       <div class="tweet-content-header">
-        <div class="user-avatar pointer" @click="$router.push({name: 'user-all-tweets', params: { user_id: tweetData.tweetUserId }})"><img :src="tweetData.avatar" alt="" /></div>
+        <div 
+          class="user-avatar pointer" 
+          :style="{ backgroundImage: 'url(' + tweetData.avatar + ')' }"
+          @click="$router.push({name: 'user-all-tweets', params: { user_id: tweetData.tweetUserId }})">
+        </div>
         <div class="user-data">
           <span class="user-data-name pointer" @click="$router.push({name: 'user-all-tweets', params: { user_id: tweetData.tweetUserId }})">{{ tweetData.tweetUserName }}</span>
           <span class="user-data-account account pointer" @click="$router.push({name: 'user-all-tweets', params: { user_id: tweetData.tweetUserId }})">{{ tweetData.tweetUserAccount }}</span>
         </div>
       </div>
-      <div class="tweet-content">
+      <div class="tweet-content-body">
         <p class="tweet-content-text">{{ tweetData.description }}</p>
         <span class="tweet-content-time">{{ tweetData.createdAt | fromNow }}</span>
       </div>
@@ -137,13 +141,54 @@ export default {
 .tweet {
   &-wrapper {
     border-bottom: $border-setting;
+    max-width: 600px;
+    padding: 15px;
+  }
+  &-content {
+    &-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      .user-avatar {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: $empty-img;
+      }
+      .user-data {
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+        font-size: 15px;
+        line-height: 21.72px;
+        &-name {
+          font-weight: 700;
+        }
+      }
+    }
+    &-body {
+      // border-bottom: 1px solid $border;
+      p {
+        word-wrap: break-word;
+        font-size: 23px;
+        line-height: 34px;
+        padding-right: 75px;
+        margin-bottom: 15px;
+      }
+      span.tweet-content-time {
+        // padding: 15px 0;
+        color: $text-sub;
+        font-size: 15px;
+        line-height: 21.72px;
+      }
+    }
+    
   }
 }
 
-.user {
-  &-avatar {
-    height: 20px;
-    width: 20px;
-  }
-}
+
+
+
 </style>
