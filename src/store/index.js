@@ -40,8 +40,6 @@ export default new Vuex.Store({
       state.isAuthenticated = true;
     },
     setViewUser(state, viewUser) {
-      console.log("set");
-      console.log(state.viewUser, viewUser);
       state.viewUser.name = viewUser.name
       // TODO: wait for api setting
       // state.viewUser.tweetCount = viewUser.tweetCount;
@@ -85,7 +83,6 @@ export default new Vuex.Store({
         });
         return true;
       } catch (error) {
-        console.log("Can't fetch current user");
         console.log(error);
         commit("revokeAuthentication");
         return false;

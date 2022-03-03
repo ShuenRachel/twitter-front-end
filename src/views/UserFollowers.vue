@@ -41,7 +41,6 @@ export default {
         if (response.statusText !== "OK") {
           throw new Error(response.message);
         }
-        console.log(response.data);
         this.followersData = response.data;
         this.isEmptyData = !this.followersData.length;
       } catch (error) {

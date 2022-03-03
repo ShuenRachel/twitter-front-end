@@ -38,8 +38,6 @@ export default {
         const response = await authorizationAPI.userRegister(formData);
         const { data } = response;
 
-        console.log(data);
-
         if (data.status !== "success") {
           throw new Error(data.message);
         }

@@ -30,7 +30,6 @@ export default {
         const response = await adminAPI.getAllUsers()
         const { data } = response
         this.users = data
-        console.log(this.users)
       } catch(error) {
         this.ToastError({
           title: "無法取得用戶資料，請稍後再試",

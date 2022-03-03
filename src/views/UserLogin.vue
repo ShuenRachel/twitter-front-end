@@ -37,7 +37,6 @@ export default {
         this.$store.commit("setCurrentUser", data.data.user);
 
         this.$router.push("/user/home");
-        console.log(response);
       } catch (error) {
         // TODO: check if need to check err msg
         this.isProcessing = false
