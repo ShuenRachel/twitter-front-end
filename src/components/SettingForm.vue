@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="form-panel">
     <div class="form-wrapper">
       <div class="input-gp">
         <label class="input-label">帳號</label>
@@ -26,7 +26,10 @@
           >不可有空欄位</span
         >
         <span
-          v-show="submitStatus === 'Account already existed!' || submitStatus === 'Account already existed.'"
+          v-show="
+            submitStatus === 'Account already existed!' ||
+            submitStatus === 'Account already existed.'
+          "
           class="input-warning"
           >帳號已註冊</span
         >
@@ -63,11 +66,18 @@
           type="email"
           class="input-field"
           required
-          @click="errorMessage = ''; submitStatus = '';"
+          @click="
+            errorMessage = '';
+            submitStatus = '';
+          "
         />
         <div
           class="input-line line"
-          :class="{ error: errorMessage === 'email' || submitStatus === 'Email already existed!' }"
+          :class="{
+            error:
+              errorMessage === 'email' ||
+              submitStatus === 'Email already existed!',
+          }"
         ></div>
         <span v-show="errorMessage === 'email'" class="input-warning"
           >不可有空欄位</span
@@ -198,7 +208,7 @@ export default {
     },
     initSubmitStatus(newValue) {
       this.submitStatus = newValue;
-      console.log('setting form:', newValue);
+      console.log("setting form:", newValue);
     },
   },
   methods: {
@@ -242,6 +252,12 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/scss/main.scss";
+
+.form {
+  &-panel {
+    max-width: 642px;
+  }
+}
 
 .btn-orange {
   font-size: 18px;
