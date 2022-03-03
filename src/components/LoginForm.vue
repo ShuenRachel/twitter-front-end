@@ -4,18 +4,15 @@
       <div class="form-title-icon">
         <img src="../assets/icon/logo.svg" alt="" srcset="" />
       </div>
-      <div v-if="isAdminLogin" class="form-title-text">
-        後台登入
-      </div>
-      <div v-else class="form-title-text">
-        登入 Alphitter
-      </div>
+      <div v-if="isAdminLogin" class="form-title-text">後台登入</div>
+      <div v-else class="form-title-text">登入 Alphitter</div>
     </div>
     <div class="form-wrapper">
       <div class="input-gp">
         <label class="input-label">帳號</label>
-        <input v-model="account" type="text" class="input-field" required />
-        <div class="input-line"></div>
+        <input v-model="account" type="text" class="input-field" required @click="errorMessage = ''" />
+        <div class="input-line line" :class="{error: errorMessage === 'account' }"></div>
+        <span v-show="errorMessage === 'account'" class="input-warning">不可有空欄位</span>
       </div>
       <div class="input-gp">
         <label class="input-label">密碼</label>
@@ -24,11 +21,17 @@
           type="password"
           class="input-field"
           required
+          @click="errorMessage = ''"
         />
-        <div class="input-line"></div>
+        <div class="input-line line" :class="{error: errorMessage === 'password' }"></div>
+        <span v-show="errorMessage === 'password'" class="input-warning">不可有空欄位</span>
       </div>
     </div>
-    <button class="btn btn-orange" :disabled="isProcessing" @click.stop.prevent="handleSubmit">
+    <button
+      class="btn btn-orange"
+      :disabled="isProcessing"
+      @click.stop.prevent="handleSubmit"
+    >
       登入
     </button>
     <div v-if="isAdminLogin" class="link-group">
@@ -49,15 +52,19 @@ export default {
   props: {
     initIsProcessing: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
+    needClearPassword: {
+      type: Boolean,
+    },
   },
   data() {
     return {
       account: "",
       password: "",
       isProcessing: false,
-      isAdminLogin: false
+      isAdminLogin: false,
+      errorMessage: "pending"
     };
   },
   computed: {
@@ -65,25 +72,30 @@ export default {
   },
   watch: {
     initIsProcessing(newValue) {
-      this.isProcessing = newValue
-    }
+      this.isProcessing = newValue;
+    },
+    needClearPassword() {
+      this.password = ''
+    },
   },
   methods: {
     handleSubmit() {
-      if (!this.account || !this.password) {
-        // TODO: show warning in page
-        console.log("all field are required");
-        return;
+      if (!this.account.trim()) {
+        return this.errorMessage = "account"
+      } else if (!this.password.trim()) {
+        return this.errorMessage = "password"
       }
+      this.errorMessage = ""
       this.$emit("after-form-submit", this.account, this.password);
     },
-  },created() {
-    if (this.$route.name === 'admin-login') {
-      this.isAdminLogin = true
-    } else if (this.$route.name === 'user-login') {
-      this.isAdminLogin = false
+  },
+  created() {
+    if (this.$route.name === "admin-login") {
+      this.isAdminLogin = true;
+    } else if (this.$route.name === "user-login") {
+      this.isAdminLogin = false;
     }
-  }
+  },
 };
 </script>
 
@@ -120,4 +132,5 @@ export default {
 .link-dot {
   color: $link-blue;
 }
+
 </style>
