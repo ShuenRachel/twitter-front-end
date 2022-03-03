@@ -74,9 +74,9 @@ export default {
     }
     &-middle {
       flex-grow: 1;
-      height: 100vh;
+      max-height: 100vh;
+      min-height: 100vh;
       &-main {
-        overflow-y: scroll;
         height: 93vh;
       }
     }

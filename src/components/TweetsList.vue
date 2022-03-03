@@ -227,8 +227,10 @@ div.tweet {
   }
   &__user-avatar {
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 50px;
+    max-height: 50px;
     background-color: $empty-img;
     background-size: cover;
     background-repeat: no-repeat;
