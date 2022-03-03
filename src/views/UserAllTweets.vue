@@ -1,12 +1,14 @@
 <template>
   <div class="user-all-tweets">
-    <TweetsList
-      v-for="tweet in tweetsData"
-      :key="tweet.id"
-      :init-tweet-data="tweet"
-      @after-reply-clicked="showReplyModal"
-    />
-    <div class="empty-data" v-if="isEmptyData">目前尚無推文</div>
+    <div class="tweets-wrapper">
+      <TweetsList
+        v-for="tweet in tweetsData"
+        :key="tweet.id"
+        :init-tweet-data="tweet"
+        @after-reply-clicked="showReplyModal"
+      />
+      <div class="empty-data" v-if="isEmptyData">目前尚無推文</div>
+    </div>
     <TweetModal
       :init-reply-tweet="replyTweet"
       v-if="modalVisibility"
@@ -38,7 +40,7 @@ export default {
       tweetsData: [],
       modalVisibility: false,
       replyTweet: {},
-      isEmptyData: false
+      isEmptyData: false,
     };
   },
   methods: {
@@ -65,7 +67,7 @@ export default {
             liked: tweet.liked,
           };
         });
-        this.isEmptyData = !this.tweetsData.length
+        this.isEmptyData = !this.tweetsData.length;
       } catch (error) {
         this.ToastError({
           title: "無法取得用戶推文清單，請稍後再試",
@@ -109,4 +111,10 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/scss/main.scss";
+
+.tweets-wrapper {
+  max-width: 600px;
+  max-height: 300px;
+  overflow: scroll;
+}
 </style>

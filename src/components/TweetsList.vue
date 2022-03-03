@@ -20,18 +20,17 @@
             class="account"
             :class="{ pointer: !isAdmin }"
             @click.stop.prevent="toUserProfilePage(tweet.tweetUserId)"
-            >{{ tweet.tweetUserAccount }}{{ tweet.createdAt | fromNow }}</span
+            >{{ tweet.tweetUserAccount }}・{{ tweet.createdAt | fromNow }}</span
           >
-          <router-link
-            v-if="!isAdmin"
-            :to="{ name: 'user-tweet', params: { tweet_id: tweet.TweetId } }"
-            >
-              <div class="content">
-                <p>{{ tweet.description }}</p>
-              </div></router-link
+          <div class="content" :class="{ pointer: !isAdmin }" @click.stop.prevent="toTweetPage(tweet.TweetId)">
+            <p>{{ tweet.description }}</p>
+          </div>
+          <div
+            v-if="isAdmin"
+            class="content"
+            :class="{ 'admin-width': isAdmin }"
           >
-          <div v-else class="content" :class="{ 'admin-width': isAdmin }">
-            <p>{{ tweet.description | descriptionOverflow}}</p>
+            <p>{{ tweet.description | descriptionOverflow }}</p>
           </div>
         </div>
         <div v-if="!isAdmin" class="tweet__footer">
@@ -103,7 +102,10 @@
           </div>
         </div>
         <div v-if="isAdmin" class="delete">
-          <div @click="handleDeleteClicked(tweet.TweetId)" class="delete-icon-container">
+          <div
+            @click="handleDeleteClicked(tweet.TweetId)"
+            class="delete-icon-container"
+          >
             <svg
               class="close-icon"
               width="15"
@@ -124,7 +126,11 @@
 </template>
 
 <script>
-import { fromNowFilter, Toastification, descriptionOverflow } from "../utils/mixin";
+import {
+  fromNowFilter,
+  Toastification,
+  descriptionOverflow,
+} from "../utils/mixin";
 import tweetsAPI from "./../apis/tweets";
 import { mapState } from "vuex";
 
@@ -198,6 +204,13 @@ export default {
         params: { user_id: userId },
       });
     },
+    toTweetPage(tweetId) {
+      if (this.isAdmin) return;
+      this.$router.push({
+        name: "user-tweet",
+        params: { tweet_id: tweetId },
+      });
+    },
   },
   created() {
     this.fetchTweet();
@@ -227,8 +240,10 @@ div.tweet {
   }
   &__user-avatar {
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 50px;
+    max-height: 50px;
     background-color: $empty-img;
     background-size: cover;
     background-repeat: no-repeat;
@@ -238,7 +253,7 @@ div.tweet {
     padding-left: 15px;
     div.content {
       max-width: 510px;
-      &.admin-width{
+      &.admin-width {
         width: 70%;
       }
       p {
