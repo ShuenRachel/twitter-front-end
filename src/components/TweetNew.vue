@@ -11,7 +11,8 @@
     </div>
     <button
       type="button"
-      class="btn btn-secondary"
+      class="btn btn-orange"
+      :disabled="isProcessing"
       @click.stop.prevent="submitTweet"
     >
       推文
@@ -28,6 +29,7 @@ export default {
   data() {
     return {
       tweet: "",
+      isProcessing: false,
     };
   },
   computed: {
@@ -35,10 +37,13 @@ export default {
   },
   methods: {
     async submitTweet() {
+      this.isProcessing = true;
+      // TODO: warning text > 140 words
+      // TODO: warning if no content
+      if (this.tweet.length > 140 || !this.tweet.trim().length) {
+        return (this.isProcessing = false);
+      }
       try {
-        // TODO: warning text > 140 words
-        // TODO: alert after success
-        if (this.tweet.length > 140) return;
         const response = await tweetAPI.createTweet(this.tweet);
         if (response.statusText !== "OK") {
           throw new Error(response.message);
@@ -48,12 +53,14 @@ export default {
         this.ToastSuccess({
           title: "已成功發佈推文",
         });
+        this.isProcessing = false;
 
         this.$emit("after-submit-tweet");
       } catch (error) {
         this.ToastError({
           title: "無法發佈推文，請稍後再試",
         });
+        this.isProcessing = false;
       }
     },
   },
@@ -62,7 +69,7 @@ export default {
 
 <style lang="scss" scoped>
 .user-avatar {
-  width: 30px;
-  height: 30px;
+  width: 50px;
+  height: 50px;
 }
 </style>

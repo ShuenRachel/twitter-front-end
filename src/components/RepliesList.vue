@@ -1,38 +1,40 @@
 <template>
   <div class="tweet-container">
     <div class="tweet">
-      <div class="tweet__user-avatar">
+      <div
+        class="tweet__user-avatar pointer"
+        @click.stop.prevent="toUserProfilePage(reply.commentUser.id)"
+      >
         <img :src="reply.commentUser.avatar" alt="" />
       </div>
       <div class="tweet__info-container">
         <div class="info">
-          <!-- TODO: router link to user profile? -->
-          <span class="name">
-            <router-link
-              :to="{
-                name: 'user-all-tweets',
-                params: { user_id: reply.commentUser.id },
-              }"
-              >{{ reply.commentUser.name }}</router-link
-            ></span
+          <span
+            class="name pointer"
+            @click.stop.prevent="toUserProfilePage(reply.commentUser.id)"
           >
-          <span class="account"
+            {{ reply.commentUser.name }}</span
+          >
+          <span
+            class="account pointer"
+            @click.stop.prevent="toUserProfilePage(reply.commentUser.id)"
             >{{ reply.commentUser.account
             }}{{ reply.createdAt | fromNow }}</span
           >
           <div class="reply-account">
             回覆
-            <span class="reply-account">
-              <router-link
-                :to="{
-                  name: 'user-all-tweets',
-                  params: { user_id: reply.tweetUserId },
-                }"
-                >{{ reply.tweetUserAccount }}</router-link
-              ></span
+            <span
+              class="reply-account"
+              @click.stop.prevent="toUserProfilePage(reply.tweetUserId)"
+            >
+              {{ reply.tweetUserAccount }}</span
             >
           </div>
-          <div class="content" :class="{ pointer:  $route.name === 'user-all-replies'}" @click="$router.push({name: 'user-tweet', params: { tweet_id: reply.TweetId }})">
+          <div
+            class="content"
+            :class="{ pointer: $route.name === 'user-all-replies' }"
+            @click.stop.prevent="toTweetPage(reply.TweetId)"
+          >
             <p>{{ reply.comment }}</p>
           </div>
         </div>
@@ -49,6 +51,21 @@ export default {
     reply: {
       type: Object,
       require: true,
+    },
+  },
+  methods: {
+    toUserProfilePage(userId) {
+      this.$router.push({
+        name: "user-all-tweets",
+        params: { user_id: userId },
+      });
+    },
+    toTweetPage(tweetId) {
+      if (this.$route.name !== 'user-all-replies') return
+      this.$router.push({
+        name: "user-tweet",
+        params: { tweet_id: tweetId },
+      });
     },
   },
   mixins: [fromNowFilter],

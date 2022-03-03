@@ -65,11 +65,6 @@ export default {
       tweet: "",
     };
   },
-  watch: {
-    initReplyTweet(newValue) {
-      console.log("modal:", newValue);
-    },
-  },
   computed: {
     ...mapState(["currentUser"]),
     title() {
@@ -101,5 +96,10 @@ export default {
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
+}
+
+.reply-avatar {
+  width: 50px;
+  height: 50px;
 }
 </style>
