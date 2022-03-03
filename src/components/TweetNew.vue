@@ -84,7 +84,7 @@ export default {
 @import "../assets/scss/main.scss";
 .tweet-wrapper {
   position: relative;
-  max-width: 600px;
+  max-width: 600px;  
   height: 245px;
 }
 .user-avatar {
