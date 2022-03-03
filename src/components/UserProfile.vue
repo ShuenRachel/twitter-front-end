@@ -10,7 +10,7 @@
     </div>
     <div class="user-profile-info-container">
       <div class="user-name">
-       <p>{{ user.name }}</p> 
+        <p>{{ user.name }}</p>
       </div>
       <div class="user-account">
         <span class="account">{{ user.account }}</span>
@@ -32,16 +32,31 @@
           >
         </div>
       </div>
-      <div v-if="currentUser.id === user_id" 
-      class="user-edit btn-ps">
-        <button @click.stop.prevent="showEditModal" 
-          class="user-edit btn btn-white profile-btn">
+      <div v-if="currentUser.id === user_id" class="user-edit btn-ps">
+        <button
+          @click.stop.prevent="showEditModal"
+          class="user-edit btn btn-white profile-btn"
+        >
           編輯個人資料
         </button>
       </div>
       <div v-if="currentUser.id !== user_id" class="user-is-follow btn-ps">
-        <button v-if="user.isFollowing" class="following btn btn-orange profile-btn">正在跟隨</button>
-        <button v-else class="follow btn btn-white profile-btn">跟隨</button>
+        <button
+          v-if="user.isFollowing"
+          class="following btn btn-orange profile-btn"
+          :disabled="isProcessing"
+          @click.stop.prevent="deleteFollowing(user_id)"
+        >
+          正在跟隨
+        </button>
+        <button
+          v-else
+          class="follow btn btn-white profile-btn"
+          :disabled="isProcessing"
+          @click.stop.prevent="addFollowing(user_id)"
+        >
+          跟隨
+        </button>
       </div>
     </div>
     <UserEditModal
@@ -95,6 +110,7 @@ export default {
         isFollowing: false,
       },
       modalVisibility: false,
+      isProcessing: false,
     };
   },
   methods: {
@@ -122,6 +138,44 @@ export default {
         });
       }
     },
+    async addFollowing(userId) {
+      this.isProcessing = true;
+      try {
+        const response = await usersAPI.addFollowing(userId);
+
+        if (response.statusText !== "OK") {
+          throw new Error(response.message);
+        }
+
+        this.user.isFollowing = true;
+        this.user.followingCount += 1;
+        this.isProcessing = false;
+      } catch (error) {
+        this.ToastError({
+          title: "無法追隨用戶，請稍後再試",
+        });
+        this.isProcessing = false;
+      }
+    },
+    async deleteFollowing(userId) {
+      this.isProcessing = true;
+      try {
+        const response = await usersAPI.deleteFollowing(userId);
+
+        if (response.statusText !== "OK") {
+          throw new Error(response.message);
+        }
+
+        this.user.isFollowing = false;
+        this.user.followingCount -= 1;
+        this.isProcessing = false;
+      } catch (error) {
+        this.ToastError({
+          title: "無法取消追隨用戶，請稍後再試",
+        });
+        this.isProcessing = false;
+      }
+    },
     showEditModal() {
       this.modalVisibility = true;
     },
@@ -130,13 +184,13 @@ export default {
     },
     afterEditSuccess() {
       this.fetchUserProfile(Number(this.userId));
-      this.$store.dispatch("fetchCurrentUser")
+      this.$store.dispatch("fetchCurrentUser");
     },
   },
   watch: {
     userId(newValue) {
       this.fetchUserProfile(Number(newValue));
-      this.user_id = Number(newValue)
+      this.user_id = Number(newValue);
     },
   },
 };
@@ -190,7 +244,8 @@ div.user-profile {
       &-followings {
         margin-right: 20px;
       }
-      &-followings, &-followers {
+      &-followings,
+      &-followers {
         a {
           text-decoration: none;
           color: $text-sub;
@@ -209,11 +264,11 @@ div.user-profile {
     }
     div.btn-ps {
       position: absolute;
-      top: calc( -69px + 10px );
+      top: calc(-69px + 10px);
       right: 15px;
       button.profile-btn {
-        font-size: 15px; 
-        font-weight: 700; 
+        font-size: 15px;
+        font-weight: 700;
         height: 35px;
       }
     }
