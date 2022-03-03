@@ -8,8 +8,15 @@
           type="text"
           class="input-field"
           required
+          @click="errorMessage = ''"
         />
-        <div class="input-line"></div>
+        <div
+          class="input-line line"
+          :class="{ error: errorMessage === 'account' }"
+        ></div>
+        <span v-show="errorMessage === 'account'" class="input-warning"
+          >不可有空欄位</span
+        >
       </div>
       <div class="input-gp">
         <label class="input-label">名稱</label>
@@ -18,8 +25,23 @@
           type="text"
           class="input-field"
           required
+          @click="errorMessage = ''"
         />
-        <div class="input-line"></div>
+        <div
+          class="input-line line"
+          :class="{
+            error:
+              errorMessage === 'name' ||
+              errorMessage === 'nameTooLong' ||
+              registerData.name.length > 50
+          }"
+        ></div>
+        <span v-show="errorMessage === 'name'" class="input-warning"
+          >不可有空欄位</span
+        >
+        <span v-show="registerData.name.length > 50" class="input-warning"
+          >名字上限五十字</span
+        >
       </div>
       <div class="input-gp">
         <label class="input-label">Email</label>
@@ -28,8 +50,15 @@
           type="email"
           class="input-field"
           required
+          @click="errorMessage = ''"
         />
-        <div class="input-line"></div>
+        <div
+          class="input-line line"
+          :class="{ error: errorMessage === 'email' }"
+        ></div>
+        <span v-show="errorMessage === 'email'" class="input-warning"
+          >不可有空欄位</span
+        >
       </div>
       <div class="input-gp">
         <label class="input-label">密碼</label>
@@ -38,8 +67,23 @@
           type="password"
           class="input-field"
           required
+          @click="errorMessage = ''"
         />
-        <div class="input-line"></div>
+        <div
+          class="input-line line"
+          :class="{
+            error:
+              errorMessage === 'password' ||
+              errorMessage === 'incorrectPassword',
+          }"
+        ></div>
+        <span v-show="errorMessage === 'password'" class="input-warning"
+          >不可有空欄位</span
+        ><span
+          v-show="errorMessage === 'incorrectPassword'"
+          class="input-warning"
+          >請確保兩次密碼輸入正確</span
+        >
       </div>
       <div class="input-gp">
         <label class="input-label">密碼確認</label>
@@ -48,8 +92,23 @@
           type="password"
           class="input-field"
           required
+          @click="errorMessage = ''"
         />
-        <div class="input-line"></div>
+        <div
+          class="input-line line"
+          :class="{
+            error:
+              errorMessage === 'checkPassword' ||
+              errorMessage === 'incorrectPassword',
+          }"
+        ></div>
+        <span v-show="errorMessage === 'checkPassword'" class="input-warning"
+          >不可有空欄位</span
+        ><span
+          v-show="errorMessage === 'incorrectPassword'"
+          class="input-warning"
+          >請確保兩次密碼輸入正確</span
+        >
       </div>
     </div>
     <div class="form-footer" v-if="currentPathName === 'user-regist'">
@@ -109,6 +168,7 @@ export default {
       },
       isProcessing: false,
       submitStatus: "",
+      errorMessage: "pending",
     };
   },
   computed: {
@@ -125,13 +185,27 @@ export default {
   },
   methods: {
     handleSubmit() {
-      if (!this.registerData.account) {
-        // TODO: show warning in page
-        this.ToastError({
-          title: "無法取消追隨用戶，請稍後再試",
-        });
+      // check if have empty input
+      if (!this.registerData.account.trim()) {
+        return (this.errorMessage = "account");
+      } else if (!this.registerData.name.trim()) {
+        return (this.errorMessage = "name");
+      } else if (!this.registerData.email.trim()) {
+        return (this.errorMessage = "email");
+      } else if (!this.registerData.password.trim()) {
+        return (this.errorMessage = "password");
+      } else if (!this.registerData.checkPassword.trim()) {
+        return (this.errorMessage = "checkPassword");
+      }
+
+      // check password correct with input check
+      if (this.password !== this.checkPassword) {
+        this.errorMessage = "incorrectPassword";
+        this.password = "";
+        this.checkPassword = "";
         return;
       }
+
       this.$emit("after-form-submit", this.registerData);
     },
     consoleAlert(newValue) {
