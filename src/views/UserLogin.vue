@@ -1,6 +1,10 @@
 <template>
   <div>
-    <LoginForm :init-is-processing="isProcessing" @after-form-submit="afterFormSubmit" />
+    <LoginForm
+      :init-is-processing="isProcessing"
+      :need-clear-password="needClearPassword"
+      @after-form-submit="afterFormSubmit"
+    />
   </div>
 </template>
 
@@ -17,15 +21,20 @@ export default {
   },
   data() {
     return {
-      isProcessing: false
-    }
+      isProcessing: false,
+      needClearPassword: false,
+    };
   },
   methods: {
     async afterFormSubmit(account, password) {
       try {
-        this.isProcessing = true
+        this.isProcessing = true;
 
-        const response = await authorizationAPI.userLogin({ account, password });
+        const response = await authorizationAPI.userLogin({
+          account,
+          password,
+        });
+
         const { data } = response;
 
         if (data.status !== "success") {
@@ -38,8 +47,24 @@ export default {
 
         this.$router.push("/user/home");
       } catch (error) {
-        // TODO: check if need to check err msg
-        this.isProcessing = false
+        this.isProcessing = false;
+        this.needClearPassword = !this.needClearPassword;
+
+        if (error.message === "This is for normal user.") {
+          this.ToastError({
+            title: "此帳號非使用者",
+          });
+          return;
+        } else if (
+          error.message === "Account didn't exist!" ||
+          error.message === "Password incorrect!"
+        ) {
+          this.ToastError({
+            title: "登入失敗，帳號或密碼有誤",
+          });
+          return;
+        }
+
         this.ToastError({
           title: "無法登入，請稍後再試",
         });
