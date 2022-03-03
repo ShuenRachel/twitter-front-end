@@ -11,7 +11,7 @@
         @after-follow-change="afterFollowChange"
       />
     </div>
-    <PopularUsers class="container-right" v-if="!isAdmin" :need-update-popular-user="needUpdatePopularUser" />
+    <PopularUsers class="container-right" v-if="!isAdmin && currentPathName !== 'user-setting'" :need-update-popular-user="needUpdatePopularUser" />
     <TweetModal v-if="modalVisibility" @after-close-modal="afterCloseModal" />
   </div>
 </template>
@@ -38,7 +38,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["isAdmin", "currentUser"]),
+    ...mapState(["isAdmin", "currentUser", "currentPathName"]),
   },
   methods: {
     afterShowModal() {

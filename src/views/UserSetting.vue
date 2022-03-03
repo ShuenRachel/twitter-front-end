@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="setting-panel">
     <SettingForm
       :init-is-processing="isProcessing"
       :init-submit-status="submitStatus"
@@ -52,7 +52,7 @@ export default {
         this.$router.push("/user/home");
       } catch (error) {
         this.isProcessing = false;
-        
+
         if (
           error.message === "Email already existed!" ||
           error.message === "Account already existed!"
@@ -68,3 +68,15 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import "../assets/scss/main.scss";
+
+.setting {
+  &-panel {
+    border-top: $border-setting;
+    padding-left: 16px;
+    padding-top: 30px;
+  }
+}
+</style>
