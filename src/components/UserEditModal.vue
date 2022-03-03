@@ -317,12 +317,13 @@ export default {
   }
   &-wrapper {
     display: table-cell;
-    vertical-align: middle;
+    vertical-align: baseline;
   }
   &-content {
     width: 85vw;
     max-width: 600px;
     height: 657px;
+    border: none;
     border-radius: 14px;
   }
   &-header {

@@ -1,13 +1,17 @@
 <template>
   <div class="tweet-wrapper">
-    <div class="user-avatar"><img :src="currentUser.avatar" alt="" /></div>
+    <div 
+      class="user-avatar"
+      :style="{ backgroundImage: 'url(' + currentUser.avatar + ')' }">
+    </div>
     <div class="tweet-area">
       <textarea
         v-model="tweet"
         name="description"
         id="tweet-area-description"
-        rows="2"
+        rows="6"
         placeholder="有什麼新鮮事？"
+        required
       ></textarea>
       <!-- <textarea maxlength="140"/> -->
     </div>
@@ -81,7 +85,7 @@ export default {
 .tweet-wrapper {
   position: relative;
   max-width: 600px;
-  height: 120px;
+  height: 245px;
 }
 .user-avatar {
   position: absolute;
@@ -89,12 +93,10 @@ export default {
   left: 15px;
   border-radius: 50%;
   background-color: $empty-img;
+  background-repeat: no-repeat;
+  background-size: cover;
   width: 50px;
   height: 50px;
-  img {
-    width: 100%;
-    border-radius: 50%;
-  }
 }
 .tweet-area {
   textarea {
@@ -104,6 +106,10 @@ export default {
     right: 15px;
     resize: none;
     border: none;
+    &::placeholder {
+      font-size: 18px;
+      color: #9197A3;
+    }
   }
 }
 .text-area-error-info {
@@ -114,8 +120,10 @@ export default {
 }
 button {
   position: absolute;
-  bottom: 10px;
+  bottom: 15px;
   right: 15px;
   font-size: 18px;
+  width: 66px;
+  height: 38px;
 }
 </style>
