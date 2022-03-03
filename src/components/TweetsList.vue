@@ -20,7 +20,7 @@
             class="account"
             :class="{ pointer: !isAdmin }"
             @click.stop.prevent="toUserProfilePage(tweet.tweetUserId)"
-            >{{ tweet.tweetUserAccount }}{{ tweet.createdAt | fromNow }}</span
+            >{{ tweet.tweetUserAccount }}・{{ tweet.createdAt | fromNow }}</span
           >
           <router-link
             v-if="!isAdmin"
