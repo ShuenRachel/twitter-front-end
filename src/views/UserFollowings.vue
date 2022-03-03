@@ -8,6 +8,7 @@
         v-for="user in followingsData"
         :key="user.followingId"
         :init-user="user"
+        @after-follow-change="afterFollowChange"
       />
       <div class="empty-data" v-if="isEmptyData">目前尚無跟隨中</div>
     </section>
@@ -29,7 +30,7 @@ export default {
   data() {
     return {
       followingsData: [],
-      isEmptyData: false
+      isEmptyData: false,
     };
   },
   methods: {
@@ -42,12 +43,15 @@ export default {
         }
 
         this.followingsData = response.data;
-        this.isEmptyData = !this.followingsData.length
+        this.isEmptyData = !this.followingsData.length;
       } catch (error) {
         this.ToastError({
           title: "無法取得用戶追隨中清單，請稍後再試",
         });
       }
+    },
+    afterFollowChange() {
+      this.$emit("after-follow-change");
     },
   },
   created() {

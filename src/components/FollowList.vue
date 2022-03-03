@@ -85,6 +85,7 @@ export default {
 
         this.user.isFollowing = true;
         this.isProcessing = false;
+        this.$emit("after-follow-change")
       } catch (error) {
         this.ToastError({
           title: "無法追隨用戶，請稍後再試",
@@ -103,6 +104,7 @@ export default {
 
         this.user.isFollowing = false;
         this.isProcessing = false;
+        this.$emit("after-follow-change")
       } catch (error) {
         this.ToastError({
           title: "無法取消追隨用戶，請稍後再試",
