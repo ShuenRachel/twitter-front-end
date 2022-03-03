@@ -37,7 +37,7 @@ export default {
 
         if (response.statusText !== "OK") {
           throw new Error(response.status);
-        } 
+        }
 
         this.tweetsData = response.data;
         this.isEmptyData = !this.tweetsData.length;
@@ -66,4 +66,10 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/scss/main.scss";
+
+.user-all-like {
+  max-width: 600px;
+  max-height: 300px;
+  overflow: scroll;
+}
 </style>
