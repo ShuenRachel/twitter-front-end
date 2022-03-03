@@ -5,8 +5,7 @@
         class="tweet__user-avatar pointer"
         :style="{ backgroundImage: 'url(' + reply.commentUser.avatar + ')' }"
         @click.stop.prevent="toUserProfilePage(reply.commentUser.id)"
-      >
-      </div>
+      ></div>
       <div class="tweet__info-container">
         <div class="info">
           <span
@@ -18,10 +17,9 @@
           <span
             class="account pointer"
             @click.stop.prevent="toUserProfilePage(reply.commentUser.id)"
-            >{{ reply.commentUser.account
-            }}</span
-          >     <span>{{ reply.createdAt | fromNow }}</span
+            >{{ reply.commentUser.account }}</span
           >
+          <span class="time">・{{ reply.createdAt | fromNow }}</span>
           <div class="reply-account">
             回覆
             <span
@@ -101,6 +99,9 @@ div.tweet {
   &__info-container {
     padding-left: 15px;
     div.reply-account {
+      color: $text-sub;
+    }
+    .time {
       color: $text-sub;
     }
     .content {
