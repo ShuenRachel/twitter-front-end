@@ -2,6 +2,7 @@
   <div>
     <LoginForm
       :init-is-processing="isProcessing"
+      :need-clear-password="needClearPassword"
       @after-form-submit="afterFormSubmit"
     />
   </div>
@@ -21,6 +22,7 @@ export default {
   data() {
     return {
       isProcessing: false,
+      needClearPassword: false,
     };
   },
   methods: {
@@ -44,8 +46,24 @@ export default {
 
         this.$router.push("/admin/tweets");
       } catch (error) {
-        this.isProcessing = false
-        // TODO: need check error msg?
+        this.isProcessing = false;
+        this.needClearPassword = !this.needClearPassword;
+
+        if (error.message === "You are not admin!") {
+          this.ToastError({
+            title: "此帳號非管理者",
+          });
+          return;
+        } else if (
+          error.message === "Account didn't exist!" ||
+          error.message === "Password incorrect!"
+        ) {
+          this.ToastError({
+            title: "登入失敗，帳號或密碼有誤",
+          });
+          return;
+        }
+
         this.ToastError({
           title: "無法登入，請稍後再試",
         });
