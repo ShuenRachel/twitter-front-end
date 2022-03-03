@@ -50,9 +50,12 @@ export default {
         this.$router.push("/user/login");
       } catch (error) {
         this.isProcessing = false;
-
-        this.submitStatus = error.message;
-        // TODO: check if need to response different msg from err msg
+        if (
+          error.message === "Email already existed!" ||
+          error.message === "Account already existed."
+        ) {
+          return (this.submitStatus = error.message);
+        }
         this.ToastError({
           title: "註冊失敗，請稍後再試",
         });
