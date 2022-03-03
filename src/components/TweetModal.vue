@@ -176,6 +176,11 @@ export default {
     color: $brand-orange;
   }
 }
-
+.text-area-error-info {
+  position: absolute;
+  bottom: 15px;
+  right: 100px;
+  font-size: 15px;
+}
 
 </style>
