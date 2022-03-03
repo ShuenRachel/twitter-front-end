@@ -127,7 +127,7 @@
                     </div>
                   </div>
                   <div class="profile-content">
-                    <div class="user-name">
+                    <div class="user-name ps-label-title">
                       <label for="name" class="user-name-label">
                         名稱
                       </label>
@@ -137,22 +137,38 @@
                         type="text"
                         name="name"
                         class="user-name input-gp input-field"
-                        placeholder="名稱"
-                        maxlength="50"
                       />
+                      <div class="user-name-input-border input-border"
+                      :class="{ error: userName.length === 0 || userName.length > 50}"></div>
+                      <div 
+                        v-if="userName.length === 0" class="user-name-input-error-info" style="color:#fc5a5a;">不可有空欄位
+                      </div>
+                      <div 
+                        v-if="userName.length > 50" class="user-name-input-error-info" style="color:#fc5a5a;">名稱上限 50 字
+                      </div>
                     </div>
-                    <div class="user-introduction">
+                    <div class="user-name-length input-length"
+                    :class="{ error: userName.length === 0 || userName.length > 50 }"> {{ userName.length }}/50 </div>
+                    <div class="user-introduction ps-label-title">
+                      <label for="user-introduction" class="user-name-label">
+                        自我介紹
+                      </label>
                       <textarea
                         v-model="userIntroduction"
                         name="introduction"
                         id="user-introduction"
                         class="user-introduction input-gp input-field"
-                        placeholder="自我介紹"
                         cols="40"
                         rows="8"
-                        maxlength="160"
                       ></textarea>
+                      <div class="user-introduction-input-border input-border"
+                      :class="{ error: userIntroduction.length > 160}"></div>
+                      <div 
+                        v-if="userIntroduction.length > 160" class="user-introduction-input-error-info" style="color:#fc5a5a;">自我介紹上限 160 字
+                      </div>
                     </div>
+                    <div class="user-introduction-length input-length"
+                    :class="{ error: userIntroduction.length > 160 }"> {{ userIntroduction.length }}/160 </div>
                   </div>
                 </div>
               </form>
@@ -223,10 +239,10 @@ export default {
     },
     async submitEdit(e) {
       // TODO: show warning text -> remove html input max-length
-      if (this.userName.length > 50) {
-        return console.log("name too long");
+      if (this.userName.length > 50 || this.userName.length === 0) {
+        return console.log("name too long or empty.");
       } else if (this.userIntroduction.length > 160) {
-        return console.log("intro too long");
+        return console.log("intro too long.");
       }
 
       const form = e.target;
@@ -414,7 +430,88 @@ export default {
   }
   div.profile-content {
     padding: 56px 15px 0;
-    
+    .user-name {
+      input {
+        height: 54px;
+        color: $text-main;
+        font-size: 19px;
+        padding: 24px 15px 6px;
+        margin-bottom: 0;
+        &:hover, &:focus {
+          &+div.input-border {
+            z-index: 2;
+            border-radius: 0px 0px 4px 4px;
+            border-bottom: 2px solid $input-blue;
+          }
+        }
+      }
+      &-input-border {
+        position: absolute;
+        top: 52px;
+      }
+      &-input-error-info {
+        position: absolute;
+        top: 54px;
+        left: 0;
+        font-size: 15px;
+      }
+    }
+    .user-introduction {
+      textarea {
+        height: 150px;
+        overflow: scroll;
+        resize: none;
+        margin-bottom: 0;
+        &:hover, &:focus {
+          &+div.input-border {
+            z-index: 2;
+            border-radius: 0px 0px 4px 4px;
+            border-bottom: 2px solid $input-blue;
+          }
+        }
+      }
+      &-input-border {
+        position: absolute;
+        top: 148px;
+      }
+      &-input-error-info {
+        position: absolute;
+        top: 150px;
+        left: 0;
+        font-size: 15px;
+      }
+    }
+    .ps-label-title {
+      position: relative;
+      label {
+        z-index: 1;
+        position: absolute;
+        top: 5px;
+        left: 15px;
+        color: $text-sub;
+        font-size: 15px;
+        line-height: 15px;
+      }
+    }
+    .input-length {
+      text-align: right;
+      margin-bottom: 20px;
+      font-size: 15px;
+      line-height: 21.72px;
+      color: $text-sub;
+      &.error {
+        color: $warning-red;
+      }
+    }
+    .input-border {
+      left: 0;
+      width: 100%;
+      border-bottom: 2px solid $text-sub;
+      border-radius: 0px 0px 4px 4px;
+      &.error {
+        border-bottom: 2px solid $warning-red;
+      }
+    }
   }
 }
 </style>
