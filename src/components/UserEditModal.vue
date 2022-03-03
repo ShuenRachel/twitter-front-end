@@ -95,8 +95,13 @@
                   </div>
                   <div class="user-avatar">
                     <div class="user-avatar-icon-container">
-                      <div class="image-container">
-                        <img :src="userAvatar" alt="avatar" />
+                      <div 
+                        class="image-container"
+                        >
+                        <div
+                          class="image-container-bg"
+                          :style="{ backgroundImage: 'url(' + userAvatar + ')' }"
+                        ></div>
                       </div>
                       <label for="avatar">
                         <div class="user-cover-icon">
@@ -387,7 +392,7 @@ export default {
         }
         &:hover {
           cursor: pointer;
-          background-color: $empty-img;
+          background-color: $input-blue;
         }
       }
     }
@@ -404,10 +409,13 @@ export default {
         border-radius: 50%;
         background-color: $empty-img;
         border: 4px solid #FFFFFF;
-        img {
-          border-radius: 50%;
+        &-bg { 
           width: 100%;
-          opacity: 0.75;        
+          height: 100%;
+          border-radius: 50%;
+          background-repeat: no-repeat;
+          background-size: cover;
+          opacity: 0.75;
         }
       }
       .user-cover-icon {
@@ -423,7 +431,7 @@ export default {
         &:hover {
           cursor: pointer;
           border-radius: 50%;
-          background-color: $empty-img;
+          background-color: $input-blue;
         }
       }
     }

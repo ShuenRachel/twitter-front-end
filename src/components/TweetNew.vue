@@ -77,6 +77,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../assets/scss/main.scss";
 .tweet-wrapper {
   position: relative;
   max-width: 600px;
@@ -87,6 +88,7 @@ export default {
   top: 10px;
   left: 15px;
   border-radius: 50%;
+  background-color: $empty-img;
   width: 50px;
   height: 50px;
   img {
