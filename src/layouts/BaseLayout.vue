@@ -1,8 +1,17 @@
 <template>
   <div class="page-container">
-    <Navbar class="container-left" :is-current-user-page="isCurrentUserPage" @after-show-modal="afterShowModal"/>
-    <div class="container-middle"><Header /><router-view class="container-middle-main" /></div>
-    <PopularUsers class="container-right" v-if="!isAdmin" />
+    <Navbar
+      class="container-left"
+      :is-current-user-page="isCurrentUserPage"
+      @after-show-modal="afterShowModal"
+    />
+    <div class="container-middle">
+      <Header /><router-view
+        class="container-middle-main"
+        @after-follow-change="afterFollowChange"
+      />
+    </div>
+    <PopularUsers class="container-right" v-if="!isAdmin" :need-update-popular-user="needUpdatePopularUser" />
     <TweetModal v-if="modalVisibility" @after-close-modal="afterCloseModal" />
   </div>
 </template>
@@ -19,29 +28,33 @@ export default {
     Navbar,
     Header,
     PopularUsers,
-    TweetModal
+    TweetModal,
   },
   data() {
     return {
       modalVisibility: false,
-      isCurrentUserPage: false
-    }
+      isCurrentUserPage: false,
+      needUpdatePopularUser: false
+    };
   },
   computed: {
-    ...mapState(["isAdmin", "currentUser"])
+    ...mapState(["isAdmin", "currentUser"]),
   },
   methods: {
     afterShowModal() {
-      this.modalVisibility = true
+      this.modalVisibility = true;
     },
     afterCloseModal() {
-      this.modalVisibility = false
-    }
+      this.modalVisibility = false;
+    },
+    afterFollowChange() {
+      this.needUpdatePopularUser = !this.needUpdatePopularUser
+    },
   },
   beforeRouteUpdate(to, from, next) {
-    this.isCurrentUserPage = Number(to.params.user_id) === this.currentUser.id
-    next()
-  }
+    this.isCurrentUserPage = Number(to.params.user_id) === this.currentUser.id;
+    next();
+  },
 };
 </script>
 

@@ -1,29 +1,34 @@
 <template>
   <div>
-    <UserProfile :user-id="userId"/>
+    <UserProfile :user-id="userId" @after-follow-change="afterFollowChange" />
     <NavTabs />
     <router-view />
   </div>
 </template>
 
 <script>
-import UserProfile from "@/components/UserProfile.vue"
-import NavTabs from "@/components/NavTabs.vue"
+import UserProfile from "@/components/UserProfile.vue";
+import NavTabs from "@/components/NavTabs.vue";
 
 export default {
   components: {
     UserProfile,
-    NavTabs
+    NavTabs,
   },
   data() {
     return {
       userId: this.$route.params.user_id,
-      tweetsData: []
-    }
+      tweetsData: [],
+    };
   },
-  beforeRouteUpdate (to, from, next) {
-    this.userId = to.params.user_id
-    next()
+  methods: {
+    afterFollowChange() {
+      this.$emit("after-follow-change")
+    },
   },
-}
+  beforeRouteUpdate(to, from, next) {
+    this.userId = to.params.user_id;
+    next();
+  },
+};
 </script>

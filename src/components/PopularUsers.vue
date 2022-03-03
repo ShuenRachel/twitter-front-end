@@ -27,7 +27,7 @@
             <button
               v-if="user.isFollowing"
               class="popular-user-btn btn btn-orange btn-following"
-              :disabled="user.isProcessing  || user.id === currentUser.id"
+              :disabled="user.isProcessing || user.id === currentUser.id"
               @click.stop.prevent="deleteFollowing(user.id)"
             >
               正在跟隨
@@ -53,6 +53,11 @@ import { Toastification } from "./../utils/mixin";
 import { mapState } from "vuex";
 
 export default {
+  props: {
+    needUpdatePopularUser: {
+      type: Boolean,
+    },
+  },
   data() {
     return {
       users: [],
@@ -83,7 +88,6 @@ export default {
       }
     },
     async addFollowing(userId) {
-
       const targetUser = this.users.find((user) => user.id === userId);
 
       targetUser.isProcessing = true;
@@ -134,6 +138,11 @@ export default {
   },
   created() {
     this.fetchUsers();
+  },
+  watch: {
+    needUpdatePopularUser() {
+      this.fetchUsers()
+    }
   },
   mixins: [Toastification],
 };
