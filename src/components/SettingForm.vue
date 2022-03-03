@@ -18,14 +18,15 @@
           :class="{
             error:
               errorMessage === 'account' ||
-              submitStatus === 'Account already existed!',
+              submitStatus === 'Account already existed!' ||
+              submitStatus === 'Account already existed.',
           }"
         ></div>
         <span v-show="errorMessage === 'account'" class="input-warning"
           >不可有空欄位</span
         >
         <span
-          v-show="submitStatus === 'Account already existed!'"
+          v-show="submitStatus === 'Account already existed!' || submitStatus === 'Account already existed.'"
           class="input-warning"
           >帳號已註冊</span
         >
