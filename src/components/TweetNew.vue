@@ -11,7 +11,7 @@
     </div>
     <button
       type="button"
-      class="btn btn-secondary"
+      class="btn btn-orange"
       @click.stop.prevent="submitTweet"
     >
       推文
@@ -35,10 +35,10 @@ export default {
   },
   methods: {
     async submitTweet() {
+      // TODO: warning text > 140 words
+      // TODO: warning if no content
+      if (this.tweet.length > 140 || !this.tweet.trim().length) return;
       try {
-        // TODO: warning text > 140 words
-        // TODO: alert after success
-        if (this.tweet.length > 140) return;
         const response = await tweetAPI.createTweet(this.tweet);
         if (response.statusText !== "OK") {
           throw new Error(response.message);
