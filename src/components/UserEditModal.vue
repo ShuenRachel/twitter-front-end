@@ -369,6 +369,7 @@ export default {
     position: relative;
     width: 598px;
     height: 200px;
+    background-color: $empty-img;
     background-repeat: no-repeat;
     background-size: cover;
     opacity: 0.6;
