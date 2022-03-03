@@ -140,7 +140,7 @@ $border-setting: 1px solid $border-color;
     border: 0;
     padding-top: 20px;
     width: 100%;
-    &:focus {
+    &:focus,&:hover {
       &+div.line {
         background: $input-blue;
       }
