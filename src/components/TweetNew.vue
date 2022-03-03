@@ -2,12 +2,21 @@
   <div class="tweet-wrapper">
     <div class="user-avatar"><img :src="currentUser.avatar" alt="" /></div>
     <div class="tweet-area">
-      <input
+      <textarea
         v-model="tweet"
-        type="text"
-        maxlength="140"
+        name="description"
+        id="tweet-area-description"
+        rows="2"
         placeholder="有什麼新鮮事？"
-      />
+      ></textarea>
+      <!-- <textarea maxlength="140"/> -->
+    </div>
+    <div
+      v-if="tweet.length > 140"
+      class="text-area-error-info"
+      style="color: #fc5a5a"
+    >
+      內容上限 140 字!
     </div>
     <button
       type="button"
@@ -68,8 +77,43 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.tweet-wrapper {
+  position: relative;
+  max-width: 600px;
+  height: 120px;
+}
 .user-avatar {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  border-radius: 50%;
   width: 50px;
   height: 50px;
+  img {
+    width: 100%;
+    border-radius: 50%;
+  }
+}
+.tweet-area {
+  textarea {
+    position: absolute;
+    top: 20px;
+    left: 75px;
+    right: 15px;
+    resize: none;
+    border: none;
+  }
+}
+.text-area-error-info {
+  position: absolute;
+  bottom: 15px;
+  right: 100px;
+  font-size: 15px;
+}
+button {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  font-size: 18px;
 }
 </style>
