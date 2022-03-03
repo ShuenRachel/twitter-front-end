@@ -86,7 +86,7 @@ export default {
   display: flex;
   align-items: center;
   &-btn {
-    width: 80px;
+    width: 40px;
     cursor: pointer;
     svg {
       margin-left: 19px;
@@ -95,6 +95,7 @@ export default {
   &-title {
     display: flex;
     flex-flow: column nowrap;
+    margin-left: 26px;
     &-page {
       font-size: 19px;
       font-weight: 700;
