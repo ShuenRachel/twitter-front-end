@@ -43,8 +43,11 @@ export default {
         if (data.status !== "success") {
           throw new Error(data.message);
         }
-        // TODO: show success msg
+
         this.submitStatus = data.message;
+        this.ToastSuccess({
+          title: "註冊成功",
+        });
 
         this.$router.push("/user/login");
       } catch (error) {
