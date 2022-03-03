@@ -25,12 +25,13 @@
           <router-link
             v-if="!isAdmin"
             :to="{ name: 'user-tweet', params: { tweet_id: tweet.TweetId } }"
-            ><div class="content">
-              <p>{{ tweet.description }}</p>
-            </div></router-link
+            >
+              <div class="content">
+                <p>{{ tweet.description }}</p>
+              </div></router-link
           >
-          <div v-else class="content">
-            <p>{{ tweet.description }}</p>
+          <div v-else class="content" :class="{ 'admin-width': isAdmin }">
+            <p>{{ tweet.description | descriptionOverflow}}</p>
           </div>
         </div>
         <div v-if="!isAdmin" class="tweet__footer">
@@ -123,7 +124,7 @@
 </template>
 
 <script>
-import { fromNowFilter, Toastification } from "../utils/mixin";
+import { fromNowFilter, Toastification, descriptionOverflow } from "../utils/mixin";
 import tweetsAPI from "./../apis/tweets";
 import { mapState } from "vuex";
 
@@ -206,7 +207,7 @@ export default {
       this.fetchTweet();
     },
   },
-  mixins: [fromNowFilter, Toastification],
+  mixins: [fromNowFilter, Toastification, descriptionOverflow],
 };
 </script>
 
@@ -237,6 +238,9 @@ div.tweet {
     padding-left: 15px;
     div.content {
       max-width: 510px;
+      &.admin-width{
+        width: 70%;
+      }
     }
     div.tweet__footer__actives {
       display: flex;

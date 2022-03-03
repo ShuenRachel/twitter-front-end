@@ -198,6 +198,9 @@ export default {
         font-weight: 700;
         font-size: 18px;
         color: $text-main;
+        svg {
+          margin-right: 20px;
+        }
         &.active,
         &:hover {
           color: $brand-orange;
