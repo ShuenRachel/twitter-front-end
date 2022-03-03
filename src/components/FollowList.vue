@@ -131,16 +131,13 @@ export default {
 div.tweet {
   position: relative;
   display: flex;
-  padding: 12px 15px;
+  padding: 10px 15px;
   text-align: left;
   color: $text-main;
   font-size: 15px;
   border-bottom: 1px solid $border;
   span.name {
     font-weight: 700;
-  }
-  .avatar-container {
-    width: 65px;
   }
   &__user-avatar {
     border-radius: 50%;
@@ -173,7 +170,7 @@ div.tweet {
         height: 25px;
         background-color: $brand-orange;
         color: #fff;
-        font-weight: bold;
+        font-weight: 700;
       }
       button.follow {
         width: 62px;
