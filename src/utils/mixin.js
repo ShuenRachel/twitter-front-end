@@ -1,14 +1,21 @@
-import moment from "moment";
 import Toast from "../components/Toast.vue";
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime' //Time from now
+import 'dayjs/locale/zh-tw' // localize
+dayjs.extend(relativeTime).locale('zh-tw')
 
 export const fromNowFilter = {
   filters: {
-    fromNow(datetime) {
-      if (!datetime) {
-        return "-";
-      }
-
-      return moment(datetime).fromNow();
+    fromNow(dateTime) {
+      const now = dayjs()
+      const fromNowTime = now.diff(dateTime, 'hour')
+      return fromNowTime > 24
+        ? dayjs(dateTime).format('M月DD日')
+        : dayjs(dateTime).fromNow(true)
+    },
+    timeFormatFilter(dateTime) {
+      const meridiem = dayjs(dateTime).hour() > 12 ? '下午' : '上午'
+      return meridiem + dayjs(dateTime).format(' hh:mm・YYYY年M月DD日')
     },
   },
 };

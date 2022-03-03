@@ -2,25 +2,51 @@
   <div class="tweet-wrapper">
     <div class="tweet-content">
       <div class="tweet-content-header">
-        <div 
-          class="user-avatar pointer" 
+        <div
+          class="user-avatar pointer"
           :style="{ backgroundImage: 'url(' + tweetData.avatar + ')' }"
-          @click="$router.push({name: 'user-all-tweets', params: { user_id: tweetData.tweetUserId }})">
-        </div>
+          @click="
+            $router.push({
+              name: 'user-all-tweets',
+              params: { user_id: tweetData.tweetUserId },
+            })
+          "
+        ></div>
         <div class="user-data">
-          <span class="user-data-name pointer" @click="$router.push({name: 'user-all-tweets', params: { user_id: tweetData.tweetUserId }})">{{ tweetData.tweetUserName }}</span>
-          <span class="user-data-account account pointer" @click="$router.push({name: 'user-all-tweets', params: { user_id: tweetData.tweetUserId }})">{{ tweetData.tweetUserAccount }}</span>
+          <span
+            class="user-data-name pointer"
+            @click="
+              $router.push({
+                name: 'user-all-tweets',
+                params: { user_id: tweetData.tweetUserId },
+              })
+            "
+            >{{ tweetData.tweetUserName }}</span
+          >
+          <span
+            class="user-data-account account pointer"
+            @click="
+              $router.push({
+                name: 'user-all-tweets',
+                params: { user_id: tweetData.tweetUserId },
+              })
+            "
+            >{{ tweetData.tweetUserAccount }}</span
+          >
         </div>
       </div>
       <div class="tweet-content-body">
         <p class="tweet-content-text">{{ tweetData.description }}</p>
-        <span class="tweet-content-time">{{ tweetData.createdAt | fromNow }}</span>
+        <span class="tweet-content-time">{{ tweetData.createdAt | timeFormatFilter }}</span>
       </div>
     </div>
     <div class="tweet-data">
-      <span class="tweet-data-count">{{ tweetData.repliedCount }} <span class="tweet-data-title">回覆</span>
+      <span class="tweet-data-count"
+        >{{ tweetData.repliedCount }} <span class="tweet-data-title">回覆</span>
       </span>
-      <span class="tweet-data-count">{{ tweetData.likeCount }}  <span class="tweet-data-title">喜歡次數</span>
+      <span class="tweet-data-count"
+        >{{ tweetData.likeCount }}
+        <span class="tweet-data-title">喜歡次數</span>
       </span>
     </div>
     <div class="tweet-action">
@@ -42,7 +68,11 @@
         </svg>
       </div>
       <div class="btn-like">
-        <div v-if="tweetData.liked" @click="deleteLike(tweetData.TweetId)" class="">
+        <div
+          v-if="tweetData.liked"
+          @click="deleteLike(tweetData.TweetId)"
+          class=""
+        >
           <svg
             class="actives-icon actives-icon__like"
             width="25"
@@ -96,7 +126,7 @@ export default {
   },
   methods: {
     fetchTweet() {
-      this.tweetData = this.initTweetData
+      this.tweetData = this.initTweetData;
     },
     async addLike(id) {
       try {
@@ -185,7 +215,6 @@ export default {
         line-height: 21.72px;
       }
     }
-    
   }
   &-data {
     padding: 15px 0;
@@ -203,7 +232,7 @@ export default {
     span.tweet-data-title {
       color: $text-sub;
       font-weight: 500;
-    } 
+    }
   }
   &-action {
     display: flex;
@@ -217,10 +246,9 @@ export default {
     }
     .btn-like {
       svg:hover {
-        fill: #E0245E;
+        fill: #e0245e;
       }
     }
   }
 }
-
 </style>
