@@ -48,7 +48,7 @@ export default {
         this.submitStatus = "success";
 
         this.ToastSuccess({
-          title: "成個更新設定！",
+          title: "成功更新設定！",
         });
 
         this.$router.push("/user/home");

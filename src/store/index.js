@@ -25,7 +25,7 @@ export default new Vuex.Store({
       tweetCount: 1,
     },
     token: "",
-    isAdmin: false,
+    isAdmin: true,
     isAuthenticated: false,
     currentPathName: "",
   },
