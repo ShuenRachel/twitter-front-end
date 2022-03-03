@@ -50,7 +50,7 @@ export default {
         this.isProcessing = false;
         this.needClearPassword = !this.needClearPassword;
 
-        if (error.message === "This is for normal user.") {
+        if (error.message === "This is for normal user!") {
           this.ToastError({
             title: "此帳號非使用者",
           });

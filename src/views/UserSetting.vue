@@ -55,7 +55,7 @@ export default {
         
         if (
           error.message === "Email already existed!" ||
-          error.message === "Account already existed."
+          error.message === "Account already existed!"
         ) {
           return (this.submitStatus = error.message);
         }

@@ -52,10 +52,11 @@ export default {
         this.isProcessing = false;
         if (
           error.message === "Email already existed!" ||
-          error.message === "Account already existed."
+          error.message === "Account already existed!"
         ) {
           return (this.submitStatus = error.message);
         }
+        console.log('user regist', error)
         this.ToastError({
           title: "註冊失敗，請稍後再試",
         });

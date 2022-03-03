@@ -198,7 +198,7 @@ export default {
     },
     initSubmitStatus(newValue) {
       this.submitStatus = newValue;
-      console.log(newValue);
+      console.log('setting form:', newValue);
     },
   },
   methods: {
