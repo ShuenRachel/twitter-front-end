@@ -3,9 +3,9 @@
     <div class="tweet">
       <div
         class="tweet__user-avatar pointer"
+        :style="{ backgroundImage: 'url(' + reply.commentUser.avatar + ')' }"
         @click.stop.prevent="toUserProfilePage(reply.commentUser.id)"
       >
-        <img :src="reply.commentUser.avatar" alt="" />
       </div>
       <div class="tweet__info-container">
         <div class="info">
@@ -19,7 +19,8 @@
             class="account pointer"
             @click.stop.prevent="toUserProfilePage(reply.commentUser.id)"
             >{{ reply.commentUser.account
-            }}{{ reply.createdAt | fromNow }}</span
+            }}</span
+          >     <span>{{ reply.createdAt | fromNow }}</span
           >
           <div class="reply-account">
             回覆
@@ -61,7 +62,7 @@ export default {
       });
     },
     toTweetPage(tweetId) {
-      if (this.$route.name !== 'user-all-replies') return
+      if (this.$route.name !== "user-all-replies") return;
       this.$router.push({
         name: "user-tweet",
         params: { tweet_id: tweetId },
@@ -88,8 +89,10 @@ div.tweet {
   }
   &__user-avatar {
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 50px;
+    max-height: 50px;
     background-color: $empty-img;
     background-size: cover;
     background-repeat: no-repeat;
@@ -99,6 +102,11 @@ div.tweet {
     padding-left: 15px;
     div.reply-account {
       color: $text-sub;
+    }
+    .content {
+      p {
+        word-break: break-all;
+      }
     }
     div.tweet__footer__actives {
       display: flex;
