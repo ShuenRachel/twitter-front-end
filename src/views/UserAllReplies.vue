@@ -23,7 +23,7 @@ export default {
     return {
       userId: this.$route.params.user_id,
       repliesData: [],
-      isEmptyData: false
+      isEmptyData: false,
     };
   },
   methods: {
@@ -51,7 +51,7 @@ export default {
             },
           };
         });
-        this.isEmptyData = !this.repliesData.length
+        this.isEmptyData = !this.repliesData.length;
       } catch (error) {
         this.ToastError({
           title: "無法取得用戶回覆清單，請稍後再試",
@@ -77,4 +77,10 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/scss/main.scss";
+
+.user-all-replies {
+  max-width: 600px;
+  max-height: 300px;
+  overflow: scroll;
+}
 </style>
