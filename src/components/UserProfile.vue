@@ -126,9 +126,9 @@ export default {
         this.user = {
           account: data.account,
           name: data.name,
-          avatar: data.avatar,
-          cover: data.cover,
-          introduction: data.introduction,
+          avatar: data.avatar ? data.avatar : "",
+          cover: data.cover ? data.cover : "",
+          introduction: data.introduction ? data.introduction : "",
           followingCount: data.followingCount,
           followerCount: data.followerCount,
           isFollowing: data.isFollowing,
