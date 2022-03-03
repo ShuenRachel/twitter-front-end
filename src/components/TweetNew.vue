@@ -98,7 +98,7 @@ export default {
 .tweet-wrapper {
   position: relative;
   max-width: 600px;
-  height: 245px;
+  height: 180px;
 }
 .user-avatar {
   position: absolute;

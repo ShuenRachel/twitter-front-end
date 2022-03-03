@@ -6,13 +6,28 @@
     </div>
     <div class="tweet-area">
      <textarea
-        v-model="tweet"
+        v-model="reply"
         name="description"
         id="tweet-area-description"
         rows="6"
         placeholder="有什麼新鮮事？"
         required
+        @click="emptyContent = false"
       ></textarea>
+    </div>
+    <div
+      v-if="reply.length > 140"
+      class="text-area-error-info"
+      style="color: #fc5a5a"
+    >
+      內容上限 140 字!
+    </div>
+    <div
+      v-if="emptyContent"
+      class="text-area-error-info"
+      style="color: #fc5a5a"
+    >
+      請輸入內容!
     </div>
     <button
       type="button"
@@ -39,6 +54,7 @@ export default {
   data() {
     return {
       reply: "",
+      emptyContent: false,
       isProcessing: false,
     };
   },
@@ -50,6 +66,11 @@ export default {
       this.isProcessing = true;
       // TODO: warning text when > 140 words
       // TODO: warning if no content
+      if (!this.reply.trim().length ) {
+        this.emptyContent = true
+        this.isProcessing = false
+        return
+      }
       if (this.reply.length > 140 || !this.reply.trim().length) {
         return (this.isProcessing = false);
       }
