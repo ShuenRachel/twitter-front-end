@@ -26,19 +26,21 @@
                 </button>
               </div>
               <div v-if="initReplyTweet" class="reply-tweet">
-                <div class="reply-avatar">
-                  <img :src="initReplyTweet.avatar" alt="" />
+                <div 
+                  class="reply-avatar"
+                  :style="{ backgroundImage: 'url(' + initReplyTweet.avatar + ')' }">
                 </div>
+                <div class="connect-line"></div>
                 <div class="reply-content">
                   <div class="reply-content-data">
-                    <span>{{ initReplyTweet.tweetUserName }}</span>
-                    <span class="account">{{ initReplyTweet.tweetUserAccount }}</span>
-                    <span>{{ initReplyTweet.createdAt | fromNow }}</span>
+                    <span class="name">{{ initReplyTweet.tweetUserName }}</span>
+                    <span class="account">{{ initReplyTweet.tweetUserAccount }}・</span>
+                    <span class="created">{{ initReplyTweet.createdAt | fromNow }}</span>
                   </div>
                   <div class="reply-content-text">
                     {{initReplyTweet.description}}
                   </div>
-                  <span class="reply-content-footer">回覆給 <span>@{{initReplyTweet.tweetUserAccount}}</span></span>
+                  <span class="reply-content-footer">回覆給 <span class="reply-footer">@{{initReplyTweet.tweetUserAccount}}</span></span>
                 </div>
               </div>
               <TweetReplyNew v-if="initReplyTweet" :reply-id="initReplyTweet.TweetId"  @after-reply-tweet="handleCloseModal" />
@@ -87,6 +89,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../assets/scss/main.scss";
 .modal-dialog {
   max-width: 600px;
 }
@@ -125,8 +128,54 @@ export default {
   }
 }
 
+.reply-tweet {
+  position: relative;
+  height: 150px;
+  padding: 15px 15px 0 75px;
+}
+
 .reply-avatar {
+  position: absolute;
+  top: 18px;
+  left: 15px;
+  border-radius: 50%;
+  background-color: $empty-img;
+  background-repeat: no-repeat;
+  background-size: cover;
   width: 50px;
   height: 50px;
 }
+.connect-line {
+  position: absolute;
+  top: 73px;
+  left: 40px;
+  width: 2px;
+  height: 80px;
+  background: #CCD6CC;
+}
+.reply-content {
+  font-size: 15px;
+  font-weight: 500;
+  span.name {
+    font-weight: 700;
+    margin-right: 5px;
+  }
+  span.created {
+    color: $text-sub;
+  }
+  .reply-content-text {
+    font-weight: 400;
+    margin-bottom: 19px;
+  }
+  span.reply-content-footer, span.reply-footer {
+    color: $text-sub;
+    font-size: 13px;
+    line-height: 13px;
+  }
+  span.reply-footer {
+    color: $brand-orange;
+  }
+}
+
+
 </style>
