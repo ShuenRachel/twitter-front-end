@@ -47,7 +47,6 @@ export default {
       }
     },
     async deleteTweet(tweetId) {
-      console.log('delete tweetId:', tweetId)
       try {
         const response = await adminAPI.deleteTweet(tweetId)
 

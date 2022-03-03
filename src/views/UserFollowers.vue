@@ -4,7 +4,13 @@
       <NavTabs />
     </section>
     <section class="follow-list">
-      <FollowList v-for="user in followersData" :key="user.followerId" :init-user="user" />
+      <FollowList
+        v-for="user in followersData"
+        :key="user.followerId"
+        :init-user="user"
+        @after-follow-change="afterFollowChange"
+      />
+      <div class="empty-data" v-if="isEmptyData">目前尚無跟隨者</div>
     </section>
   </div>
 </template>
@@ -24,6 +30,7 @@ export default {
   data() {
     return {
       followersData: [],
+      isEmptyData: false,
     };
   },
   methods: {
@@ -34,13 +41,16 @@ export default {
         if (response.statusText !== "OK") {
           throw new Error(response.message);
         }
-        console.log(response.data);
         this.followersData = response.data;
+        this.isEmptyData = !this.followersData.length;
       } catch (error) {
         this.ToastError({
           title: "無法取得用戶追隨者清單，請稍後再試",
         });
       }
+    },
+    afterFollowChange() {
+      this.$emit("after-follow-change");
     },
   },
   created() {

@@ -4,9 +4,7 @@
       :init-tweet-data="tweetsData"
       @after-reply-clicked="showReplyModal"
     />
-    <div v-if="!replies.length" class="no-content">
-      No reply:[
-    </div>
+    <div class="empty-data" v-if="isEmptyData">目前尚無回覆</div>
     <RepliesList
       v-for="reply in replies"
       :key="reply.commentId"
@@ -39,6 +37,7 @@ export default {
       tweetsData: {},
       replies: [],
       modalVisibility: false,
+      isEmptyData: false
     };
   },
   methods: {
@@ -49,6 +48,7 @@ export default {
           throw new Error(response.message);
         }
         this.replies = response.data;
+        this.isEmptyData = !this.replies.length
       } catch (error) {
         this.ToastError({
           title: "無法取得回覆清單，請稍後再試",

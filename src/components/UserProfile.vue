@@ -1,6 +1,6 @@
 <template>
   <div class="user-profile-container">
-    <!-- 切版時 再把backgroundImage的設定放下去style -->
+    <!--  TODO? 切版時 再把backgroundImage的設定放下去style -->
     <div
       class="user-profile-cover bg-empty"
       :style="{ backgroundImage: 'url(' + user.cover + ')' }"
@@ -151,6 +151,7 @@ export default {
         this.user.isFollowing = true;
         this.user.followingCount += 1;
         this.isProcessing = false;
+        this.$emit("after-follow-change");
       } catch (error) {
         this.ToastError({
           title: "無法追隨用戶，請稍後再試",
@@ -170,6 +171,7 @@ export default {
         this.user.isFollowing = false;
         this.user.followingCount -= 1;
         this.isProcessing = false;
+        this.$emit("after-follow-change");
       } catch (error) {
         this.ToastError({
           title: "無法取消追隨用戶，請稍後再試",
