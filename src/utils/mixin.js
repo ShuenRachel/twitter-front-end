@@ -45,3 +45,14 @@ export const Toastification = {
     }
   }
 }
+
+export const descriptionOverflow = {
+  filters: {
+    descriptionOverflow(description) {
+      if (description.length > 50 ) {
+        return description.substr(0, 50) + ' ...'
+      }
+      return description
+    }
+  }
+}
