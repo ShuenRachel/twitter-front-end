@@ -18,8 +18,10 @@
       </div>
     </div>
     <div class="tweet-data">
-      <span class="tweet-data-replies">{{ tweetData.repliedCount }} Replies</span>
-      <span class="tweet-data-likes">{{ tweetData.likeCount }} Likes</span>
+      <span class="tweet-data-count">{{ tweetData.repliedCount }} <span class="tweet-data-title">回覆</span>
+      </span>
+      <span class="tweet-data-count">{{ tweetData.likeCount }}  <span class="tweet-data-title">喜歡次數</span>
+      </span>
     </div>
     <div class="tweet-action">
       <div
@@ -28,9 +30,9 @@
       >
         <svg
           class="actives-icon actives-icon__reply"
-          width="12"
-          height="12"
-          viewBox="0 0 21 20"
+          width="25"
+          height="25"
+          viewBox="0 0 25 25"
           fill="#657786"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -43,9 +45,9 @@
         <div v-if="tweetData.liked" @click="deleteLike(tweetData.TweetId)" class="">
           <svg
             class="actives-icon actives-icon__like"
-            width="12.5"
-            height="11.8"
-            viewBox="0 0 22 20"
+            width="25"
+            height="25"
+            viewBox="0 0 25 25"
             fill="#E0245E"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -57,9 +59,9 @@
         <div v-else @click="addLike(tweetData.TweetId)" class="">
           <svg
             class="actives-icon actives-icon__unlike"
-            width="12.5"
-            height="11.8"
-            viewBox="0 0 21 20"
+            width="25"
+            height="25"
+            viewBox="0 0 25 25"
             fill="#657786"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -140,6 +142,7 @@ export default {
 @import "../assets/scss/main.scss";
 .tweet {
   &-wrapper {
+    border-top: $border-setting;
     border-bottom: $border-setting;
     max-width: 600px;
     padding: 15px;
@@ -169,7 +172,6 @@ export default {
       }
     }
     &-body {
-      // border-bottom: 1px solid $border;
       p {
         word-wrap: break-word;
         font-size: 23px;
@@ -178,7 +180,6 @@ export default {
         margin-bottom: 15px;
       }
       span.tweet-content-time {
-        // padding: 15px 0;
         color: $text-sub;
         font-size: 15px;
         line-height: 21.72px;
@@ -186,9 +187,40 @@ export default {
     }
     
   }
+  &-data {
+    padding: 15px 0;
+    margin-top: 15px;
+    border-top: $border-setting;
+    border-bottom: $border-setting;
+    span {
+      font-size: 19px;
+    }
+    span.tweet-data-count {
+      font-weight: 700;
+      color: $text-main;
+      margin-right: 20px;
+    }
+    span.tweet-data-title {
+      color: $text-sub;
+      font-weight: 500;
+    } 
+  }
+  &-action {
+    display: flex;
+    align-items: center;
+    padding-top: 21px;
+    .btn-comment {
+      margin-right: 155px;
+      svg:hover {
+        fill: $brand-orange;
+      }
+    }
+    .btn-like {
+      svg:hover {
+        fill: #E0245E;
+      }
+    }
+  }
 }
-
-
-
 
 </style>
