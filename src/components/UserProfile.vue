@@ -2,13 +2,13 @@
   <div class="user-profile-container">
     <!--  TODO? 切版時 再把backgroundImage的設定放下去style -->
     <div
-      class="user-profile-cover"
+      class="user-profile-cover bg-empty"
       :style="{ backgroundImage: 'url(' + user.cover + ')' }"
     ></div>
-    <div
-      class="user-profile-avatar"
-      :style="{ backgroundImage: 'url(' + user.avatar + ')' }"
-    ></div>
+    <div 
+      class="user-profile-avatar bg-empty"
+      :style="{ backgroundImage: 'url(' + user.avatar + ')' }">
+    </div>
     <div class="user-profile-info-container">
       <div class="user-name">
         <p>{{ user.name }}</p>
@@ -211,9 +211,6 @@ div.user-profile {
     min-width: 200px;
     width: 598px;
     height: 200px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-color: $empty-img;
   }
   &-avatar {
     position: absolute;
@@ -223,7 +220,6 @@ div.user-profile {
     height: 140px;
     border: 4px solid #ffffff;
     border-radius: 50%;
-    background-color: $empty-img;
   }
   &-info-container {
     position: relative;
@@ -283,5 +279,11 @@ div.user-profile {
       }
     }
   }
+}
+
+.bg-empty{
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: $empty-img;
 }
 </style>
