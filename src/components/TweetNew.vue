@@ -1,9 +1,9 @@
 <template>
   <div class="tweet-wrapper">
-    <div 
+    <div
       class="user-avatar"
-      :style="{ backgroundImage: 'url(' + currentUser.avatar + ')' }">
-    </div>
+      :style="{ backgroundImage: 'url(' + currentUser.avatar + ')' }"
+    ></div>
     <div class="tweet-area">
       <textarea
         v-model="tweet"
@@ -12,6 +12,7 @@
         rows="6"
         placeholder="有什麼新鮮事？"
         required
+        @click="emptyContent = false"
       ></textarea>
     </div>
     <div
@@ -19,7 +20,14 @@
       class="text-area-error-info"
       style="color: #fc5a5a"
     >
-      內容上限 140 字!
+      內容上限 140 字！
+    </div>
+    <div
+      v-if="emptyContent"
+      class="text-area-error-info"
+      style="color: #fc5a5a"
+    >
+      內容不能為空！
     </div>
     <button
       type="button"
@@ -42,6 +50,7 @@ export default {
     return {
       tweet: "",
       isProcessing: false,
+      emptyContent: false,
     };
   },
   computed: {
@@ -52,7 +61,12 @@ export default {
       this.isProcessing = true;
       // TODO: warning text > 140 words
       // TODO: warning if no content
-      if (this.tweet.length > 140 || !this.tweet.trim().length) {
+      if (!this.tweet.trim().length) {
+        this.emptyContent = true
+        this.isProcessing = false
+        return
+      }
+      if (this.tweet.length > 140) {
         return (this.isProcessing = false);
       }
       try {
@@ -83,7 +97,7 @@ export default {
 @import "../assets/scss/main.scss";
 .tweet-wrapper {
   position: relative;
-  max-width: 600px;  
+  max-width: 600px;
   height: 245px;
 }
 .user-avatar {
@@ -107,13 +121,13 @@ export default {
     border: none;
     &::placeholder {
       font-size: 18px;
-      color: #9197A3;
+      color: #9197a3;
     }
   }
 }
 .text-area-error-info {
   position: absolute;
-  bottom: 15px;
+  bottom: 23px;
   right: 100px;
   font-size: 15px;
 }
