@@ -3,16 +3,15 @@
     <div class="tweet">
       <div class="avatar-container">
         <div
-          class="tweet__user-avatar"
-          style="
-            background-image: url('https://via.placeholder.com/50x50/DFDFDF?text=No+Image');
-          "
+          class="tweet__user-avatar pointer"
+          :style="{ backgroundImage: 'url(' + user.avatar + ')' }"
+          @click.stop.prevent="toUserProfilePage(user.id)"
         ></div>
       </div>
       <div class="tweet__info-container">
         <div class="info">
-          <span class="name">{{ user.name }}</span>
-          <span class="account">{{ user.account }}</span>
+          <span class="name pointer" @click.stop.prevent="toUserProfilePage(user.id)">{{ user.name }}</span>
+          <span class="account pointer" @click.stop.prevent="toUserProfilePage(user.id)">{{ user.account }}</span>
           <div class="content">
             <p>
               {{ user.introduction }}
@@ -85,7 +84,7 @@ export default {
 
         this.user.isFollowing = true;
         this.isProcessing = false;
-        this.$emit("after-follow-change")
+        this.$emit("after-follow-change");
       } catch (error) {
         this.ToastError({
           title: "無法追隨用戶，請稍後再試",
@@ -104,13 +103,21 @@ export default {
 
         this.user.isFollowing = false;
         this.isProcessing = false;
-        this.$emit("after-follow-change")
+        this.$emit("after-follow-change");
       } catch (error) {
         this.ToastError({
           title: "無法取消追隨用戶，請稍後再試",
         });
         this.isProcessing = false;
       }
+    },
+    toUserProfilePage(userId) {
+      if (this.isAdmin) return;
+
+      this.$router.push({
+        name: "user-all-tweets",
+        params: { user_id: userId },
+      });
     },
   },
   created() {
@@ -137,8 +144,10 @@ div.tweet {
   }
   &__user-avatar {
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 50px;
+    max-height: 50px;
     background-color: $empty-img;
     background-size: cover;
     background-repeat: no-repeat;
