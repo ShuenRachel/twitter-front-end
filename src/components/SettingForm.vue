@@ -8,14 +8,26 @@
           type="text"
           class="input-field"
           required
-          @click="errorMessage = ''"
+          @click="
+            errorMessage = '';
+            submitStatus = '';
+          "
         />
         <div
           class="input-line line"
-          :class="{ error: errorMessage === 'account' }"
+          :class="{
+            error:
+              errorMessage === 'account' ||
+              submitStatus === 'Account already existed.',
+          }"
         ></div>
         <span v-show="errorMessage === 'account'" class="input-warning"
           >不可有空欄位</span
+        >
+        <span
+          v-show="submitStatus === 'Account already existed.'"
+          class="input-warning"
+          >帳號已註冊</span
         >
       </div>
       <div class="input-gp">
@@ -33,7 +45,7 @@
             error:
               errorMessage === 'name' ||
               errorMessage === 'nameTooLong' ||
-              registerData.name.length > 50
+              registerData.name.length > 50,
           }"
         ></div>
         <span v-show="errorMessage === 'name'" class="input-warning"
@@ -50,14 +62,19 @@
           type="email"
           class="input-field"
           required
-          @click="errorMessage = ''"
+          @click="errorMessage = ''; submitStatus = '';"
         />
         <div
           class="input-line line"
-          :class="{ error: errorMessage === 'email' }"
+          :class="{ error: errorMessage === 'email' || submitStatus === 'Email already existed!' }"
         ></div>
         <span v-show="errorMessage === 'email'" class="input-warning"
           >不可有空欄位</span
+        >
+        <span
+          v-show="submitStatus === 'Email already existed!'"
+          class="input-warning"
+          >電郵已註冊</span
         >
       </div>
       <div class="input-gp">
@@ -180,7 +197,7 @@ export default {
     },
     initSubmitStatus(newValue) {
       this.submitStatus = newValue;
-      this.consoleAlert(newValue);
+      console.log(newValue);
     },
   },
   methods: {
@@ -199,7 +216,7 @@ export default {
       }
 
       // check password correct with input check
-      if (this.password !== this.checkPassword) {
+      if (this.registerData.password !== this.registerData.checkPassword) {
         this.errorMessage = "incorrectPassword";
         this.password = "";
         this.checkPassword = "";
@@ -207,29 +224,6 @@ export default {
       }
 
       this.$emit("after-form-submit", this.registerData);
-    },
-    consoleAlert(newValue) {
-      // TODO: update toast value / input warning
-      switch (newValue) {
-        case "success":
-          return this.ToastError({
-            title: "無法取消追隨用戶，請稍後再試",
-          });
-        case "email already existed":
-          return console.log("email already existed");
-        case "account already existed":
-          return console.log("account already existed");
-        case "Passwords do not match!":
-          return console.log("Passwords do not match!");
-        case "All fields are required":
-          return this.ToastError({
-            title: "請填寫所有欄位",
-          });
-        default:
-          return this.ToastError({
-            title: "無法註冊，請稍後再試",
-          });
-      }
     },
     fetehCurrentUser() {
       this.registerData.account = this.initUserData.account;

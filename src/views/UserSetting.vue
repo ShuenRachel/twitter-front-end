@@ -52,7 +52,7 @@ export default {
         this.$router.push("/user/home");
       } catch (error) {
         this.isProcessing = false;
-
+console.log('edit:', error)
         this.submitStatus = error.message;
         this.ToastError({
           title: "無法更新設定，請稍後再試",
