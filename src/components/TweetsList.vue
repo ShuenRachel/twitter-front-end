@@ -241,6 +241,9 @@ div.tweet {
       &.admin-width{
         width: 70%;
       }
+      p {
+        word-break: break-all;
+      }
     }
     div.tweet__footer__actives {
       display: flex;
