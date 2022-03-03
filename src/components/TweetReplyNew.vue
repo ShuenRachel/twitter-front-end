@@ -12,6 +12,7 @@
     <button
       type="button"
       class="btn btn-orange"
+      :disabled="isProcessing"
       @click.stop.prevent="submitReply"
     >
       回覆
@@ -33,6 +34,7 @@ export default {
   data() {
     return {
       reply: "",
+      isProcessing: false,
     };
   },
   computed: {
@@ -40,9 +42,12 @@ export default {
   },
   methods: {
     async submitReply() {
+      this.isProcessing = true;
       // TODO: warning text when > 140 words
       // TODO: warning if no content
-      if (this.reply.length > 140 || !this.reply.trim().length) return;
+      if (this.reply.length > 140 || !this.reply.trim().length) {
+        return (this.isProcessing = false);
+      }
       try {
         const response = await tweetAPI.postReply(this.replyId, this.reply);
 
@@ -53,12 +58,14 @@ export default {
         this.ToastSuccess({
           title: "已成功發佈回覆",
         });
+        this.isProcessing = false;
 
         this.$emit("after-reply-tweet");
       } catch (error) {
         this.ToastError({
           title: "無法回覆推文，請稍後再試",
         });
+        this.isProcessing = false;
       }
     },
   },
