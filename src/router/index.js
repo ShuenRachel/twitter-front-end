@@ -142,15 +142,18 @@ router.beforeEach(async (to, from, next) => {
 
   store.commit("updatePathName", to.name);
 
-  if (tokenInLocalStorage !== tokenInStore) {
-    isAuthenticated = await store.dispatch("fetchCurrentUser");
-  }
-
   const pathWithoutAuthentication = [
     "user-login",
     "user-regist",
     "admin-login",
   ];
+
+  if (
+    tokenInLocalStorage !== tokenInStore &&
+    !pathWithoutAuthentication.includes(to.name)
+  ) {
+    isAuthenticated = await store.dispatch("fetchCurrentUser");
+  }
 
   if (!isAuthenticated && !pathWithoutAuthentication.includes(to.name)) {
     next("/user/login");
