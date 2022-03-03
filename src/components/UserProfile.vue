@@ -5,9 +5,10 @@
       class="user-profile-cover"
       :style="{ backgroundImage: 'url(' + user.cover + ')' }"
     ></div>
-    <div class="user-profile-avatar">
-      <img :src="user.avatar" alt="" />
-    </div>
+    <div
+      class="user-profile-avatar"
+      :style="{ backgroundImage: 'url(' + user.avatar + ')' }"
+    ></div>
     <div class="user-profile-info-container">
       <div class="user-name">
         <p>{{ user.name }}</p>
@@ -150,7 +151,7 @@ export default {
         this.user.isFollowing = true;
         this.user.followingCount += 1;
         this.isProcessing = false;
-        this.$emit("after-follow-change")
+        this.$emit("after-follow-change");
       } catch (error) {
         this.ToastError({
           title: "無法追隨用戶，請稍後再試",
@@ -170,7 +171,7 @@ export default {
         this.user.isFollowing = false;
         this.user.followingCount -= 1;
         this.isProcessing = false;
-        this.$emit("after-follow-change")
+        this.$emit("after-follow-change");
       } catch (error) {
         this.ToastError({
           title: "無法取消追隨用戶，請稍後再試",
@@ -212,6 +213,7 @@ div.user-profile {
     height: 200px;
     background-repeat: no-repeat;
     background-size: cover;
+    background-color: $empty-img;
   }
   &-avatar {
     position: absolute;
@@ -219,11 +221,9 @@ div.user-profile {
     left: 15px;
     width: 140px;
     height: 140px;
-    img {
-      width: 100%;
-      border: 4px solid #ffffff;
-      border-radius: 50%;
-    }
+    border: 4px solid #ffffff;
+    border-radius: 50%;
+    background-color: $empty-img;
   }
   &-info-container {
     position: relative;
