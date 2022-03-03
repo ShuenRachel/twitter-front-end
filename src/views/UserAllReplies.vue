@@ -1,6 +1,7 @@
 <template>
   <div class="user-all-replies">
     <RepliesList v-for="reply in repliesData" :key="reply.id" :reply="reply" />
+    <div class="empty-data" v-if="isEmptyData">目前尚無回覆</div>
   </div>
 </template>
 
@@ -22,6 +23,7 @@ export default {
     return {
       userId: this.$route.params.user_id,
       repliesData: [],
+      isEmptyData: false
     };
   },
   methods: {
@@ -49,7 +51,7 @@ export default {
             },
           };
         });
-        console.log(this.repliesData);
+        this.isEmptyData = !this.repliesData.length
       } catch (error) {
         this.ToastError({
           title: "無法取得用戶回覆清單，請稍後再試",

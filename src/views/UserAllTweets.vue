@@ -6,6 +6,7 @@
       :init-tweet-data="tweet"
       @after-reply-clicked="showReplyModal"
     />
+    <div class="empty-data" v-if="isEmptyData">目前尚無推文</div>
     <TweetModal
       :init-reply-tweet="replyTweet"
       v-if="modalVisibility"
@@ -26,7 +27,7 @@ export default {
   mixins: [Toastification],
   components: {
     TweetsList,
-    TweetModal
+    TweetModal,
   },
   created() {
     this.fetchTweets(Number(this.userId));
@@ -36,7 +37,8 @@ export default {
       userId: this.$route.params.user_id,
       tweetsData: [],
       modalVisibility: false,
-      replyTweet: {}
+      replyTweet: {},
+      isEmptyData: false
     };
   },
   methods: {
@@ -63,6 +65,7 @@ export default {
             liked: tweet.liked,
           };
         });
+        this.isEmptyData = !this.tweetsData.length
       } catch (error) {
         this.ToastError({
           title: "無法取得用戶推文清單，請稍後再試",
