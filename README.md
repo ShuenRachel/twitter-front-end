@@ -21,6 +21,8 @@
 * 使用者 4: Account: user4 / Password: 12345678 
 * 使用者 5: Account: user5 / Password: 12345678 
 
+## 網站連結
+https://shuenrachel.github.io/twitter-front-end/
 
 ## 安裝專案
 1. Clone 專案到本地
